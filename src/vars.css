@@ -1,0 +1,9 @@
+:root {
+  --color-primarydark: #005662;
+  --color-gradientBackground: linear-gradient(
+    180deg,
+    #d2fbe7 0%,
+    #4fb3bf 100%,
+    #4fb3bf 100%
+  );
+}

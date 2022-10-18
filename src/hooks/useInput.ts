@@ -1,0 +1,41 @@
+import React, { useState } from "react";
+
+export const useInput = (
+  validateFn: (value: string) => boolean,
+  initialValue = ""
+): [
+  {
+    isValid: boolean;
+    isInputInvalid: boolean;
+    reset: () => void;
+  },
+  {
+    value: string;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onBlur: () => void;
+  }
+] => {
+  const [value, setValue] = useState(initialValue);
+  const [isTouched, setIsTouched] = useState(false);
+
+  const isValid = validateFn(value);
+  const isInputInvalid = !isValid && isTouched;
+
+  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(event.target.value.trim());
+  };
+
+  const onBlur = () => {
+    setIsTouched(true);
+  };
+
+  const reset = () => {
+    setValue(initialValue);
+    setIsTouched(false);
+  };
+
+  return [
+    { isValid, isInputInvalid, reset },
+    { value, onChange, onBlur },
+  ];
+};
