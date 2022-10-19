@@ -1,8 +1,9 @@
 import { Routes, Route } from "react-router-dom";
-import ContinueRegister from "./pages/ContinueRegister";
-import HomePage from "./pages/HomePage";
-import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
+import ContinueRegister from "./pages/auth/ContinueRegister";
+import HomePage from "./pages/auth/HomePage";
+import LoginPage from "./pages/auth/LoginPage";
+import RegisterPage from "./pages/auth/RegisterPage";
+import MainPage from "./pages/main/MainPage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
         <Route path="/register-continue" element={<ContinueRegister />} />
+        <Route path="/main" element={<MainPage />} />
       </Routes>
     </main>
   );

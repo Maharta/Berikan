@@ -1,9 +1,9 @@
-import { useInput } from "../hooks/useInput";
-import emailValidationFn from "../helpers/validation-function/emailValidationFn";
-import passwordValidationFn from "../helpers/validation-function/passwordValidationFn";
-import TextInput from "../components/TextInput";
-import Button from "../components/Button";
-import ActionLink from "../components/ActionLink";
+import { useInput } from "../../hooks/useInput";
+import emailValidationFn from "../../helpers/validation-function/emailValidationFn";
+import passwordValidationFn from "../../helpers/validation-function/passwordValidationFn";
+import TextInput from "../../components/TextInput";
+import Button from "../../components/Button";
+import ActionLink from "../../components/ActionLink";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -22,10 +22,17 @@ export let firstStepStorage = {
 };
 
 const RegisterPage = () => {
-  const [emailState, emailProps] = useInput(emailValidationFn);
-  const [passwordState, passwordProps] = useInput(passwordValidationFn);
+  const [emailState, emailProps] = useInput(
+    emailValidationFn,
+    firstStepStorage.email
+  );
+  const [passwordState, passwordProps] = useInput(
+    passwordValidationFn,
+    firstStepStorage.password
+  );
   const [confirmPasswordState, confirmPasswordProps] = useInput(
-    confirmPassValidationFn.bind(null, passwordProps.value)
+    confirmPassValidationFn.bind(null, passwordProps.value),
+    firstStepStorage.confirmPassword
   );
   const navigate = useNavigate();
 

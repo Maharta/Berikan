@@ -1,9 +1,9 @@
-import Button from "../components/Button";
-import { useInput } from "../hooks/useInput";
-import TextInput from "../components/TextInput";
-import emailValidationFn from "../helpers/validation-function/emailValidationFn";
-import passwordValidationFn from "../helpers/validation-function/passwordValidationFn";
-import ActionLink from "../components/ActionLink";
+import Button from "../../components/Button";
+import { useInput } from "../../hooks/useInput";
+import TextInput from "../../components/TextInput";
+import emailValidationFn from "../../helpers/validation-function/emailValidationFn";
+import passwordValidationFn from "../../helpers/validation-function/passwordValidationFn";
+import ActionLink from "../../components/ActionLink";
 
 const LoginPage = () => {
   const [emailState, emailProps] = useInput(emailValidationFn);

@@ -1,5 +1,5 @@
-import Button from "../components/Button";
-import TransparentButton from "../components/TransparentButton";
+import Button from "../../components/Button";
+import TransparentButton from "../../components/TransparentButton";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
