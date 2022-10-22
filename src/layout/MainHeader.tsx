@@ -3,6 +3,7 @@ import {
   MagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
+import { NavLink } from "react-router-dom";
 
 const MainHeader = () => {
   return (
@@ -17,9 +18,19 @@ const MainHeader = () => {
           className="rounded-full h-full outline-none ml-2 mr-1"
         />
       </form>
-      <nav className="flex items-center gap-2">
-        <ChatBubbleLeftIcon className="h-6 w-6" />
-        <UserCircleIcon className="h-6 w-6" />
+      <nav>
+        <ul className="flex items-center gap-2">
+          <li>
+            <button>
+              <ChatBubbleLeftIcon className="h-6 w-6" />
+            </button>
+          </li>
+          <li>
+            <NavLink to="/account">
+              <UserCircleIcon className="h-6 w-6" />
+            </NavLink>
+          </li>
+        </ul>
       </nav>
     </header>
   );
