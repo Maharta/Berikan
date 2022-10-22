@@ -1,5 +1,5 @@
 import { CameraIcon } from "@heroicons/react/20/solid";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, memo } from "react";
 import AvatarImg from "../assets/avatar.png";
 
 interface ImagePickerProps {
@@ -57,4 +57,4 @@ const ImagePicker = ({ onAddFile }: ImagePickerProps) => {
   );
 };
 
-export default ImagePicker;
+export default memo(ImagePicker);
