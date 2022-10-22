@@ -6,6 +6,7 @@
 @layer base {
   :root {
     --color-primarydark: #005662;
+    --color-primaryLighterDark: #0f6a76;
     --color-gradientBackground: linear-gradient(
       180deg,
       #d2fbe7 0%,
