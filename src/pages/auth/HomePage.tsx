@@ -1,5 +1,4 @@
 import Button from "../../components/Button";
-import TransparentButton from "../../components/TransparentButton";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
@@ -17,9 +16,10 @@ const HomePage = () => {
           label="MASUK"
           className="mb-7"
         />
-        <TransparentButton
-          label="DAFTAR"
+        <Button
           onClick={() => navigate("/register", { replace: false })}
+          mode="transparent"
+          label="DAFTAR"
         />
       </section>
     </div>
