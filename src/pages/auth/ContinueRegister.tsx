@@ -1,11 +1,11 @@
-import { FormEvent, useCallback, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { firstStepStorage } from "./RegisterPage";
 import TextInput from "../../components/TextInput";
 import { useInput } from "../../hooks/useInput";
-import ImagePicker from "../../components/ImagePicker";
 import Button from "../../components/Button";
 import ActionLink from "../../components/ActionLink";
+import { supabase } from "../../helpers/supabaseClient";
 
 const noEmptyValidationFn = (value: string) => {
   return value.trim().length !== 0;
@@ -16,9 +16,9 @@ const ContinueRegister = () => {
 
   const [firstNameState, firstNameProps] = useInput(noEmptyValidationFn);
   const [lastNameState, lastNameProps] = useInput(noEmptyValidationFn);
-  const [image, setImage] = useState<File>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const isFormvalid = firstNameState.isValid && lastNameState.isValid && image;
+  const isFormvalid = firstNameState.isValid && lastNameState.isValid;
 
   useEffect(() => {
     if (!firstStepStorage.isValid) {
@@ -26,23 +26,35 @@ const ContinueRegister = () => {
     } // redirect back if user immediately come to this page via url
   }, [navigate]);
 
-  const onAddFileHandler = useCallback((imageFile: File) => {
-    setImage(imageFile);
-  }, []);
-
-  const submitFormHandler = (e: FormEvent<HTMLFormElement>) => {
+  const submitFormHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!isFormvalid) return;
 
-    const userData = {
-      email: firstStepStorage.email,
-      password: firstStepStorage.password,
-      firstName: firstNameProps.value,
-      lastname: lastNameProps.value,
-      image,
-    };
+    try {
+      setIsLoading(true);
+      const { error, data } = await supabase.auth.signUp({
+        email: firstStepStorage.email,
+        password: firstStepStorage.password,
+      });
 
-    console.log(userData);
+      if (error) throw error;
+
+      const { error: insertError } = await supabase.from("profiles").insert({
+        id: data.user?.id,
+        firstname: firstNameProps.value,
+        lastname: lastNameProps.value,
+      });
+
+      if (insertError) throw insertError;
+
+      navigate("/register-profile", {
+        state: { userData: data },
+      });
+    } catch (error) {
+      alert(error);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -51,8 +63,6 @@ const ContinueRegister = () => {
         <h1 className="text-4xl font-medium text-center mt-12 mb-9">
           Sedikit Lagi
         </h1>
-        <h2 className="text-center mb-4">Foto Profil</h2>
-        <ImagePicker onAddFile={onAddFileHandler} />
         <form
           onSubmit={submitFormHandler}
           className="mt-5 flex flex-col items-center"
