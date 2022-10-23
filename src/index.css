@@ -38,3 +38,10 @@ body {
   background: var(--color-gradientBackground);
   height: 100vh;
 }
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
