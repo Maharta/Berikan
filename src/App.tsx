@@ -1,15 +1,17 @@
 import { useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
-import ProtectedRoute from "./components/PrivateRoute";
-import ContinueRegister from "./pages/auth/ContinueRegister";
-import HomePage from "./pages/auth/HomePage";
-import LoginPage from "./pages/auth/LoginPage";
-import RegisterProfile from "./pages/auth/RegisterProfile";
-import RegisterPage from "./pages/auth/RegisterPage";
-import MainPage from "./pages/main/MainPage";
-import { RootState } from "./store/store";
-import AccountPage from "./pages/auth/AccountPage";
 import { MutatingDots } from "react-loader-spinner";
+import { RootState } from "./store/store";
+import ProtectedRoute from "./components/PrivateRoute";
+import { lazy } from "react";
+
+const HomePage = lazy(() => import("./pages/auth/HomePage"));
+const LoginPage = lazy(() => import("./pages/auth/LoginPage"));
+const RegisterPage = lazy(() => import("./pages/auth/RegisterPage"));
+const RegisterProfile = lazy(() => import("./pages/auth/RegisterProfile"));
+const MainPage = lazy(() => import("./pages/main/MainPage"));
+const AccountPage = lazy(() => import("./pages/main/AccountPage"));
+const ContinueRegister = lazy(() => import("./pages/auth/ContinueRegister"));
 
 function App() {
   const user = useSelector((state: RootState) => state.auth.user);
