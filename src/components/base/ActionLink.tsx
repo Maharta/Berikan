@@ -5,10 +5,11 @@ interface ActionTextProps extends AnchorHTMLAttributes<HTMLAnchorElement> {
   children: string;
   to: string;
 }
-const ActionLink = (props: ActionTextProps) => {
+const ActionLink = ({ to, ...props }: ActionTextProps) => {
   return (
     <Link
-      to={props.to}
+      to={to}
+      {...props}
       className={`text-primaryDark tracking-widest underline ${props.className}`}
     >
       {props.children}
