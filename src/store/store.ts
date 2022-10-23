@@ -1,7 +1,8 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { supabase } from "../helpers/supabaseClient";
 import authReducer, { authActions } from "./auth-slice";
 import { useDispatch } from "react-redux";
+import { auth } from "../firebase";
+import { onAuthStateChanged } from "firebase/auth";
 
 const store = configureStore({
   reducer: {
@@ -9,15 +10,12 @@ const store = configureStore({
   },
 });
 
-supabase.auth.onAuthStateChange((event, session) => {
-  if (session?.user) {
-    store.dispatch(
-      authActions.login({
-        user: session.user,
-      })
-    );
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    console.log("auth state change -> there is a user");
+    store.dispatch(authActions.setLoggedInUser(user.toJSON()));
   } else {
-    store.dispatch(authActions.logout());
+    store.dispatch(authActions.setLoggedInUser(null));
   }
 });
 
