@@ -1,11 +1,8 @@
-import { authActions } from "../../store/auth-slice";
-import { useAppDispatch } from "../../store/store";
+import { logout } from "../../store/auth-thunks";
 
 const AccountPage = () => {
-  const dispatch = useAppDispatch();
-
   const logoutHandler = () => {
-    dispatch(authActions.logout());
+    logout();
   };
 
   return <button onClick={logoutHandler}>Logout</button>;
