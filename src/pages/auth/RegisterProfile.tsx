@@ -1,35 +1,28 @@
-import { Session, User } from "@supabase/supabase-js";
+import { User } from "firebase/auth";
+import { doc, updateDoc } from "firebase/firestore";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { FormEvent, useCallback, useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
+import { MutatingDots } from "react-loader-spinner";
 import { useLocation, useNavigate } from "react-router-dom";
-import Button from "../../components/Button";
+import ActionLink from "../../components/base/ActionLink";
+import Button from "../../components/base/Button";
 import ImagePicker from "../../components/ImagePicker";
-import { supabase } from "../../helpers/supabaseClient";
-import { authActions } from "../../store/auth-slice";
-
-interface userData {
-  user: User | null;
-  session: Session | null;
-}
+import { db, storage } from "../../firebase";
+import { resizeImage320 } from "../../helpers/image/image-resizer";
 
 const RegisterProfile = () => {
   const [image, setImage] = useState<File>();
   const location = useLocation();
-  const userData: userData = location.state?.userData;
+  const user: User = location.state?.user;
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    if (!userData?.session?.user) {
+    if (!user) {
       navigate("/register", { replace: true });
       return;
     }
-    dispatch(
-      authActions.login({
-        user: userData?.session?.user,
-      })
-    );
-  }, [dispatch, userData?.session?.user, navigate]);
+  }, [user, navigate]);
 
   const onAddFileHandler = useCallback((imageFile: File) => {
     setImage(imageFile);
@@ -39,18 +32,34 @@ const RegisterProfile = () => {
     e.preventDefault();
     if (!image) return;
     try {
-      const { error: storageError } = await supabase.storage
-        .from("avatars")
-        .upload(`/public/${userData.user?.id}`, image, {
-          upsert: true,
-        });
+      setIsLoading(true);
+      const compressedImg = (await resizeImage320(image)) as File; // compressing image in browser before uploading to storage
+      const profilePhotoRef = ref(storage, `profile/${user.uid}`);
+      await uploadBytes(profilePhotoRef, compressedImg);
 
-      if (storageError) throw storageError;
+      const url = await getDownloadURL(profilePhotoRef);
+
+      updateDoc(doc(db, "account", user.uid), {
+        avatar_url: url,
+      });
       navigate("/main", { replace: true });
     } catch (error) {
       console.log(error);
+      alert(error);
+    } finally {
+      setIsLoading(false);
     }
   };
+
+  if (isLoading) {
+    return (
+      <div className="gradient-background">
+        <div className="centered">
+          <MutatingDots />
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="gradient-background">
@@ -66,7 +75,9 @@ const RegisterProfile = () => {
             type="submit"
             label="SIMPAN"
           />
-          <Button mode="transparent" type="button" label="LEWATI" />
+          <ActionLink className="block mx-auto w-max" to="/main">
+            LEWATI
+          </ActionLink>
         </form>
       </section>
     </div>
