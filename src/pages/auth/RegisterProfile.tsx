@@ -62,25 +62,27 @@ const RegisterProfile = () => {
   }
 
   return (
-    <div className="gradient-background">
-      <section className="flex flex-col">
-        <h1 className="text-center text-4xl font-medium mt-36 mb-10">
-          Foto Anda
-        </h1>
-        <form onSubmit={submitHandler}>
-          <ImagePicker onAddFile={onAddFileHandler} />
+    <main>
+      <div className="gradient-background">
+        <section className="flex flex-col">
+          <h1 className="text-center text-4xl font-medium mt-36 mb-10">
+            Foto Anda
+          </h1>
+          <form onSubmit={submitHandler}>
+            <ImagePicker onAddFile={onAddFileHandler} />
 
-          <Button
-            className="block mt-10 mx-auto mb-5"
-            type="submit"
-            label="SIMPAN"
-          />
-          <ActionLink className="block mx-auto w-max" to="/main">
-            LEWATI
-          </ActionLink>
-        </form>
-      </section>
-    </div>
+            <Button
+              className="block mt-10 mx-auto mb-5"
+              type="submit"
+              label="SIMPAN"
+            />
+            <ActionLink className="block mx-auto w-max" to="/main">
+              LEWATI
+            </ActionLink>
+          </form>
+        </section>
+      </div>
+    </main>
   );
 };
 
