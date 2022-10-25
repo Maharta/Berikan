@@ -10,7 +10,7 @@ import ImagePicker from "../../components/ImagePicker";
 import { db, storage } from "../../firebase";
 import { resizeImage320 } from "../../helpers/image/image-resizer";
 
-const RegisterProfile = () => {
+const RegisterProfilePage = () => {
   const [image, setImage] = useState<File>();
   const location = useLocation();
   const user: User = location.state?.user;
@@ -86,4 +86,4 @@ const RegisterProfile = () => {
   );
 };
 
-export default RegisterProfile;
+export default RegisterProfilePage;

@@ -15,7 +15,7 @@ const noEmptyValidationFn = (value: string) => {
   return value.trim().length !== 0;
 };
 
-const ContinueRegister = () => {
+const RegisterContinuePage = () => {
   const navigate = useNavigate();
   const { isLoading, error, user } = useSelector(
     (state: RootState) => state.auth
@@ -92,8 +92,7 @@ const ContinueRegister = () => {
         </h1>
         <form
           onSubmit={submitFormHandler}
-          className="mt-5 flex flex-col items-center"
-        >
+          className="mt-5 flex flex-col items-center">
           <TextInput
             id="firstName"
             label="Nama Depan"
@@ -118,4 +117,4 @@ const ContinueRegister = () => {
   );
 };
 
-export default ContinueRegister;
+export default RegisterContinuePage;
