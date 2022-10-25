@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { MutatingDots } from "react-loader-spinner";
 import { RootState } from "./store/store";
-import ProtectedRoute from "./components/PrivateRoute";
+import ProtectedRoute from "./components/routes/ProtectedRoute";
 import { lazy, Suspense } from "react";
 import AuthRouteWrapper from "./layout/MainWrapper";
 
