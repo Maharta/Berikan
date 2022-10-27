@@ -9,10 +9,15 @@ import AuthRouteWrapper from "./layout/MainWrapper";
 const HomePage = lazy(() => import("./pages/auth/HomePage"));
 const LoginPage = lazy(() => import("./pages/auth/LoginPage"));
 const RegisterPage = lazy(() => import("./pages/auth/RegisterPage"));
-const RegisterProfile = lazy(() => import("./pages/auth/RegisterProfile"));
+const RegisterContinuePage = lazy(
+  () => import("./pages/auth/RegisterContinuePage")
+);
+const RegisterProfilePage = lazy(
+  () => import("./pages/auth/RegisterProfilePage")
+);
 const MainPage = lazy(() => import("./pages/main/MainPage"));
 const AccountPage = lazy(() => import("./pages/main/AccountPage"));
-const ContinueRegister = lazy(() => import("./pages/auth/ContinueRegister"));
+const AddItemPage = lazy(() => import("./pages/main/AddItemPage"));
 
 function App() {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -46,18 +51,18 @@ function App() {
       <Routes>
         <Route element={<AuthRouteWrapper />}>
           <Route
-            element={<ProtectedRoute isAllowed={!user} redirectPath="/main" />}>
-            <Route path="/" element={<HomePage />} />
+            element={<ProtectedRoute isAllowed={!user} redirectPath="/" />}>
+            <Route path="/home" element={<HomePage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/register" element={<RegisterPage />} />
           </Route>
-          <Route path="/register-continue" element={<ContinueRegister />} />
+          <Route path="/register-continue" element={<RegisterContinuePage />} />
         </Route>
         {/*ContinueRegister Already has navigation guards built in, preventing redirect to main after user register*/}
         <Route element={<ProtectedRoute isAllowed={!!user} />}>
-          <Route path="/register-profile" element={<RegisterProfile />} />
+          <Route path="/register-profile" element={<RegisterProfilePage />} />
           <Route
-            path="/main"
+            path="/"
             element={
               <Suspense fallback={<MutatingDots wrapperClass="centered" />}>
                 <MainPage />
@@ -72,7 +77,16 @@ function App() {
               </Suspense>
             }
           />
+          <Route
+            path="/add-item"
+            element={
+              <Suspense fallback={<MutatingDots wrapperClass="centered" />}>
+                <AddItemPage />
+              </Suspense>
+            }
+          />
         </Route>
+        <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>
     </Suspense>
   );
