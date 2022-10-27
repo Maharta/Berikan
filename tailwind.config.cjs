@@ -6,6 +6,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
+        primary: "var(--color-primary)",
         primaryDark: "var(--color-primarydark)",
         primaryLighterDark: "var(--color-primaryLighterDark)",
         gradientBackground: "var(--color-gradientBackground)",
@@ -16,5 +17,8 @@ module.exports = {
       ...defaultTheme.screens,
     },
   },
-  plugins: [],
+  plugins: [
+    require("tailwind-scrollbar-hide"),
+    require("prettier-plugin-tailwindcss"),
+  ],
 };
