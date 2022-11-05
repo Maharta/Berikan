@@ -28,6 +28,7 @@ export const authSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
+    // No need to set extraReducers to set user state, onAuthStateChanged in store.ts already handled that.
     builder.addCase(login.fulfilled, (state) => {
       state.isLoading = false;
       state.error = "";
