@@ -11,7 +11,9 @@ export const useInput = (
   },
   {
     value: string;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (
+      event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => void;
     onBlur: () => void;
   }
 ] => {
@@ -21,8 +23,10 @@ export const useInput = (
   const isValid = validateFn(value);
   const isInputInvalid = !isValid && isTouched;
 
-  const onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(event.target.value.trim());
+  const onChange = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setValue(event.target.value);
   };
 
   const onBlur = () => {
