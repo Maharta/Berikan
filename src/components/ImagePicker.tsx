@@ -1,15 +1,48 @@
 import { CameraIcon } from "@heroicons/react/20/solid";
+import { cva, VariantProps } from "cva";
 import { useRef, useState, useEffect, memo } from "react";
 import AvatarImg from "../assets/avatar.png";
+import UploadImg from "../assets/upload.png";
 
 interface ImagePickerProps {
-  onAddFile: (fileImg: File) => any;
+  onAddFile?: (fileImg: File) => any;
 }
 
-const ImagePicker = ({ onAddFile }: ImagePickerProps) => {
+const pickerContainerStyles = cva("relative mx-auto", {
+  variants: {
+    type: {
+      upload: "w-20 h-20",
+      avatar: "w-max",
+    },
+  },
+  defaultVariants: {
+    type: "avatar",
+  },
+});
+
+const portraitStyles = cva("mx-auto bg-white object-cover align-middle", {
+  variants: {
+    type: {
+      upload: "w-20 h-20 cursor-pointer hover:scale-105 duration-100",
+      avatar: "w-40 h-40 rounded-[50%]",
+    },
+  },
+  defaultVariants: {
+    type: "avatar",
+  },
+});
+
+interface Props
+  extends ImagePickerProps,
+    VariantProps<typeof pickerContainerStyles>,
+    VariantProps<typeof portraitStyles> {}
+
+const ImagePicker = ({ onAddFile, type }: Props) => {
   const inputFile = useRef<HTMLInputElement | null>(null);
   const [image, setImage] = useState<File>();
   const [preview, setPreview] = useState<string>("");
+
+  const placeholderImg = type === "avatar" ? AvatarImg : UploadImg;
 
   const fileInputChangeHandler = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -26,33 +59,41 @@ const ImagePicker = ({ onAddFile }: ImagePickerProps) => {
         setPreview(reader.result as string);
       };
       reader.readAsDataURL(image);
-      onAddFile(image);
+      if (onAddFile) {
+        onAddFile(image);
+      }
     }
   }, [image, onAddFile]);
 
   return (
-    <div className="relative w-max mx-auto">
+    <div className={pickerContainerStyles({ type })}>
       <img
-        className="w-40 h-40 mx-auto align-middle rounded-[50%] bg-white object-cover"
-        src={!preview ? AvatarImg : preview}
+        className={portraitStyles({ type })}
+        src={!preview ? placeholderImg : preview}
         alt="avatar stock"
+        onClick={() => {
+          if (type === "upload") inputFile.current?.click();
+        }}
       />
-      <div className="bg-gray-600 w-max rounded-[50%] p-2 absolute bottom-2 right-1">
-        <CameraIcon
-          onClick={() => {
-            inputFile.current?.click();
-          }}
-          className="h-6 w-6 text-white cursor-pointer"
-        />
-        <input
-          type="file"
-          id="file"
-          ref={inputFile}
-          accept="image/png, image/jpg, image/jpeg, image/webp"
-          className="hidden"
-          onChange={fileInputChangeHandler}
-        />
-      </div>
+      {type === "avatar" && (
+        <div
+          className={`absolute bottom-2 right-1 w-max rounded-[50%] bg-gray-600 p-2`}>
+          <CameraIcon
+            onClick={() => {
+              inputFile.current?.click();
+            }}
+            className="h-6 w-6 cursor-pointer text-white"
+          />
+        </div>
+      )}
+      <input
+        type="file"
+        id="file"
+        ref={inputFile}
+        accept="image/png, image/jpg, image/jpeg, image/webp"
+        className="hidden"
+        onChange={fileInputChangeHandler}
+      />
     </div>
   );
 };
