@@ -8,7 +8,7 @@ interface ProtectedRouteProps {
 
 const ProtectedRoute = ({
   children,
-  redirectPath = "/",
+  redirectPath = "/home",
   isAllowed,
 }: ProtectedRouteProps) => {
   if (!isAllowed) {

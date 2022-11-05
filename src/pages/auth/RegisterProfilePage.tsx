@@ -42,7 +42,7 @@ const RegisterProfilePage = () => {
       updateDoc(doc(db, "account", user.uid), {
         avatar_url: url,
       });
-      navigate("/main", { replace: true });
+      navigate("/", { replace: true });
     } catch (error) {
       console.log(error);
       alert(error);
@@ -65,18 +65,18 @@ const RegisterProfilePage = () => {
     <main>
       <div className="gradient-background">
         <section className="flex flex-col">
-          <h1 className="text-center text-4xl font-medium mt-36 mb-10">
+          <h1 className="mt-36 mb-10 text-center text-4xl font-medium">
             Foto Anda
           </h1>
           <form onSubmit={submitHandler}>
             <ImagePicker onAddFile={onAddFileHandler} />
 
             <Button
-              className="block mt-10 mx-auto mb-5"
+              className="mx-auto mt-10 mb-5 block"
               type="submit"
               label="SIMPAN"
             />
-            <ActionLink className="block mx-auto w-max" to="/main">
+            <ActionLink className="mx-auto block w-max" to="/">
               LEWATI
             </ActionLink>
           </form>
