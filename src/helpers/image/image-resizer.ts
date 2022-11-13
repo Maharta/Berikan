@@ -20,3 +20,4 @@ const resizeFileMaker = (maxWidth: number, maxHeight: number) => {
 };
 
 export const resizeImage320 = resizeFileMaker(320, 320);
+export const resizeImage720 = resizeFileMaker(720, 720);
