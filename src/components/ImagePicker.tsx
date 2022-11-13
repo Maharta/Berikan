@@ -1,17 +1,18 @@
 import { CameraIcon } from "@heroicons/react/20/solid";
 import { cva, VariantProps } from "cva";
-import { useRef, useState, useEffect, memo } from "react";
+import { useRef, useState, memo } from "react";
 import AvatarImg from "../assets/avatar.png";
 import UploadImg from "../assets/upload.png";
 
 interface ImagePickerProps {
-  onAddFile?: (fileImg: File) => any;
+  onAddFile: (fileImg: File, index?: number) => void;
+  index?: number;
 }
 
 const pickerContainerStyles = cva("relative mx-auto", {
   variants: {
     type: {
-      upload: "w-20 h-20",
+      upload: "w-14 h-14",
       avatar: "w-max",
     },
   },
@@ -23,7 +24,8 @@ const pickerContainerStyles = cva("relative mx-auto", {
 const portraitStyles = cva("mx-auto bg-white object-cover align-middle", {
   variants: {
     type: {
-      upload: "w-20 h-20 cursor-pointer hover:scale-105 duration-100",
+      upload:
+        "w-14 h-14 cursor-pointer hover:scale-105 focus:scale-105 duration-100",
       avatar: "w-40 h-40 rounded-[50%]",
     },
   },
@@ -32,14 +34,14 @@ const portraitStyles = cva("mx-auto bg-white object-cover align-middle", {
   },
 });
 
-interface Props
-  extends ImagePickerProps,
-    VariantProps<typeof pickerContainerStyles>,
-    VariantProps<typeof portraitStyles> {}
+interface StyleProps
+  extends Required<VariantProps<typeof pickerContainerStyles>>,
+    Required<VariantProps<typeof portraitStyles>> {}
 
-const ImagePicker = ({ onAddFile, type }: Props) => {
+interface Props extends ImagePickerProps, StyleProps {}
+
+const ImagePicker = ({ onAddFile, index, type }: Props) => {
   const inputFile = useRef<HTMLInputElement | null>(null);
-  const [image, setImage] = useState<File>();
   const [preview, setPreview] = useState<string>("");
 
   const placeholderImg = type === "avatar" ? AvatarImg : UploadImg;
@@ -49,24 +51,17 @@ const ImagePicker = ({ onAddFile, type }: Props) => {
   ) => {
     if (!event.target.files) return;
     const file = event.target.files[0];
-    setImage(file);
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      setPreview(reader.result as string);
+    };
+    reader.readAsDataURL(file);
+    // if there is an index, this means the imagepicker is used as a bunch of imagepicker together (arrays).
+    onAddFile(file, index);
   };
 
-  useEffect(() => {
-    if (image) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setPreview(reader.result as string);
-      };
-      reader.readAsDataURL(image);
-      if (onAddFile) {
-        onAddFile(image);
-      }
-    }
-  }, [image, onAddFile]);
-
   return (
-    <div className={pickerContainerStyles({ type })}>
+    <div id="imagePicker" className={pickerContainerStyles({ type })}>
       <img
         className={portraitStyles({ type })}
         src={!preview ? placeholderImg : preview}
