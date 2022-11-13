@@ -1,5 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import authReducer, { authActions } from "./auth-slice";
+import modalReducer from "./modal-slice";
 import { useDispatch } from "react-redux";
 import { auth } from "../firebase";
 import { onAuthStateChanged } from "firebase/auth";
@@ -7,6 +8,7 @@ import { onAuthStateChanged } from "firebase/auth";
 const store = configureStore({
   reducer: {
     auth: authReducer,
+    modal: modalReducer,
   },
 });
 
