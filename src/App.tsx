@@ -4,7 +4,8 @@ import { MutatingDots } from "react-loader-spinner";
 import { RootState } from "./store/store";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import { lazy, Suspense } from "react";
-import AuthRouteWrapper from "./layout/MainWrapper";
+import AuthRouteWrapper from "./layout/AuthRouteWrapper";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const HomePage = lazy(() => import("./pages/auth/HomePage"));
 const LoginPage = lazy(() => import("./pages/auth/LoginPage"));
@@ -88,6 +89,7 @@ function App() {
         </Route>
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>
+      <ReactQueryDevtools initialIsOpen={false} />
     </Suspense>
   );
 }
