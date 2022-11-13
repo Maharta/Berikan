@@ -19,7 +19,7 @@ const NavLayout = ({ title, backTo = "/", children }: NavHeaderProps) => {
           <h1 className="font-bold">{title}</h1>
         </nav>
       </header>
-      <main className="pt-4 font-roboto">{children}</main>
+      <main className="py-4 font-roboto">{children}</main>
     </Fragment>
   );
 };
