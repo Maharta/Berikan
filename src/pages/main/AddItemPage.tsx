@@ -16,6 +16,8 @@ import { TailSpin } from "react-loader-spinner";
 import { modalActions } from "../../store/modal-slice";
 import ErrorModal from "../../components/base/modal/ErrorModal";
 import { useNavigate } from "react-router-dom";
+import { Position } from "../../models/position";
+import LeafletMap from "../../components/map/LeafletMap";
 
 const AddItemPage = () => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -29,6 +31,11 @@ const AddItemPage = () => {
   const [descriptionState, descriptionProps] = useInput(
     descriptionValidationFn
   );
+  const [position, setPosition] = useState<Position>({
+    lat: -8.65,
+    lng: 115.216667,
+  });
+
   const [imageArrays, setImageArrays] = useState<File[]>([]);
   const filteredArrays = imageArrays.filter(
     (imageFiles) => imageFiles !== null // filtering arrays removing null index, in case users don't put image on first imagepicker component
@@ -52,12 +59,14 @@ const AddItemPage = () => {
     e.preventDefault();
     setIsButtonClicked(true);
     if (!isFormValid) return;
+    const cleanPosition = Object.assign({}, position);
     mutate(
       {
         name: nameProps.value,
         description: descriptionProps.value,
         ownerId: user!.uid,
         images: filteredArrays,
+        position: cleanPosition,
       },
       {
         onSuccess: () => {
@@ -116,10 +125,21 @@ const AddItemPage = () => {
             {...descriptionProps}
           />
           <div className="mx-auto w-[90%] max-w-lg">
-            <label className="mb-2 block" htmlFor="imagePicker">
+            <label htmlFor="map-form" className="mb-1">
+              Lokasi Barang
+            </label>
+            <LeafletMap
+              id="map-form"
+              onGetPositionHandler={setPosition}
+              position={position}
+            />
+          </div>
+          <div className="mx-auto mt-3 w-[90%] max-w-lg">
+            <label className="mb-2 block" htmlFor="imagePickers">
               Tambahkan Foto (Maks 4)
             </label>
             <ImagesPicker
+              id="imagePickers"
               className="black flex border px-1 py-2"
               numberOfImages={4}
               onImagesChanged={onImagesChangedHandler}
