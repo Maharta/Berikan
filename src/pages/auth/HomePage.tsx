@@ -6,12 +6,13 @@ const HomePage = () => {
   return (
     <div className="gradient-background p-5">
       <section className="flex flex-col items-center">
-        <h1 className="mt-12 font-medium text-4xl mb-14 ">Berikan</h1>
-        <p className="text-center mb-9">
+        <h1 className="mt-12 mb-14 text-4xl font-medium ">Berikan</h1>
+        <p className="mb-9 text-center">
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex
           distinctio aliquam autem molestias libero explicabo?
         </p>
         <Button
+          mode="primary"
           onClick={() => navigate("/login", { replace: false })}
           label="MASUK"
           className="mb-7"
