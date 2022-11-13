@@ -16,10 +16,10 @@ const ProductItem = ({ product, ...props }: ProductItemProps) => {
           className="aspect-square w-full rounded-lg rounded-b-none object-cover"
           alt={product.description}
         />
-        <figcaption className="pl-1 text-lg">The Surface</figcaption>
+        <figcaption className="pl-1 text-lg">{product.name}</figcaption>
       </figure>
       <div className="mt-4 flex justify-between px-1 text-sm uppercase text-slate-500">
-        <address className="not-italic">BANDUNG</address>
+        <address className="not-italic">Kuta Selatan</address>
         <span>{`${timeSince(product.updated_at, "id")} lalu`}</span>
       </div>
     </Card>
