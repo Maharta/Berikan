@@ -24,6 +24,7 @@ const AddItemPage = () => {
   );
   const dispatch = useAppDispatch();
 
+  const [isButtonClicked, setIsButtonClicked] = useState(false);
   const [nameState, nameProps] = useInput(noemptyValidationFn);
   const [descriptionState, descriptionProps] = useInput(
     descriptionValidationFn
@@ -49,6 +50,7 @@ const AddItemPage = () => {
 
   const addItemHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsButtonClicked(true);
     if (!isFormValid) return;
     mutate(
       {
@@ -123,6 +125,16 @@ const AddItemPage = () => {
               onImagesChanged={onImagesChangedHandler}
             />
           </div>
+
+          <div
+            style={{
+              visibility:
+                isButtonClicked && !imagesNotEmpty ? "initial" : "hidden",
+            }}
+            className="w-full text-center">
+            <strong>Sisipkan paling tidak 1 gambar!</strong>
+          </div>
+
           <button className="mx-auto mt-6 block w-32 rounded-lg bg-primary px-3 py-2 text-white hover:scale-105 active:scale-105">
             Tambahkan!
           </button>
