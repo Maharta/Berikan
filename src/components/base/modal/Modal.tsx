@@ -35,7 +35,7 @@ const Modal = ({ children, isOpen, onClose }: ModalProps) => {
 
   return (
     <ModalPortal>
-      <Card className="centered fixed z-50 grid w-[80%] max-w-lg rounded-md bg-white p-5 duration-300 ease-in-out">
+      <Card className="centered fixed z-[9999] grid w-[80%] max-w-lg rounded-md bg-white p-5 duration-300 ease-in-out">
         <button
           onClick={onClose}
           className="close-btn absolute right-2 top-1 hover:scale-110 hover:font-bold active:scale-110">
@@ -45,7 +45,7 @@ const Modal = ({ children, isOpen, onClose }: ModalProps) => {
       </Card>
       <div
         onClick={onClose}
-        className="fixed inset-0 z-10 bg-overlayBlack"></div>
+        className="fixed inset-0 z-[9000] bg-overlayBlack"></div>
     </ModalPortal>
   );
 };

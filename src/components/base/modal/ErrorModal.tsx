@@ -24,7 +24,7 @@ const ErrorModal = ({ children, isOpen, onClose }: ErrorModalProps) => {
 
   return (
     <ModalPortal>
-      <Card className="centered fixed z-50 grid w-[80%] max-w-lg auto-rows-fr grid-rows-2 rounded-lg bg-white duration-1000 ease-in-out">
+      <Card className="centered fixed z-[9999] grid w-[80%] max-w-lg auto-rows-fr grid-rows-2 rounded-lg bg-white duration-1000 ease-in-out">
         <div className="relative grid place-content-center rounded-t-lg bg-red-400 py-6">
           <button
             onClick={onClose}
@@ -39,7 +39,7 @@ const ErrorModal = ({ children, isOpen, onClose }: ErrorModalProps) => {
       </Card>
       <div
         onClick={onClose}
-        className="fixed inset-0 z-10 bg-overlayBlack"></div>
+        className="fixed inset-0 z-[9000] bg-overlayBlack"></div>
     </ModalPortal>
   );
 };
