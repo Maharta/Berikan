@@ -10,6 +10,10 @@ module.exports = {
         primaryDark: "var(--color-primarydark)",
         primaryLighterDark: "var(--color-primaryLighterDark)",
         gradientBackground: "var(--color-gradientBackground)",
+        overlayBlack: "rgba(0, 0, 0, 0.54)",
+      },
+      fontFamily: {
+        roboto: ['"Roboto", sans-serif', ...defaultTheme.fontFamily.sans],
       },
     },
     screens: {
