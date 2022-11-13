@@ -1,6 +1,6 @@
 import { HTMLAttributes } from "react";
 import timeSince from "../../helpers/date/time-since";
-import Product from "../../models/item";
+import Product from "../../models/product";
 import Card from "../base/Card";
 
 interface ProductItemProps extends HTMLAttributes<HTMLDivElement> {
