@@ -69,7 +69,7 @@ const RegisterProfilePage = () => {
             Foto Anda
           </h1>
           <form onSubmit={submitHandler}>
-            <ImagePicker onAddFile={onAddFileHandler} />
+            <ImagePicker type="avatar" onAddFile={onAddFileHandler} />
 
             <Button
               className="mx-auto mt-10 mb-5 block"
