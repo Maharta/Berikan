@@ -58,3 +58,8 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.location-icon {
+  margin-left: 3px;
+  margin-top: 1px;
+}
