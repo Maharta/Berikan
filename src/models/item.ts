@@ -6,7 +6,7 @@ interface ProductArgs {
   description: string;
   updated_at?: Date;
   images: string[];
-  owner: string;
+  ownerId: string;
 }
 
 export interface FirestoreProduct {
@@ -14,7 +14,7 @@ export interface FirestoreProduct {
   description: string;
   updated_at: Timestamp;
   images: string[];
-  owner: string;
+  ownerId: string;
 }
 
 class Product {
@@ -23,7 +23,7 @@ class Product {
   description: string;
   updated_at: Date;
   images: string[];
-  owner: string;
+  ownerId: string;
 
   constructor({
     id,
@@ -31,14 +31,14 @@ class Product {
     description,
     updated_at = new Date(),
     images,
-    owner,
+    ownerId: owner,
   }: ProductArgs) {
     this.id = id;
     this.name = name;
     this.description = description;
     this.updated_at = updated_at;
     this.images = images;
-    this.owner = owner;
+    this.ownerId = owner;
   }
 }
 
