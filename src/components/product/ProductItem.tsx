@@ -19,7 +19,7 @@ const ProductItem = ({ product, ...props }: ProductItemProps) => {
         <figcaption className="pl-1 text-lg">{product.name}</figcaption>
       </figure>
       <div className="mt-4 flex justify-between px-1 text-sm uppercase text-slate-500">
-        <address className="not-italic">Kuta Selatan</address>
+        <address className="not-italic">{product.location}</address>
         <span>{`${timeSince(product.updated_at, "id")} lalu`}</span>
       </div>
     </Card>
