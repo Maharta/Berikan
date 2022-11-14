@@ -11,6 +11,7 @@ interface ProductArgs {
     lat: number;
     lng: number;
   };
+  location: string;
 }
 
 export interface FirestoreProduct
@@ -29,6 +30,7 @@ class Product {
     lat: number;
     lng: number;
   };
+  location: string;
 
   constructor({
     id,
@@ -38,6 +40,7 @@ class Product {
     images,
     ownerId,
     position,
+    location,
   }: ProductArgs) {
     this.id = id;
     this.name = name;
@@ -46,6 +49,7 @@ class Product {
     this.images = images;
     this.ownerId = ownerId;
     this.position = position;
+    this.location = location;
   }
 }
 
