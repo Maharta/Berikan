@@ -41,7 +41,7 @@ interface StyleProps
 interface Props extends ImagePickerProps, StyleProps {}
 
 const ImagePicker = ({ onAddFile, index, type }: Props) => {
-  const inputFile = useRef<HTMLInputElement | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [preview, setPreview] = useState<string>("");
 
   const placeholderImg = type === "avatar" ? AvatarImg : UploadImg;
@@ -67,7 +67,7 @@ const ImagePicker = ({ onAddFile, index, type }: Props) => {
         src={!preview ? placeholderImg : preview}
         alt="avatar stock"
         onClick={() => {
-          if (type === "upload") inputFile.current?.click();
+          if (type === "upload") fileInputRef.current?.click();
         }}
       />
       {type === "avatar" && (
@@ -75,7 +75,7 @@ const ImagePicker = ({ onAddFile, index, type }: Props) => {
           className={`absolute bottom-2 right-1 w-max rounded-[50%] bg-gray-600 p-2`}>
           <CameraIcon
             onClick={() => {
-              inputFile.current?.click();
+              fileInputRef.current?.click();
             }}
             className="h-6 w-6 cursor-pointer text-white"
           />
@@ -84,7 +84,7 @@ const ImagePicker = ({ onAddFile, index, type }: Props) => {
       <input
         type="file"
         id="file"
-        ref={inputFile}
+        ref={fileInputRef}
         accept="image/png, image/jpg, image/jpeg, image/webp"
         className="hidden"
         onChange={fileInputChangeHandler}
