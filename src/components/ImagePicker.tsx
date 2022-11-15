@@ -21,7 +21,7 @@ const pickerContainerStyles = cva("relative mx-auto", {
   },
 });
 
-const portraitStyles = cva("mx-auto bg-white object-cover align-middle", {
+const portraitStyles = cva("mx-auto bg-white object-cover object-center", {
   variants: {
     type: {
       upload:
