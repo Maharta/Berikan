@@ -6,9 +6,17 @@ interface NavHeaderProps {
   title: string;
   backTo?: string;
   children: ReactNode;
+  paddingTop?: string;
+  paddingBot?: string;
 }
 
-const NavLayout = ({ title, backTo = "/", children }: NavHeaderProps) => {
+const NavLayout = ({
+  title,
+  backTo = "/",
+  children,
+  paddingTop = "1rem",
+  paddingBot = "1rem",
+}: NavHeaderProps) => {
   return (
     <Fragment>
       <header>
@@ -19,7 +27,14 @@ const NavLayout = ({ title, backTo = "/", children }: NavHeaderProps) => {
           <h1 className="font-bold">{title}</h1>
         </nav>
       </header>
-      <main className="py-4 font-roboto">{children}</main>
+      <main
+        style={{
+          paddingTop,
+          paddingBottom: paddingBot,
+        }}
+        className="font-roboto">
+        {children}
+      </main>
     </Fragment>
   );
 };
