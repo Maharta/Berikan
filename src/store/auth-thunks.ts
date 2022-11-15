@@ -16,6 +16,7 @@ interface LoginCredentials {
 interface RegisterCredentials extends LoginCredentials {
   firstname: string;
   lastname: string;
+  phone_number: string;
 }
 
 export const login = createAsyncThunk<
@@ -70,6 +71,7 @@ export const register = createAsyncThunk<
         uid: user.uid,
         firstname: registerArgs.firstname,
         lastname: registerArgs.lastname,
+        phone_number: registerArgs.phone_number,
         avatar_url: "",
         created_at: Timestamp.fromDate(new Date()),
       });

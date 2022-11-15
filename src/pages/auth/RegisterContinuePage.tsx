@@ -10,6 +10,7 @@ import { register } from "../../store/auth-thunks";
 import { useSelector } from "react-redux";
 import { MutatingDots } from "react-loader-spinner";
 import { authActions } from "../../store/auth-slice";
+import { noemptyValidationFn } from "../../helpers/validation-function/productInputValidation";
 
 const noEmptyValidationFn = (value: string) => {
   return value.trim().length !== 0;
@@ -23,6 +24,7 @@ const RegisterContinuePage = () => {
 
   const [firstNameState, firstNameProps] = useInput(noEmptyValidationFn);
   const [lastNameState, lastNameProps] = useInput(noEmptyValidationFn);
+  const [phoneState, phoneProps] = useInput(noemptyValidationFn);
 
   const isFormvalid = firstNameState.isValid && lastNameState.isValid;
 
@@ -44,6 +46,7 @@ const RegisterContinuePage = () => {
         password: firstStepStorage.password,
         firstname: firstNameProps.value,
         lastname: lastNameProps.value,
+        phone_number: phoneProps.value,
       })
     );
   };
@@ -87,7 +90,7 @@ const RegisterContinuePage = () => {
     <div className="gradient-background">
       {error && <h1>{error}</h1>}
       <section className="flex flex-col">
-        <h1 className="text-4xl font-medium text-center mt-12 mb-9">
+        <h1 className="mt-12 mb-9 text-center text-4xl font-medium">
           Sedikit Lagi
         </h1>
         <form
@@ -106,6 +109,13 @@ const RegisterContinuePage = () => {
             type="text"
             isInvalid={lastNameState.isInputInvalid}
             {...lastNameProps}
+          />
+          <TextInput
+            id="phone"
+            label="Nomor Telepon"
+            type="tel"
+            isInvalid={phoneState.isInputInvalid}
+            {...phoneProps}
           />
           <Button label="SELESAI" className="mt-6 text-center" />
           <ActionLink to="/register" onClick={backPageHandler} className="mt-4">
