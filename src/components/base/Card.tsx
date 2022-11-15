@@ -4,8 +4,12 @@ interface CardProps extends HTMLAttributes<HTMLDivElement> {
   children: ReactNode;
 }
 
-const Card = (props: CardProps) => {
-  return <div className={`card ${props.className}`}>{props.children}</div>;
+const Card = ({ children, className, ...props }: CardProps) => {
+  return (
+    <div {...props} className={`card ${className}`}>
+      {children}
+    </div>
+  );
 };
 
 export default Card;
