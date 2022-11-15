@@ -129,6 +129,7 @@ const AddItemPage = () => {
               Lokasi Barang
             </label>
             <LeafletMap
+              editable={true}
               id="map-form"
               onGetPositionHandler={setPosition}
               position={position}

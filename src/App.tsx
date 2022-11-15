@@ -6,6 +6,7 @@ import ProtectedRoute from "./components/routes/ProtectedRoute";
 import { lazy, Suspense } from "react";
 import AuthRouteWrapper from "./layout/AuthRouteWrapper";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import ProductDetailPage from "./pages/main/ProductDetailPage";
 
 const HomePage = lazy(() => import("./pages/auth/HomePage"));
 const LoginPage = lazy(() => import("./pages/auth/LoginPage"));
@@ -18,7 +19,7 @@ const RegisterProfilePage = lazy(
 );
 const MainPage = lazy(() => import("./pages/main/MainPage"));
 const AccountPage = lazy(() => import("./pages/main/AccountPage"));
-const AddItemPage = lazy(() => import("./pages/main/AddItemPage"));
+const AddItemPage = lazy(() => import("./pages/main/AddProductPage"));
 
 function App() {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -83,6 +84,14 @@ function App() {
             element={
               <Suspense fallback={<MutatingDots wrapperClass="centered" />}>
                 <AddItemPage />
+              </Suspense>
+            }
+          />
+          <Route
+            path="/product/:id"
+            element={
+              <Suspense fallback={<MutatingDots wrapperClass="centered" />}>
+                <ProductDetailPage />
               </Suspense>
             }
           />
