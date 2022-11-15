@@ -11,11 +11,14 @@ import { db, storage } from "../../firebase";
 import { FirestoreProduct } from "../../models/product";
 
 export interface AddNewItemArgs
-  extends Omit<FirestoreProduct, "images" | "updated_at" | "location"> {
+  extends Omit<
+    FirestoreProduct,
+    "images" | "updated_at" | "location" | "address"
+  > {
   images: File[];
 }
 
-const addNewItem = async ({
+const addNewProduct = async ({
   name,
   description,
   ownerId,
@@ -28,7 +31,8 @@ const addNewItem = async ({
       `https://nominatim.openstreetmap.org/reverse?lat=${position.lat}&lon=${position.lng}&format=json`
     );
     const locationData = await locationRes.json();
-    const { address } = locationData;
+    console.log(locationData);
+    const { address, display_name } = locationData;
     let location;
 
     if (address.city) {
@@ -45,6 +49,7 @@ const addNewItem = async ({
       updated_at: Timestamp.fromDate(new Date()),
       position,
       location,
+      address: display_name,
     };
 
     const docRef = await addDoc(collection(db, "item"), data);
@@ -57,7 +62,7 @@ const addNewItem = async ({
       const url = await getDownloadURL(profilePhotoRef);
       imageUrls.push(url);
     }
-    updateDoc(doc(db, "item", docRef.id), {
+    await updateDoc(doc(db, "item", docRef.id), {
       images: imageUrls,
     });
   } catch (error) {
@@ -69,4 +74,4 @@ const addNewItem = async ({
   }
 };
 
-export default addNewItem;
+export default addNewProduct;
