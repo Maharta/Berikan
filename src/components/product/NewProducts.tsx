@@ -2,12 +2,12 @@ import { useQuery } from "@tanstack/react-query";
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
 import { db } from "../../firebase";
 import Product, { FirestoreProduct } from "../../models/product";
+import CardCarousel from "../CardCarousel";
 import ProductItem from "./ProductItem";
 
-const productRef = collection(db, "item");
-const q = query(productRef, orderBy("updated_at", "desc"), limit(7));
-
 const newProductsFetcher = async () => {
+  const productRef = collection(db, "item");
+  const q = query(productRef, orderBy("updated_at", "desc"), limit(7));
   try {
     const itemsSnapshot = await getDocs(q);
     const tempItems: Product[] = [];
@@ -32,7 +32,7 @@ const newProductsFetcher = async () => {
 
 const NewProducts = () => {
   const { data, isLoading, isError, error } = useQuery<Product[], string>({
-    queryKey: ["products"],
+    queryKey: ["new-products"],
     queryFn: newProductsFetcher,
     refetchOnWindowFocus: false,
   });
@@ -46,10 +46,7 @@ const NewProducts = () => {
   }
 
   return (
-    <div
-      className="grid snap-x snap-mandatory scroll-p-1 auto-cols-[65%] grid-flow-col gap-3
-      overflow-x-auto scroll-smooth p-1 xs:auto-cols-[45%] md:auto-cols-[35%] lg:auto-cols-[21%]
-      [@media(max-width:830px)]:scrollbar-hide">
+    <CardCarousel>
       {data?.map((product) => (
         <ProductItem
           className="snap-start last:snap-end"
@@ -57,7 +54,7 @@ const NewProducts = () => {
           key={product.id}
         />
       ))}
-    </div>
+    </CardCarousel>
   );
 };
 
