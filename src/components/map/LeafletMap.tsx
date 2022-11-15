@@ -3,20 +3,32 @@ import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet";
 import { Position } from "../../models/position";
 import LocationButton from "./LocationButton";
 
-interface LeafletMapProps {
-  id: string;
-  position: Position;
-  onGetPositionHandler: Dispatch<SetStateAction<Position>>;
-}
+type LeafletMapProps<TEditable = boolean> = TEditable extends true
+  ? {
+      id: string;
+      position: Position;
+      onGetPositionHandler: Dispatch<SetStateAction<Position>>;
+      editable: TEditable;
+    }
+  : {
+      id: string;
+      position: Position;
+      onGetPositionHandler?: Dispatch<SetStateAction<Position>>;
+      editable: TEditable;
+    };
 
-const LeafletMap = ({ position, onGetPositionHandler }: LeafletMapProps) => {
+const LeafletMap = ({
+  position,
+  onGetPositionHandler,
+  editable,
+}: LeafletMapProps) => {
   const markerRef = useRef<any>(null);
 
   const eventHandlers = useMemo(
     () => ({
       dragend() {
         const marker = markerRef.current;
-        if (marker != null) {
+        if (marker != null && onGetPositionHandler) {
           onGetPositionHandler(marker.getLatLng());
         }
       },
@@ -45,7 +57,7 @@ const LeafletMap = ({ position, onGetPositionHandler }: LeafletMapProps) => {
       />
       <Marker
         eventHandlers={eventHandlers}
-        draggable={true}
+        draggable={editable}
         ref={markerRef}
         position={[position.lat, position.lng]}>
         <Popup>
@@ -53,7 +65,7 @@ const LeafletMap = ({ position, onGetPositionHandler }: LeafletMapProps) => {
           untuk menentukan posisi barang.
         </Popup>
       </Marker>
-      <LocationButton onGetPosition={onGetPositionHandler} />
+      {editable && <LocationButton onGetPosition={onGetPositionHandler} />}
     </MapContainer>
   );
 };
