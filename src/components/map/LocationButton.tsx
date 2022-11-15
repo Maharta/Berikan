@@ -6,7 +6,7 @@ import "leaflet-easybutton/src/easy-button.css";
 import { Position } from "../../models/position";
 
 interface LocationButtonProps {
-  onGetPosition: Dispatch<SetStateAction<Position>>;
+  onGetPosition?: Dispatch<SetStateAction<Position>>;
 }
 
 const LocationButton = ({ onGetPosition }: LocationButtonProps) => {
@@ -25,7 +25,9 @@ const LocationButton = ({ onGetPosition }: LocationButtonProps) => {
       () => {
         map.locate().on("locationfound", function (e) {
           map.flyTo(e.latlng, map.getZoom());
-          onGetPosition(e.latlng);
+          if (onGetPosition) {
+            onGetPosition(e.latlng);
+          }
         });
       }
     )
