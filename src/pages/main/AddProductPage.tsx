@@ -11,7 +11,9 @@ import { useSelector } from "react-redux";
 import { RootState, useAppDispatch } from "../../store/store";
 import ImagesPicker from "../../components/ImagesPicker";
 import { useMutation } from "@tanstack/react-query";
-import addNewItem, { AddNewItemArgs } from "../../helpers/firebase/addNewItem";
+import addNewProduct, {
+  AddNewItemArgs,
+} from "../../helpers/firebase/addNewProduct";
 import { TailSpin } from "react-loader-spinner";
 import { modalActions } from "../../store/modal-slice";
 import ErrorModal from "../../components/base/modal/ErrorModal";
@@ -50,7 +52,7 @@ const AddItemPage = () => {
     string,
     AddNewItemArgs
   >({
-    mutationFn: addNewItem,
+    mutationFn: addNewProduct,
   });
 
   const navigate = useNavigate();
