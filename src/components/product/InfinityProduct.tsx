@@ -32,6 +32,7 @@ const InfinityProduct = () => {
         lastPageSnapshot.docs[lastPageSnapshot.docs.length - 1];
       return query(q, startAfter(lastDocument));
     },
+    refetchOnWindowFocus: false,
   });
 
   const isFetchingRef = useRef(false); // ref for stopping calls to API for infinite scroll if currently fetching
@@ -65,7 +66,7 @@ const InfinityProduct = () => {
 
   let products;
   if (data) {
-    let tempArray: Product[] = [];
+    const tempArray: Product[] = [];
     data.pages.forEach((itemSnapshot) => {
       itemSnapshot.forEach((item) => {
         const itemData = item.data() as FirestoreProduct;
@@ -78,7 +79,6 @@ const InfinityProduct = () => {
       });
     });
     products = tempArray;
-    console.log(products);
   }
 
   return (
