@@ -23,7 +23,7 @@ const buttonStyles = cva(
 );
 interface Props extends ButtonProps, VariantProps<typeof buttonStyles> {}
 
-const Button = ({ label, mode, ...props }: Props) => {
+const AuthButton = ({ label, mode, ...props }: Props) => {
   return (
     <button
       {...props}
@@ -33,4 +33,4 @@ const Button = ({ label, mode, ...props }: Props) => {
   );
 };
 
-export default Button;
+export default AuthButton;

@@ -6,10 +6,11 @@ interface TextInputProps extends InputHTMLAttributes<HTMLInputElement> {
   type: string;
   label: string;
   isInvalid: boolean;
+  inputClass?: string;
 }
 
 const inputStyles = cva(
-  "border-[1.2] mx-auto block w-[80%] max-w-xs border-black p-2"
+  "border-2 mx-auto block w-full max-w-xs p-2 rounded-sm"
 );
 
 const TextInput = ({
@@ -18,11 +19,12 @@ const TextInput = ({
   type,
   isInvalid,
   className,
+  inputClass,
   ...inputProps
 }: TextInputProps) => {
   return (
-    <div className="w-full ">
-      <label className="my-0 mx-auto block w-[80%] max-w-xs" htmlFor={id}>
+    <div className={className}>
+      <label className="my-0 mx-auto block w-full max-w-xs" htmlFor={id}>
         {label}
       </label>
       <input
@@ -30,7 +32,7 @@ const TextInput = ({
           border: isInvalid ? "2px solid red" : "",
         }}
         {...inputProps}
-        className={inputStyles({ class: className })}
+        className={inputStyles({ class: inputClass })}
         type={type}
         id={id}
       />
