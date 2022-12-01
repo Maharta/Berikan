@@ -35,7 +35,7 @@ const Modal = ({ children, isOpen, onClose }: ModalProps) => {
 
   return (
     <ModalPortal>
-      <Card className="centered fixed z-[9999] grid w-[80%] max-w-lg rounded-md bg-white p-5 duration-300 ease-in-out">
+      <Card className="centered fixed z-[9999] w-[80%] rounded-md bg-white p-5 duration-300 ease-in-out xxs:w-auto">
         <button
           onClick={onClose}
           className="close-btn absolute right-2 top-1 hover:scale-110 hover:font-bold active:scale-110">
