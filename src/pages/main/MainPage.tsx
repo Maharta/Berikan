@@ -1,3 +1,4 @@
+import { collection, limit, orderBy, query } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import FloatingButton, {
   HorizontalPosition,
@@ -5,7 +6,15 @@ import FloatingButton, {
 } from "../../components/FloatingButton";
 import InfinityProduct from "../../components/product/InfinityProduct";
 import NewProducts from "../../components/product/NewProducts";
+import { db } from "../../firebase";
 import MainLayout from "../../layout/MainLayout";
+
+const productRef = collection(db, "item");
+const infinityProductQuery = query(
+  productRef,
+  orderBy("updated_at", "asc"),
+  limit(5)
+);
 
 const MainPage = () => {
   return (
@@ -17,7 +26,7 @@ const MainPage = () => {
         </section>
         <section aria-label="semua barang">
           <h1 className="text-xl font-bold">Semua Barang</h1>
-          <InfinityProduct />
+          <InfinityProduct q={infinityProductQuery} />
         </section>
       </MainLayout>
       <FloatingButton
