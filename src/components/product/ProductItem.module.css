@@ -1,0 +1,26 @@
+.dots-container {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  background: rgba(116, 115, 112, 0.6);
+  width: 45px;
+  height: 45px;
+  color: white;
+  border-radius: 50%;
+}
+
+.dots-container::after {
+  content: "•••";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  font-size: 30px;
+  letter-spacing: 4px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.dots-container:hover {
+  filter: brightness(1.2);
+}
