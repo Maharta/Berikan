@@ -1,28 +1,25 @@
 import { useInfiniteQuery } from "@tanstack/react-query";
 import {
-  collection,
   DocumentData,
   getDocs,
-  limit,
-  orderBy,
   Query,
   query,
   startAfter,
 } from "firebase/firestore";
 import React, { Fragment, useCallback, useRef } from "react";
-import { db } from "../../firebase";
 import Product, { FirestoreProduct } from "../../models/product";
 import CardCarousel from "../CardCarousel";
 import ProductItem from "./ProductItem";
 
-const productRef = collection(db, "item");
-const q = query(productRef, orderBy("updated_at", "asc"), limit(5));
-
 const infinityProductFetcher = async (query: Query<DocumentData>) => {
-  return await getDocs(query);
+  return getDocs(query);
 };
 
-const InfinityProduct = () => {
+interface InfinityProductProps {
+  q: Query<DocumentData>;
+}
+
+const InfinityProduct = ({ q }: InfinityProductProps) => {
   const { data, isLoading, isError, error, fetchNextPage } = useInfiniteQuery({
     queryKey: ["products"],
     queryFn: ({ pageParam = q }) => infinityProductFetcher(pageParam),
@@ -61,7 +58,7 @@ const InfinityProduct = () => {
     if (error instanceof Error) {
       return <div>{error.message}</div>;
     }
-    return <div>Something went wrong</div>;
+    return <div>Something went wrong..</div>;
   }
 
   let products;
