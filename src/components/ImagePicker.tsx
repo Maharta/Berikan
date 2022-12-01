@@ -7,6 +7,7 @@ import UploadImg from "../assets/upload.png";
 interface ImagePickerProps {
   onAddFile: (fileImg: File, index?: number) => void;
   index?: number;
+  initialImage?: string;
 }
 
 const pickerContainerStyles = cva("relative mx-auto", {
@@ -40,11 +41,15 @@ interface StyleProps
 
 interface Props extends ImagePickerProps, StyleProps {}
 
-const ImagePicker = ({ onAddFile, index, type }: Props) => {
+const ImagePicker = ({ onAddFile, index, type, initialImage }: Props) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [preview, setPreview] = useState<string>("");
 
-  const placeholderImg = type === "avatar" ? AvatarImg : UploadImg;
+  let placeholderImg = type === "avatar" ? AvatarImg : UploadImg;
+
+  if (initialImage) {
+    placeholderImg = initialImage;
+  }
 
   const fileInputChangeHandler = (
     event: React.ChangeEvent<HTMLInputElement>
