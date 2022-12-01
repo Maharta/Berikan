@@ -6,7 +6,7 @@ import ProtectedRoute from "./components/routes/ProtectedRoute";
 import { lazy, Suspense } from "react";
 import AuthRouteWrapper from "./layout/AuthRouteWrapper";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
-import ProductDetailPage from "./pages/main/ProductDetailPage";
+import MyProductsPage from "./pages/main/MyProductsPage";
 
 const HomePage = lazy(() => import("./pages/auth/HomePage"));
 const LoginPage = lazy(() => import("./pages/auth/LoginPage"));
@@ -19,7 +19,12 @@ const RegisterProfilePage = lazy(
 );
 const MainPage = lazy(() => import("./pages/main/MainPage"));
 const AccountPage = lazy(() => import("./pages/main/AccountPage"));
+const EditProfilePage = lazy(() => import("./pages/main/EditProfilePage"));
 const AddItemPage = lazy(() => import("./pages/main/AddProductPage"));
+const ProductDetailPage = lazy(() => import("./pages/main/ProductDetailPage"));
+const ChangePasswordPage = lazy(
+  () => import("./pages/main/ChangePasswordPage")
+);
 
 function App() {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -46,9 +51,13 @@ function App() {
   return (
     <Suspense
       fallback={
-        <div className="gradient-background">
+        !user ? (
+          <div className="gradient-background">
+            <MutatingDots wrapperClass="centered" />
+          </div>
+        ) : (
           <MutatingDots wrapperClass="centered" />
-        </div>
+        )
       }>
       <Routes>
         <Route element={<AuthRouteWrapper />}>
@@ -63,38 +72,15 @@ function App() {
         {/*ContinueRegister Already has navigation guards built in, preventing redirect to main after user register*/}
         <Route element={<ProtectedRoute isAllowed={!!user} />}>
           <Route path="/register-profile" element={<RegisterProfilePage />} />
-          <Route
-            path="/"
-            element={
-              <Suspense fallback={<MutatingDots wrapperClass="centered" />}>
-                <MainPage />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/account"
-            element={
-              <Suspense fallback={<MutatingDots wrapperClass="centered" />}>
-                <AccountPage />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/add-item"
-            element={
-              <Suspense fallback={<MutatingDots wrapperClass="centered" />}>
-                <AddItemPage />
-              </Suspense>
-            }
-          />
-          <Route
-            path="/product/:id"
-            element={
-              <Suspense fallback={<MutatingDots wrapperClass="centered" />}>
-                <ProductDetailPage />
-              </Suspense>
-            }
-          />
+          <Route path="/" element={<MainPage />} />
+          <Route path="/account">
+            <Route index element={<AccountPage />} />
+            <Route path="profile" element={<EditProfilePage />} />
+            <Route path="change-password" element={<ChangePasswordPage />} />
+            <Route path="my-products" element={<MyProductsPage />} />
+          </Route>
+          <Route path="/add-item" element={<AddItemPage />} />
+          <Route path="/product/:id" element={<ProductDetailPage />} />
         </Route>
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>
