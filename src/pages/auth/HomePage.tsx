@@ -1,4 +1,4 @@
-import Button from "../../components/base/Button";
+import AuthButton from "../../components/base/buttons/AuthButton";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
@@ -11,13 +11,13 @@ const HomePage = () => {
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex
           distinctio aliquam autem molestias libero explicabo?
         </p>
-        <Button
+        <AuthButton
           mode="primary"
           onClick={() => navigate("/login", { replace: false })}
           label="MASUK"
           className="mb-7"
         />
-        <Button
+        <AuthButton
           onClick={() => navigate("/register", { replace: false })}
           mode="transparent"
           label="DAFTAR"

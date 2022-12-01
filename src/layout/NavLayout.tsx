@@ -32,7 +32,7 @@ const NavLayout = ({
           paddingTop,
           paddingBottom: paddingBot,
         }}
-        className="font-roboto">
+        className="mx-auto h-full max-w-sm font-roboto">
         {children}
       </main>
     </Fragment>

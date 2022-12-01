@@ -1,9 +1,9 @@
-import Button from "../../components/base/Button";
+import AuthButton from "../../components/base/buttons/AuthButton";
 import { useInput } from "../../hooks/useInput";
-import TextInput from "../../components/base/TextInput";
+import TextInput from "../../components/TextInput";
 import emailValidationFn from "../../helpers/validation-function/emailValidationFn";
 import passwordValidationFn from "../../helpers/validation-function/passwordValidationFn";
-import ActionLink from "../../components/base/ActionLink";
+import ActionLink from "../../components/base/buttons/ActionLink";
 import { FormEvent, useEffect } from "react";
 import { login } from "../../store/auth-thunks";
 import { useNavigate } from "react-router-dom";
@@ -52,7 +52,7 @@ const LoginPage = () => {
       )}
       {!isLoading && (
         <section className="flex flex-col justify-center">
-          <h1 className="text-center text-4xl font-medium mt-36 mb-10">
+          <h1 className="mt-36 mb-10 text-center text-4xl font-medium">
             Masuk
           </h1>
           <form onSubmit={loginSubmitHandler}>
@@ -72,9 +72,9 @@ const LoginPage = () => {
               {...passwordProps}
               className="mb-7"
             />
-            <Button label="MASUK" className="mx-auto block mb-4" />
+            <AuthButton label="MASUK" className="mx-auto mb-4 block" />
           </form>
-          <ActionLink className="text-center mb-4" to="/">
+          <ActionLink className="mb-4 text-center" to="/">
             LUPA PASSWORD?
           </ActionLink>
           <ActionLink className="text-center" to="/">

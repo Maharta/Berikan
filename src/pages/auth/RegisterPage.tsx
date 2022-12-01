@@ -1,9 +1,9 @@
 import { useInput } from "../../hooks/useInput";
 import emailValidationFn from "../../helpers/validation-function/emailValidationFn";
 import passwordValidationFn from "../../helpers/validation-function/passwordValidationFn";
-import TextInput from "../../components/base/TextInput";
-import Button from "../../components/base/Button";
-import ActionLink from "../../components/base/ActionLink";
+import TextInput from "../../components/TextInput";
+import AuthButton from "../../components/base/buttons/AuthButton";
+import ActionLink from "../../components/base/buttons/ActionLink";
 import { FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -65,7 +65,7 @@ const RegisterPage = () => {
   return (
     <div className="gradient-background">
       <section className="flex flex-col items-center">
-        <h1 className="font-medium text-4xl mt-20 mb-9">Daftar</h1>
+        <h1 className="mt-20 mb-9 text-4xl font-medium">Daftar</h1>
         <form className="w-full" onSubmit={continueSubmitHandler}>
           <TextInput
             id="email"
@@ -91,10 +91,10 @@ const RegisterPage = () => {
             {...confirmPasswordProps}
             className="mb-3"
           />
-          <Button
+          <AuthButton
             type="submit"
             label="LANJUT"
-            className="tracking-widest mx-auto block mt-5"
+            className="mx-auto mt-5 block tracking-widest"
           />
         </form>
         <ActionLink to="/" className="mt-7 text-lg">

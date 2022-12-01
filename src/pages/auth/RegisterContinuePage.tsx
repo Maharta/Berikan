@@ -2,9 +2,9 @@ import { FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { firstStepStorage } from "./RegisterPage";
 import { useInput } from "../../hooks/useInput";
-import TextInput from "../../components/base/TextInput";
-import Button from "../../components/base/Button";
-import ActionLink from "../../components/base/ActionLink";
+import TextInput from "../../components/TextInput";
+import AuthButton from "../../components/base/buttons/AuthButton";
+import ActionLink from "../../components/base/buttons/ActionLink";
 import { RootState, useAppDispatch } from "../../store/store";
 import { register } from "../../store/auth-thunks";
 import { useSelector } from "react-redux";
@@ -117,7 +117,7 @@ const RegisterContinuePage = () => {
             isInvalid={phoneState.isInputInvalid}
             {...phoneProps}
           />
-          <Button label="SELESAI" className="mt-6 text-center" />
+          <AuthButton label="SELESAI" className="mt-6 text-center" />
           <ActionLink to="/register" onClick={backPageHandler} className="mt-4">
             KEMBALI
           </ActionLink>
