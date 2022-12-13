@@ -20,7 +20,7 @@ const MainLayout = ({ children }: MainHeaderProps) => {
             type="search"
             name="search"
             id="search"
-            placeholder="Cari di sini."
+            placeholder="Cari disini. (WIP)"
             className="ml-2 mr-1 h-full rounded-full outline-none"
           />
         </form>
