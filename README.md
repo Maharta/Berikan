@@ -17,7 +17,7 @@ npm run dev
 
 ## Note
 
-Although most features are done, most loading / error states from data fetching is not implemented yet.
+Although most features are done, most error states from data fetching is not implemented yet.
 I will implement them soon with a toast component.
 
 For the search feature, firebase doesn't support full text search without
@@ -29,5 +29,5 @@ in the front-end, which is very inefficient and not scalable at all.
 Things that are not implemented yet:
 
 - Chat Penjual
-- Most Error and Loading states
+- Error States Fallback UI from data fetching
 - Search

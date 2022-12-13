@@ -33,7 +33,6 @@ const ChangePasswordPage = () => {
     const currentUser = auth.currentUser;
     try {
       await updatePassword(currentUser!, passwordProps.value);
-      console.log("password changed");
     } catch (error) {
       if (
         error instanceof Error &&

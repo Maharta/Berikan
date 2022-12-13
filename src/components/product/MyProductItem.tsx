@@ -24,8 +24,6 @@ const MyProductItem = ({ product, ...props }: MyProductItemProps) => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  console.log("re-render");
-
   const { error, mutate, isLoading, isError, isSuccess } = useMutation({
     // error and success state will be implemented after creating a custom toast component
     mutationFn: () => deleteItemById(product.id),
