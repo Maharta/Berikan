@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { TextareaHTMLAttributes } from "react";
 
 interface DescriptionAreaProps
@@ -23,7 +24,13 @@ const DescriptionArea = ({
       <div className="h-6">
         {isInvalid && (
           <label className="text-red-600" htmlFor="description">
-            <strong>Deskripsi minimal memiliki 2 Kata!</strong>
+            <motion.strong
+              initial={{ fontSize: "8px" }}
+              animate={{
+                fontSize: "16px",
+              }}>
+              Deskripsi minimal memiliki 2 Kata!
+            </motion.strong>
           </label>
         )}
       </div>

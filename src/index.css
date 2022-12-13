@@ -46,7 +46,8 @@ body {
 html,
 body,
 #root {
-  height: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
 }
 
 .navlink {
@@ -55,7 +56,7 @@ body,
 
 .gradient-background {
   background: var(--color-gradientBackground);
-  height: 100vh;
+  min-height: 100vh;
 }
 
 .centered {

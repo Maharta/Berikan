@@ -20,6 +20,16 @@ import ErrorModal from "../../components/base/modal/ErrorModal";
 import { useNavigate } from "react-router-dom";
 import { Position } from "../../models/position";
 import LeafletMap from "../../components/map/LeafletMap";
+import { motion } from "framer-motion";
+
+const imgErrorVariants = {
+  visible: {
+    fontSize: "16px",
+  },
+  hidden: {
+    fontSize: "8px",
+  },
+};
 
 const AddItemPage = () => {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -126,6 +136,7 @@ const AddItemPage = () => {
             isInvalid={descriptionState.isInputInvalid}
             {...descriptionProps}
           />
+
           <div className="mx-auto w-[90%] max-w-lg">
             <label htmlFor="map-form" className="mb-1">
               Lokasi Barang
@@ -155,10 +166,17 @@ const AddItemPage = () => {
                 isButtonClicked && !imagesNotEmpty ? "initial" : "hidden",
             }}
             className="w-full text-center">
-            <strong>Sisipkan paling tidak 1 gambar!</strong>
+            <motion.strong
+              animate={
+                isButtonClicked && !imagesNotEmpty ? "visible" : "hidden"
+              }
+              variants={imgErrorVariants}
+              className="text-red-600">
+              Sisipkan paling tidak 1 gambar!
+            </motion.strong>
           </div>
 
-          <button className="mx-auto mt-6 block w-32 rounded-lg bg-primary px-3 py-2 text-white hover:scale-105 active:scale-105">
+          <button className="mx-auto mt-4 block w-32 rounded-lg bg-primary px-3 py-2 text-white hover:scale-105 active:scale-105">
             Tambahkan!
           </button>
         </form>

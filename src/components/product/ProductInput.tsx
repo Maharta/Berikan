@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { InputHTMLAttributes } from "react";
 
 interface ProductInputProps extends InputHTMLAttributes<HTMLInputElement> {
@@ -28,7 +29,13 @@ const ProductInput = ({
       <div className="h-6">
         {isInvalid && (
           <label className="text-red-600" htmlFor={id}>
-            <strong>{invalidMessage}</strong>
+            <motion.strong
+              initial={{ fontSize: "8px" }}
+              animate={{
+                fontSize: "16px",
+              }}>
+              {invalidMessage}
+            </motion.strong>
           </label>
         )}
       </div>
