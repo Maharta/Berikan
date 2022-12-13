@@ -32,7 +32,7 @@ const ProductItem = ({ product, ...props }: ProductItemProps) => {
       onClick={onClickHandler}
       key={product.id}
       className={classNames(
-        `relative mb-3 cursor-pointer rounded-lg ${props.className}`,
+        `relative my-2 cursor-pointer rounded-lg first:ml-2 last:mr-2 ${props.className}`,
         {
           "hover:scale-105": !isDeleteable,
         }

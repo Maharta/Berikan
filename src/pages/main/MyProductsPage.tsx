@@ -50,6 +50,11 @@ const MyProductsPage = () => {
       {myProductsData?.map((product) => (
         <MyProductItem product={product} key={product.id} />
       ))}
+      {myProductsData.length === 0 && (
+        <p className="centered">
+          <strong>Anda tidak memiliki barang yang diiklankan.</strong>
+        </p>
+      )}
     </NavLayout>
   );
 };

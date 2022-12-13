@@ -15,10 +15,13 @@ module.exports = {
       fontFamily: {
         roboto: ['"Roboto", sans-serif', ...defaultTheme.fontFamily.sans],
       },
+      gridAutoColumns: {
+        mobile: "max(65%, 260px)",
+      },
     },
     screens: {
       xxs: "420px",
-      xs: "500px",
+      xs: "570px",
       ...defaultTheme.screens,
     },
   },

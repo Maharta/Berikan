@@ -13,6 +13,7 @@ import NavLayout from "../../layout/NavLayout";
 import Account from "../../models/account";
 import { logout } from "../../store/auth-thunks";
 import { RootState } from "../../store/store";
+import AvatarImg from "../../assets/avatar.png";
 
 const AccountPage = () => {
   const currentUser = useSelector((state: RootState) => state.auth.user);
@@ -45,7 +46,7 @@ const AccountPage = () => {
       <figure className="text-center">
         <img
           className="mx-auto h-32 w-32 rounded-[50%]"
-          src={userData?.avatar_url}
+          src={userData?.avatar_url || AvatarImg}
           alt="Pengguna yang sedang log in"
         />
         <figcaption className="mt-2 font-semibold">

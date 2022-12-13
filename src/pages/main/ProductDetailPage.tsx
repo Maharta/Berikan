@@ -7,6 +7,7 @@ import NavLayout from "../../layout/NavLayout";
 import Account from "../../models/account";
 import Product from "../../models/product";
 import accountFetcher from "../../helpers/firebase/accountFetcher";
+import AvatarImg from "../../assets/avatar.png";
 
 const ProductDetailPage = () => {
   const location = useLocation();
@@ -67,7 +68,11 @@ const ProductDetailPage = () => {
             aria-label="Detail Iklan"
             className="card grid grid-cols-3 grid-rows-3 rounded-lg pt-2 pb-4">
             <div className="col-span-1 row-span-2 grid place-content-center">
-              <OwnerAvatar imgUrl={ownerData.avatar_url} />
+              <OwnerAvatar
+                imgUrl={
+                  !ownerData.avatar_url ? AvatarImg : ownerData.avatar_url
+                }
+              />
             </div>
             <div className="col-span-2 self-end">
               Diiklankan {product.updated_at?.toISOString().split("T")[0]}
@@ -76,7 +81,7 @@ const ProductDetailPage = () => {
               {ownerData.firstname + " " + ownerData.lastname}
             </div>
             <div className="col-span-3 self-center text-center">
-              <button className="bg-blue-300 px-4 py-2  text-white">
+              <button className="rounded-lg bg-blue-300 px-4 py-2 text-white">
                 Chat Pengiklan
               </button>
             </div>

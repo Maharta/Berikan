@@ -21,11 +21,11 @@ const MainPage = () => {
     <>
       <MainLayout>
         <section aria-label="baru ditambahkan">
-          <h1 className="mb-3 text-xl font-bold">Baru Ditambahkan</h1>
+          <h1 className="ml-1 text-xl font-bold">Baru Ditambahkan</h1>
           <NewProducts />
         </section>
         <section aria-label="semua barang">
-          <h1 className="text-xl font-bold">Semua Barang</h1>
+          <h1 className="ml-1 text-xl font-bold">Semua Barang</h1>
           <InfinityProduct q={infinityProductQuery} />
         </section>
       </MainLayout>
