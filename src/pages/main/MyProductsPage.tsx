@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { useSelector } from "react-redux";
-import ProductItem from "../../components/product/ProductItem";
+import MyProductItem from "../../components/product/MyProductItem";
 import { db } from "../../firebase";
 import NavLayout from "../../layout/NavLayout";
 import Product, { FirestoreProduct } from "../../models/product";
@@ -45,12 +45,10 @@ const MyProductsPage = () => {
     });
   }
 
-  console.log(myProductsData);
-
   return (
     <NavLayout title="Barang Saya">
       {myProductsData?.map((product) => (
-        <ProductItem product={product} key={product.id} />
+        <MyProductItem product={product} key={product.id} />
       ))}
     </NavLayout>
   );
