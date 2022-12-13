@@ -1,0 +1,51 @@
+.dots-button {
+  overflow: hidden;
+  background: rgba(116, 115, 112, 0.6);
+  width: 45px;
+  height: 45px;
+  color: white;
+  border-radius: 50%;
+}
+
+.dots-button::after {
+  content: "•••";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(90deg);
+  font-size: 30px;
+  letter-spacing: 4px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+.dots-button:hover {
+  filter: brightness(1.2);
+}
+
+.ripples {
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  background: #fff;
+  display: block;
+  content: "";
+  border-radius: 9999px;
+  opacity: 0.3;
+  animation: 0.9s ease 1 forwards ripple-effect;
+}
+
+@keyframes ripple-effect {
+  0% {
+    transform: scale(1);
+    opacity: 0.3;
+  }
+  50% {
+    transform: scale(10);
+    opacity: 0.1;
+  }
+  100% {
+    transform: scale(35);
+    opacity: 0;
+  }
+}
