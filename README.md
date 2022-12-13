@@ -17,8 +17,8 @@ npm run dev
 
 ## Note
 
-This Project is still WIP, there are a lot of error and loading
-states that i will implement soon after i created my own custom toast component.
+Although most features are done, most loading / error states from data fetching is not implemented yet.
+I will implement them soon with a toast component.
 
 For the search feature, firebase doesn't support full text search without
 paying for third party service like algolia, and i'm a broke college student :)
