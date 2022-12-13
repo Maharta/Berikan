@@ -1,4 +1,4 @@
-import { HTMLAttributes, useState } from "react";
+import { HTMLAttributes } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import timeSince from "../../helpers/date/time-since";
@@ -6,7 +6,6 @@ import Product from "../../models/product";
 import { RootState } from "../../store/store";
 import Card from "../base/Card";
 import classNames from "classnames";
-import styles from "./ProductItem.module.css";
 
 interface ProductItemProps extends HTMLAttributes<HTMLDivElement> {
   product: Product;
@@ -14,7 +13,6 @@ interface ProductItemProps extends HTMLAttributes<HTMLDivElement> {
 
 const ProductItem = ({ product, ...props }: ProductItemProps) => {
   const currentUser = useSelector((state: RootState) => state.auth.user);
-  const [isOptionOpen, setIsOptionOpen] = useState(true);
   const navigate = useNavigate();
 
   const { pathname: currentPath } = useLocation();
@@ -29,7 +27,6 @@ const ProductItem = ({ product, ...props }: ProductItemProps) => {
     });
   };
 
-  console.log(isDeleteable);
   return (
     <Card
       onClick={onClickHandler}
@@ -41,18 +38,8 @@ const ProductItem = ({ product, ...props }: ProductItemProps) => {
         }
       )}>
       <figure>
-        {isDeleteable && (
-          <button
-            onClick={(e) => e.stopPropagation()}
-            className={styles["dots-container"]}></button>
-        )}
-        {isOptionOpen && (
-          <div className="absolute top-[50px] right-0 w-[150px] bg-white">
-            <button className="p-2">Hapus</button>
-          </div>
-        )}
         <img
-          src={product.images[0]}
+          src={product.images ? product.images[0] : ""}
           className="aspect-square w-full rounded-lg rounded-b-none object-cover"
           alt={product.description}
         />
