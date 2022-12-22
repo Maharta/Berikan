@@ -1,11 +1,20 @@
 import { useQuery } from "@tanstack/react-query";
-import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
+import {
+  collection,
+  DocumentData,
+  getDocs,
+  orderBy,
+  query,
+  QuerySnapshot,
+  where,
+} from "firebase/firestore";
 import { useSelector } from "react-redux";
 import MyProductItem from "@/components/product/MyProductItem";
 import { db } from "@/firebase";
 import NavLayout from "@/layout/NavLayout";
 import Product, { FirestoreProduct } from "@/models/product";
 import { RootState } from "@/store/store";
+import { useCallback } from "react";
 
 const myProductsFetcher = (uid: string) => {
   console.log(uid);
@@ -21,36 +30,41 @@ const myProductsFetcher = (uid: string) => {
 const MyProductsPage = () => {
   const currentUser = useSelector((state: RootState) => state.auth.user);
 
-  const { data, isLoading, isError, error } = useQuery({
+  const {
+    data: myProducts,
+    isLoading,
+    isError,
+    error,
+  } = useQuery({
     queryKey: ["my-products", currentUser!.uid],
     queryFn: () => myProductsFetcher(currentUser!.uid),
     refetchOnWindowFocus: false,
+    select: useCallback((snapshot: QuerySnapshot<DocumentData>) => {
+      //used usecallback so it doesn't rerun unless data changed.
+      let myProducts: Product[] = [];
+      snapshot.forEach((productSnap) => {
+        const productData = productSnap.data() as FirestoreProduct;
+        const transformedData = {
+          ...productData,
+          id: productSnap.id,
+          updated_at: productData.updated_at.toDate(),
+        };
+        myProducts.push(transformedData);
+      });
+      return myProducts;
+    }, []),
   });
-
-  let myProductsData: Product[] = [];
 
   if (isLoading) {
     return <div>Loading...</div>;
   }
 
-  if (data) {
-    data.forEach((productSnapshot) => {
-      const productData = productSnapshot.data() as FirestoreProduct;
-      const transformedData = {
-        ...productData,
-        id: productSnapshot.id,
-        updated_at: productData.updated_at.toDate(),
-      };
-      myProductsData.push(transformedData);
-    });
-  }
-
   return (
     <NavLayout title="Barang Saya">
-      {myProductsData?.map((product) => (
+      {myProducts?.map((product) => (
         <MyProductItem product={product} key={product.id} />
       ))}
-      {myProductsData.length === 0 && (
+      {myProducts?.length === 0 && (
         <p className="centered">
           <strong>Anda tidak memiliki barang yang diiklankan.</strong>
         </p>

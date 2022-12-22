@@ -8,16 +8,15 @@ import Product from "@/models/product";
 import accountFetcher from "@/helpers/firebase/accountFetcher";
 import AvatarImg from "@/assets/avatar.png";
 import { ReactComponent as WhatsappLogo } from "@/assets/whatsapp.svg";
+import Account from "@/models/account";
 const ProductDetailPage = () => {
   const location = useLocation();
   const product = location.state as Product;
 
-  const images = product.images.map((image) => {
-    return {
-      name: product.name,
-      url: image,
-    };
-  });
+  const images = product.images.map((image) => ({
+    name: product.name,
+    url: image,
+  }));
 
   const {
     isLoading,
@@ -27,7 +26,7 @@ const ProductDetailPage = () => {
   } = useQuery({
     queryKey: ["product-owner", product.ownerId],
     queryFn: () => accountFetcher(product.ownerId),
-    select: (snapshot) => snapshot.data(),
+    select: (snapshot) => snapshot.data() as Account,
   });
 
   if (isLoading) {
@@ -61,7 +60,7 @@ const ProductDetailPage = () => {
         {ownerData && (
           <section
             aria-label="Detail Iklan"
-            className="card grid grid-cols-3 grid-rows-3 rounded-lg pt-2 pb-4">
+            className="card mb-1 grid grid-cols-3 grid-rows-3 rounded-lg pt-2">
             <div className="col-span-1 row-span-2 grid place-content-center">
               <OwnerAvatar
                 imgUrl={
@@ -77,7 +76,7 @@ const ProductDetailPage = () => {
             </div>
             <div className="col-span-3 self-center text-center">
               <a
-                href={`https://wa.me/${product.ownerId}`}
+                href={`https://wa.me/${ownerData.phone_number}`}
                 className="flex w-full cursor-pointer items-center justify-center bg-whatsappGreen py-2 font-bold 
                 tracking-normal text-white hover:bg-whatsappGreen_light focus:bg-whatsappGreen_light active:bg-whatsappGreen_light">
                 <WhatsappLogo className="mr-1 h-8 w-8" />
