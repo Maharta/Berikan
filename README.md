@@ -28,6 +28,5 @@ in the front-end, which is very inefficient and not scalable at all.
 
 Things that are not implemented yet:
 
-- Chat Penjual
 - Error States Fallback UI from data fetching
 - Search
