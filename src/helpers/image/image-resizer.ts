@@ -1,4 +1,6 @@
-import Resizer from "react-image-file-resizer";
+// @ts-ignore
+import Resizer from "./react-image-resizer.js";
+// quick hack since the library has a bug with vite on production.
 
 const resizeFileMaker = (maxWidth: number, maxHeight: number) => {
   return (file: File) => {
@@ -10,7 +12,7 @@ const resizeFileMaker = (maxWidth: number, maxHeight: number) => {
         "JPEG",
         100,
         0,
-        (uri) => {
+        (uri: unknown) => {
           resolve(uri);
         },
         "file"
