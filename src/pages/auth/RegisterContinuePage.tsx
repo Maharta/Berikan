@@ -9,7 +9,6 @@ import { RootState, useAppDispatch } from "@/store/store";
 import { register } from "@/store/auth-thunks";
 import { useSelector } from "react-redux";
 import { MutatingDots } from "react-loader-spinner";
-import { authActions } from "@/store/auth-slice";
 import { noemptyValidationFn } from "@/helpers/validation-function/productInputValidation";
 
 const noEmptyValidationFn = (value: string) => {
@@ -62,10 +61,6 @@ const RegisterContinuePage = () => {
     }
   }, [user, navigate]);
 
-  const backPageHandler = () => {
-    dispatch(authActions.resetError());
-  };
-
   if (isLoading) {
     return (
       <div className="gradient-background">
@@ -89,17 +84,15 @@ const RegisterContinuePage = () => {
   return (
     <div className="gradient-background">
       {error && <h1>{error}</h1>}
-      <section className="flex flex-col">
-        <h1 className="mt-12 mb-9 text-center text-4xl font-medium">
-          Sedikit Lagi
-        </h1>
-        <form
-          onSubmit={submitFormHandler}
-          className="mt-5 flex flex-col items-center">
+      <section className="flex flex-col items-center">
+        <h1 className="mt-20 mb-9 text-4xl font-medium">Sedikit Lagi</h1>
+        <form onSubmit={submitFormHandler} className="w-full">
           <TextInput
             id="firstName"
             label="Nama Depan"
             type="text"
+            placeholder="John"
+            className="mb-3"
             isInvalid={firstNameState.isInputInvalid}
             {...firstNameProps}
           />
@@ -107,21 +100,29 @@ const RegisterContinuePage = () => {
             id="lastName"
             label="Nama Belakang"
             type="text"
+            placeholder="Doe"
+            className="mb-3"
             isInvalid={lastNameState.isInputInvalid}
             {...lastNameProps}
           />
           <TextInput
             id="phone"
-            label="Nomor Telepon"
+            label="Nomor Whatsapp (Tanpa Spasi)"
             type="tel"
+            placeholder="+6281237624774"
+            pattern="^(\+)[0-9]{8,15}"
+            className="mb-3"
             isInvalid={phoneState.isInputInvalid}
             {...phoneProps}
           />
-          <AuthButton label="SELESAI" className="mt-6 text-center" />
-          <ActionLink to="/register" onClick={backPageHandler} className="mt-4">
-            KEMBALI
-          </ActionLink>
+          <AuthButton
+            label="SELESAI"
+            className="mx-auto mt-5 block text-center"
+          />
         </form>
+        <ActionLink to="/register" className="mt-7 text-lg">
+          KEMBALI
+        </ActionLink>
       </section>
     </div>
   );
