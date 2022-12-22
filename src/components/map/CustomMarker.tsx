@@ -1,7 +1,7 @@
 import { Marker as MarkerInstance } from "leaflet";
 import { Dispatch, SetStateAction, useEffect, useMemo, useRef } from "react";
 import { Marker, Popup } from "react-leaflet";
-import { Position } from "../../models/position";
+import { Position } from "@/models/position";
 
 interface CustomMarkerProps {
   draggable: boolean;

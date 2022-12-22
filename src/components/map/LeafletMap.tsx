@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 import { MapContainer, TileLayer } from "react-leaflet";
-import { Position } from "../../models/position";
+import { Position } from "@/models/position";
 import CustomMarker from "./CustomMarker";
 import LocationButton from "./LocationButton";
 

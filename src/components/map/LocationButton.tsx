@@ -3,7 +3,7 @@ import { Dispatch, SetStateAction, useEffect } from "react";
 import { useMap } from "react-leaflet";
 import "leaflet-easybutton/src/easy-button.js";
 import "leaflet-easybutton/src/easy-button.css";
-import { Position } from "../../models/position";
+import { Position } from "@/models/position";
 
 interface LocationButtonProps {
   onGetPosition?: Dispatch<SetStateAction<Position>>;

@@ -1,9 +1,9 @@
 import { HTMLAttributes } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import timeSince from "../../helpers/date/time-since";
-import Product from "../../models/product";
-import { RootState } from "../../store/store";
+import timeSince from "@/helpers/date/time-since";
+import Product from "@/models/product";
+import { RootState } from "@/store/store";
 import Card from "../base/Card";
 import classNames from "classnames";
 

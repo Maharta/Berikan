@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import useEventListener from "../../../hooks/useEventListener";
+import useEventListener from "@/hooks/useEventListener";
 import Card from "../Card";
 import { ModalPortal } from "./Modal";
 

@@ -1,9 +1,9 @@
-import { useInput } from "../../hooks/useInput";
-import emailValidationFn from "../../helpers/validation-function/emailValidationFn";
-import passwordValidationFn from "../../helpers/validation-function/passwordValidationFn";
-import TextInput from "../../components/TextInput";
-import AuthButton from "../../components/base/buttons/AuthButton";
-import ActionLink from "../../components/base/buttons/ActionLink";
+import { useInput } from "@/hooks/useInput";
+import emailValidationFn from "@/helpers/validation-function/emailValidationFn";
+import passwordValidationFn from "@/helpers/validation-function/passwordValidationFn";
+import TextInput from "@/components/TextInput";
+import AuthButton from "@/components/base/buttons/AuthButton";
+import ActionLink from "@/components/base/buttons/ActionLink";
 import { FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 

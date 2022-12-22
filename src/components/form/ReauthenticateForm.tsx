@@ -1,10 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
-import { auth } from "../../firebase";
-import passwordValidationFn from "../../helpers/validation-function/passwordValidationFn";
-import { useInput } from "../../hooks/useInput";
-import { modalActions } from "../../store/modal-slice";
-import { useAppDispatch } from "../../store/store";
+import { auth } from "@/firebase";
+import passwordValidationFn from "@/helpers/validation-function/passwordValidationFn";
+import { useInput } from "@/hooks/useInput";
+import { modalActions } from "@/store/modal-slice";
+import { useAppDispatch } from "@/store/store";
 import AuthButton from "../base/buttons/AuthButton";
 import TextInput from "../TextInput";
 

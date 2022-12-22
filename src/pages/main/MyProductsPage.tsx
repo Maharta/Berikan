@@ -1,11 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { collection, getDocs, orderBy, query, where } from "firebase/firestore";
 import { useSelector } from "react-redux";
-import MyProductItem from "../../components/product/MyProductItem";
-import { db } from "../../firebase";
-import NavLayout from "../../layout/NavLayout";
-import Product, { FirestoreProduct } from "../../models/product";
-import { RootState } from "../../store/store";
+import MyProductItem from "@/components/product/MyProductItem";
+import { db } from "@/firebase";
+import NavLayout from "@/layout/NavLayout";
+import Product, { FirestoreProduct } from "@/models/product";
+import { RootState } from "@/store/store";
 
 const myProductsFetcher = (uid: string) => {
   console.log(uid);

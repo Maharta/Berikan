@@ -3,11 +3,11 @@ import { Link } from "react-router-dom";
 import FloatingButton, {
   HorizontalPosition,
   VerticalPosition,
-} from "../../components/FloatingButton";
-import InfinityProduct from "../../components/product/InfinityProduct";
-import NewProducts from "../../components/product/NewProducts";
-import { db } from "../../firebase";
-import MainLayout from "../../layout/MainLayout";
+} from "@/components/FloatingButton";
+import InfinityProduct from "@/components/product/InfinityProduct";
+import NewProducts from "@/components/product/NewProducts";
+import { db } from "@/firebase";
+import MainLayout from "@/layout/MainLayout";
 
 const productRef = collection(db, "item");
 const infinityProductQuery = query(

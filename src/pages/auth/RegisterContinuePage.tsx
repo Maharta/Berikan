@@ -1,16 +1,16 @@
 import { FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { firstStepStorage } from "./RegisterPage";
-import { useInput } from "../../hooks/useInput";
-import TextInput from "../../components/TextInput";
-import AuthButton from "../../components/base/buttons/AuthButton";
-import ActionLink from "../../components/base/buttons/ActionLink";
-import { RootState, useAppDispatch } from "../../store/store";
-import { register } from "../../store/auth-thunks";
+import { useInput } from "@/hooks/useInput";
+import TextInput from "@/components/TextInput";
+import AuthButton from "@/components/base/buttons/AuthButton";
+import ActionLink from "@/components/base/buttons/ActionLink";
+import { RootState, useAppDispatch } from "@/store/store";
+import { register } from "@/store/auth-thunks";
 import { useSelector } from "react-redux";
 import { MutatingDots } from "react-loader-spinner";
-import { authActions } from "../../store/auth-slice";
-import { noemptyValidationFn } from "../../helpers/validation-function/productInputValidation";
+import { authActions } from "@/store/auth-slice";
+import { noemptyValidationFn } from "@/helpers/validation-function/productInputValidation";
 
 const noEmptyValidationFn = (value: string) => {
   return value.trim().length !== 0;

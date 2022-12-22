@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { createPortal } from "react-dom";
-import useEventListener from "../../../hooks/useEventListener";
+import useEventListener from "@/hooks/useEventListener";
 import Card from "../Card";
 
 interface ModalPortalProps {

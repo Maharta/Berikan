@@ -1,6 +1,6 @@
 import React, { HTMLAttributes, useState } from "react";
-import timeSince from "../../helpers/date/time-since";
-import Product from "../../models/product";
+import timeSince from "@/helpers/date/time-since";
+import Product from "@/models/product";
 import Card from "../base/Card";
 import classNames from "classnames";
 import { AnimatePresence, motion } from "framer-motion";
@@ -8,7 +8,7 @@ import VerticalDots from "../base/buttons/VerticalDots";
 import { useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { deleteDoc, doc } from "firebase/firestore";
-import { db } from "../../firebase";
+import { db } from "@/firebase";
 import { ProgressBar } from "react-loader-spinner";
 
 interface MyProductItemProps extends HTMLAttributes<HTMLDivElement> {

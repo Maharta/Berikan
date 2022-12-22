@@ -7,7 +7,7 @@ import {
   startAfter,
 } from "firebase/firestore";
 import React, { Fragment, useCallback, useRef } from "react";
-import Product, { FirestoreProduct } from "../../models/product";
+import Product, { FirestoreProduct } from "@/models/product";
 import CardCarousel from "../CardCarousel";
 import ProductItem from "./ProductItem";
 

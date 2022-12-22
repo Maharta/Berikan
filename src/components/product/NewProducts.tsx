@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { collection, getDocs, limit, orderBy, query } from "firebase/firestore";
-import { db } from "../../firebase";
-import Product, { FirestoreProduct } from "../../models/product";
+import { db } from "@/firebase";
+import Product, { FirestoreProduct } from "@/models/product";
 import CardCarousel from "../CardCarousel";
 import ProductItem from "./ProductItem";
 

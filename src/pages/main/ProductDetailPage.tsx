@@ -1,12 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { useLocation } from "react-router-dom";
-import ImageCarousel from "../../components/ImageCarousel";
-import LeafletMap from "../../components/map/LeafletMap";
-import OwnerAvatar from "../../components/product/OwnerAvatar";
-import NavLayout from "../../layout/NavLayout";
-import Product from "../../models/product";
-import accountFetcher from "../../helpers/firebase/accountFetcher";
-import AvatarImg from "../../assets/avatar.png";
+import ImageCarousel from "@/components/ImageCarousel";
+import LeafletMap from "@/components/map/LeafletMap";
+import OwnerAvatar from "@/components/product/OwnerAvatar";
+import NavLayout from "@/layout/NavLayout";
+import Product from "@/models/product";
+import accountFetcher from "@/helpers/firebase/accountFetcher";
+import AvatarImg from "@/assets/avatar.png";
 import { ReactComponent as WhatsappLogo } from "@/assets/whatsapp.svg";
 const ProductDetailPage = () => {
   const location = useLocation();

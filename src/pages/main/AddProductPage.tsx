@@ -1,25 +1,25 @@
 import { FormEvent, Fragment, useCallback, useState } from "react";
-import ProductInput from "../../components/product/ProductInput";
+import ProductInput from "@/components/product/ProductInput";
 import {
   noemptyValidationFn,
   descriptionValidationFn,
-} from "../../helpers/validation-function/productInputValidation";
-import { useInput } from "../../hooks/useInput";
-import NavLayout from "../../layout/NavLayout";
-import DescriptionArea from "../../components/product/DescriptionArea";
+} from "@/helpers/validation-function/productInputValidation";
+import { useInput } from "@/hooks/useInput";
+import NavLayout from "@/layout/NavLayout";
+import DescriptionArea from "@/components/product/DescriptionArea";
 import { useSelector } from "react-redux";
-import { RootState, useAppDispatch } from "../../store/store";
-import ImagesPicker from "../../components/ImagesPicker";
+import { RootState, useAppDispatch } from "@/store/store";
+import ImagesPicker from "@/components/ImagesPicker";
 import { useMutation } from "@tanstack/react-query";
 import addNewProduct, {
   AddNewItemArgs,
-} from "../../helpers/firebase/addNewProduct";
+} from "@/helpers/firebase/addNewProduct";
 import { TailSpin } from "react-loader-spinner";
-import { modalActions } from "../../store/modal-slice";
-import ErrorModal from "../../components/base/modal/ErrorModal";
+import { modalActions } from "@/store/modal-slice";
+import ErrorModal from "@/components/base/modal/ErrorModal";
 import { useNavigate } from "react-router-dom";
-import { Position } from "../../models/position";
-import LeafletMap from "../../components/map/LeafletMap";
+import { Position } from "@/models/position";
+import LeafletMap from "@/components/map/LeafletMap";
 import { motion } from "framer-motion";
 
 const imgErrorVariants = {

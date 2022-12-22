@@ -1,16 +1,16 @@
 import { updatePassword } from "firebase/auth";
 import { FormEvent } from "react";
 import { useSelector } from "react-redux";
-import AccountButton from "../../components/base/buttons/AccountButton";
-import Modal from "../../components/base/modal/Modal";
-import ReauthenticateForm from "../../components/form/ReauthenticateForm";
-import TextInput from "../../components/TextInput";
-import { auth } from "../../firebase";
-import passwordValidationFn from "../../helpers/validation-function/passwordValidationFn";
-import { useInput } from "../../hooks/useInput";
-import NavLayout from "../../layout/NavLayout";
-import { modalActions } from "../../store/modal-slice";
-import { RootState, useAppDispatch } from "../../store/store";
+import AccountButton from "@/components/base/buttons/AccountButton";
+import Modal from "@/components/base/modal/Modal";
+import ReauthenticateForm from "@/components/form/ReauthenticateForm";
+import TextInput from "@/components/TextInput";
+import { auth } from "@/firebase";
+import passwordValidationFn from "@/helpers/validation-function/passwordValidationFn";
+import { useInput } from "@/hooks/useInput";
+import NavLayout from "@/layout/NavLayout";
+import { modalActions } from "@/store/modal-slice";
+import { RootState, useAppDispatch } from "@/store/store";
 import { confirmPassValidationFn } from "../auth/RegisterPage";
 
 const ChangePasswordPage = () => {

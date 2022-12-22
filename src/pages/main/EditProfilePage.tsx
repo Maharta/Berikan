@@ -7,20 +7,20 @@ import {
 } from "firebase/storage";
 import { FormEvent, useCallback, useState } from "react";
 import { useSelector } from "react-redux";
-import ImagePicker from "../../components/ImagePicker";
-import TextInput from "../../components/TextInput";
-import accountFetcher from "../../helpers/firebase/accountFetcher";
-import { resizeImage320 } from "../../helpers/image/image-resizer";
-import { noemptyValidationFn } from "../../helpers/validation-function/productInputValidation";
-import { useInput } from "../../hooks/useInput";
-import NavLayout from "../../layout/NavLayout";
-import Account from "../../models/account";
-import { RootState } from "../../store/store";
+import ImagePicker from "@/components/ImagePicker";
+import TextInput from "@/components/TextInput";
+import accountFetcher from "@/helpers/firebase/accountFetcher";
+import { resizeImage320 } from "@/helpers/image/image-resizer";
+import { noemptyValidationFn } from "@/helpers/validation-function/productInputValidation";
+import { useInput } from "@/hooks/useInput";
+import NavLayout from "@/layout/NavLayout";
+import Account from "@/models/account";
+import { RootState } from "@/store/store";
 import { uuidv4 } from "@firebase/util";
-import { db, storage } from "../../firebase";
+import { db, storage } from "@/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
-import AccountButton from "../../components/base/buttons/AccountButton";
+import AccountButton from "@/components/base/buttons/AccountButton";
 
 const EditProfilePage = () => {
   const [image, setImage] = useState<File>();

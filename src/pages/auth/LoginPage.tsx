@@ -1,14 +1,14 @@
-import AuthButton from "../../components/base/buttons/AuthButton";
-import { useInput } from "../../hooks/useInput";
-import TextInput from "../../components/TextInput";
-import emailValidationFn from "../../helpers/validation-function/emailValidationFn";
-import passwordValidationFn from "../../helpers/validation-function/passwordValidationFn";
-import ActionLink from "../../components/base/buttons/ActionLink";
+import AuthButton from "@/components/base/buttons/AuthButton";
+import { useInput } from "@/hooks/useInput";
+import TextInput from "@/components/TextInput";
+import emailValidationFn from "@/helpers/validation-function/emailValidationFn";
+import passwordValidationFn from "@/helpers/validation-function/passwordValidationFn";
+import ActionLink from "@/components/base/buttons/ActionLink";
 import { FormEvent, useEffect } from "react";
-import { login } from "../../store/auth-thunks";
+import { login } from "@/store/auth-thunks";
 import { useNavigate } from "react-router-dom";
 import { MutatingDots } from "react-loader-spinner";
-import { RootState, useAppDispatch } from "../../store/store";
+import { RootState, useAppDispatch } from "@/store/store";
 import { useSelector } from "react-redux";
 
 const LoginPage = () => {

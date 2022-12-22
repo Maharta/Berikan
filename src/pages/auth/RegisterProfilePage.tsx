@@ -4,12 +4,12 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { FormEvent, useCallback, useEffect, useState } from "react";
 import { MutatingDots } from "react-loader-spinner";
 import { useLocation, useNavigate } from "react-router-dom";
-import ActionLink from "../../components/base/buttons/ActionLink";
-import AuthButton from "../../components/base/buttons/AuthButton";
-import ImagePicker from "../../components/ImagePicker";
-import { db, storage } from "../../firebase";
+import ActionLink from "@/components/base/buttons/ActionLink";
+import AuthButton from "@/components/base/buttons/AuthButton";
+import ImagePicker from "@/components/ImagePicker";
+import { db, storage } from "@/firebase";
 import { uuidv4 } from "@firebase/util";
-import { resizeImage320 } from "../../helpers/image/image-resizer";
+import { resizeImage320 } from "@/helpers/image/image-resizer";
 
 const RegisterProfilePage = () => {
   const [image, setImage] = useState<File>();

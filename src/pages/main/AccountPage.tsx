@@ -7,13 +7,13 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import SettingButton from "../../components/base/buttons/SettingButton";
-import accountFetcher from "../../helpers/firebase/accountFetcher";
-import NavLayout from "../../layout/NavLayout";
-import Account from "../../models/account";
-import { logout } from "../../store/auth-thunks";
-import { RootState } from "../../store/store";
-import AvatarImg from "../../assets/avatar.png";
+import SettingButton from "@/components/base/buttons/SettingButton";
+import accountFetcher from "@/helpers/firebase/accountFetcher";
+import NavLayout from "@/layout/NavLayout";
+import Account from "@/models/account";
+import { logout } from "@/store/auth-thunks";
+import { RootState } from "@/store/store";
+import AvatarImg from "@/assets/avatar.png";
 
 const AccountPage = () => {
   const currentUser = useSelector((state: RootState) => state.auth.user);

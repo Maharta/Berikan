@@ -1,4 +1,4 @@
-import AuthButton from "../../components/base/buttons/AuthButton";
+import AuthButton from "@/components/base/buttons/AuthButton";
 import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
