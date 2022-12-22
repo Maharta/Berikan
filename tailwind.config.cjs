@@ -10,6 +10,8 @@ module.exports = {
         primaryDark: "var(--color-primarydark)",
         primaryLighterDark: "var(--color-primaryLighterDark)",
         gradientBackground: "var(--color-gradientBackground)",
+        whatsappGreen: "var(--color-whatsapp)",
+        whatsappGreen_light: 'var(--color-whatsapp-light)',
         overlayBlack: "rgba(0, 0, 0, 0.54)",
       },
       fontFamily: {

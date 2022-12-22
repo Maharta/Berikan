@@ -4,11 +4,10 @@ import ImageCarousel from "../../components/ImageCarousel";
 import LeafletMap from "../../components/map/LeafletMap";
 import OwnerAvatar from "../../components/product/OwnerAvatar";
 import NavLayout from "../../layout/NavLayout";
-import Account from "../../models/account";
 import Product from "../../models/product";
 import accountFetcher from "../../helpers/firebase/accountFetcher";
 import AvatarImg from "../../assets/avatar.png";
-
+import { ReactComponent as WhatsappLogo } from "@/assets/whatsapp.svg";
 const ProductDetailPage = () => {
   const location = useLocation();
   const product = location.state as Product;
@@ -22,12 +21,13 @@ const ProductDetailPage = () => {
 
   const {
     isLoading,
-    data: snapshot,
+    data: ownerData,
     error,
     isError,
   } = useQuery({
     queryKey: ["product-owner", product.ownerId],
     queryFn: () => accountFetcher(product.ownerId),
+    select: (snapshot) => snapshot.data(),
   });
 
   if (isLoading) {
@@ -39,11 +39,6 @@ const ProductDetailPage = () => {
       return <div>{error.message}</div>;
     }
     return <div>Something went wrong..</div>;
-  }
-
-  let ownerData;
-  if (snapshot) {
-    ownerData = snapshot.data() as Account;
   }
 
   return (
@@ -81,9 +76,13 @@ const ProductDetailPage = () => {
               {ownerData.firstname + " " + ownerData.lastname}
             </div>
             <div className="col-span-3 self-center text-center">
-              <button className="rounded-lg bg-blue-300 px-4 py-2 text-white">
+              <a
+                href={`https://wa.me/${product.ownerId}`}
+                className="flex w-full cursor-pointer items-center justify-center bg-whatsappGreen py-2 font-bold 
+                tracking-normal text-white hover:bg-whatsappGreen_light focus:bg-whatsappGreen_light active:bg-whatsappGreen_light">
+                <WhatsappLogo className="mr-1 h-8 w-8" />
                 Chat Pengiklan
-              </button>
+              </a>
             </div>
           </section>
         )}
