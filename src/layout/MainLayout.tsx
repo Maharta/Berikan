@@ -1,7 +1,4 @@
-import {
-  ChatBubbleLeftIcon,
-  MagnifyingGlassIcon,
-} from "@heroicons/react/24/outline";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { Fragment, ReactNode } from "react";
 import { NavLink } from "react-router-dom";
@@ -26,11 +23,6 @@ const MainLayout = ({ children }: MainHeaderProps) => {
         </form>
         <nav>
           <ul className="flex items-center gap-2">
-            <li>
-              <button>
-                <ChatBubbleLeftIcon className="h-6 w-6" />
-              </button>
-            </li>
             <li>
               <NavLink to="/account">
                 <UserCircleIcon className="h-6 w-6" />
