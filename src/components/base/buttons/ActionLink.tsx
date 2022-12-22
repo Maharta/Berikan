@@ -10,8 +10,7 @@ const ActionLink = ({ to, ...props }: ActionTextProps) => {
     <Link
       to={to}
       {...props}
-      className={`text-primaryDark tracking-widest underline ${props.className}`}
-    >
+      className={`tracking-widest text-primaryDark underline ${props.className}`}>
       {props.children}
     </Link>
   );

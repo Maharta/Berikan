@@ -60,6 +60,7 @@ const LoginPage = () => {
               type="email"
               label="ALAMAT EMAIL"
               id="email"
+              placeholder="johndoe@gmail.com"
               isInvalid={emailState.isInputInvalid}
               {...emailProps}
               className="mb-4"

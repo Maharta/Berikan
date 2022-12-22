@@ -72,6 +72,7 @@ const RegisterPage = () => {
             isInvalid={emailState.isInputInvalid}
             label="EMAIL"
             type="email"
+            placeholder="johndoe@gmail.com"
             className="mb-3"
             {...emailProps}
           />

@@ -5,7 +5,7 @@ const HomePage = () => {
   const navigate = useNavigate();
   return (
     <div className="gradient-background p-5">
-      <section className="flex flex-col items-center">
+      <section className="flex flex-col items-center justify-center pt-16">
         <h1 className="mt-12 mb-14 text-4xl font-medium ">Berikan</h1>
         <p className="mb-9 text-center">
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Ex
