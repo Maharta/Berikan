@@ -1,9 +1,7 @@
 import { HTMLAttributes } from "react";
-import { useSelector } from "react-redux";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import timeSince from "@/helpers/date/time-since";
 import Product from "@/models/product";
-import { RootState } from "@/store/store";
 import Card from "../base/Card";
 import classNames from "classnames";
 
@@ -12,14 +10,7 @@ interface ProductItemProps extends HTMLAttributes<HTMLDivElement> {
 }
 
 const ProductItem = ({ product, ...props }: ProductItemProps) => {
-  const currentUser = useSelector((state: RootState) => state.auth.user);
   const navigate = useNavigate();
-
-  const { pathname: currentPath } = useLocation();
-
-  const isDeleteable =
-    currentUser?.uid === product.ownerId &&
-    currentPath === "/account/my-products";
 
   const onClickHandler = () => {
     navigate(`/product/${product.id}`, {
@@ -31,12 +22,7 @@ const ProductItem = ({ product, ...props }: ProductItemProps) => {
     <Card
       onClick={onClickHandler}
       key={product.id}
-      className={classNames(
-        `relative my-2 cursor-pointer rounded-lg first:ml-2 last:mr-2 ${props.className}`,
-        {
-          "hover:scale-105": !isDeleteable,
-        }
-      )}>
+      className={`relative my-2 cursor-pointer rounded-lg ${props.className}`}>
       <figure>
         <img
           src={product.images ? product.images[0] : ""}

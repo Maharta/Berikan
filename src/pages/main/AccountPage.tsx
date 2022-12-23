@@ -45,7 +45,7 @@ const AccountPage = () => {
     <NavLayout title="Account">
       <figure className="text-center">
         <img
-          className="mx-auto h-32 w-32 rounded-[50%]"
+          className="mx-auto h-32 w-32 rounded-[50%] object-cover"
           src={userData?.avatar_url || AvatarImg}
           alt="Pengguna yang sedang log in"
         />

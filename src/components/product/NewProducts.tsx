@@ -48,11 +48,7 @@ const NewProducts = () => {
   return (
     <CardCarousel>
       {data?.map((product) => (
-        <ProductItem
-          className="snap-start last:snap-end"
-          product={product}
-          key={product.id}
-        />
+        <ProductItem product={product} key={product.id} />
       ))}
     </CardCarousel>
   );

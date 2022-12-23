@@ -82,11 +82,7 @@ const InfinityProduct = ({ q }: InfinityProductProps) => {
     <Fragment>
       <CardCarousel onScroll={onScrollHandler}>
         {products?.map((product) => (
-          <ProductItem
-            className="snap-start last:snap-end"
-            key={product.id}
-            product={product}
-          />
+          <ProductItem key={product.id} product={product} />
         ))}
       </CardCarousel>
     </Fragment>
