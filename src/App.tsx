@@ -25,6 +25,7 @@ const ProductDetailPage = lazy(() => import("./pages/main/ProductDetailPage"));
 const ChangePasswordPage = lazy(
   () => import("./pages/main/ChangePasswordPage")
 );
+const SearchResultsPage = lazy(() => import("./pages/main/SearchResultsPage"));
 
 function App() {
   const user = useSelector((state: RootState) => state.auth.user);
@@ -81,6 +82,7 @@ function App() {
           </Route>
           <Route path="/add-item" element={<AddItemPage />} />
           <Route path="/product/:id" element={<ProductDetailPage />} />
+          <Route path="/search-results" element={<SearchResultsPage />} />
         </Route>
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>

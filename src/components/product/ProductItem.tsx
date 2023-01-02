@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import timeSince from "@/helpers/date/time-since";
 import Product from "@/models/product";
 import Card from "../base/Card";
-import classNames from "classnames";
 
 interface ProductItemProps extends HTMLAttributes<HTMLDivElement> {
   product: Product;
@@ -22,7 +21,7 @@ const ProductItem = ({ product, ...props }: ProductItemProps) => {
     <Card
       onClick={onClickHandler}
       key={product.id}
-      className={`relative my-2 cursor-pointer rounded-lg ${props.className}`}>
+      className={`relative my-2 cursor-pointer rounded-lg hover:scale-105 focus:scale-105 ${props.className}`}>
       <figure>
         <img
           src={product.images ? product.images[0] : ""}

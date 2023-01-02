@@ -1,4 +1,4 @@
-import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
+import SearchInput from "@/components/SearchInput";
 import { UserCircleIcon } from "@heroicons/react/24/outline";
 import { Fragment, ReactNode } from "react";
 import { NavLink } from "react-router-dom";
@@ -11,16 +11,7 @@ const MainLayout = ({ children }: MainHeaderProps) => {
   return (
     <Fragment>
       <header className="flex justify-start p-2">
-        <form className="mr-auto flex w-max items-center rounded-full border border-black">
-          <MagnifyingGlassIcon className="ml-3 h-5 w-5" />
-          <input
-            type="search"
-            name="search"
-            id="search"
-            placeholder="Cari disini. (WIP)"
-            className="ml-2 mr-1 h-full rounded-full outline-none"
-          />
-        </form>
+        <SearchInput />
         <nav>
           <ul className="flex items-center gap-2">
             <li>
