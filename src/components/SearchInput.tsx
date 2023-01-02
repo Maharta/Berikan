@@ -2,7 +2,7 @@ import useDebounce from "@/hooks/useDebounce";
 import Product, { FirestoreProduct } from "@/models/product";
 import { FormEvent, MouseEvent, useMemo, useRef, useState } from "react";
 import useAllProducts from "@/hooks/useAllProducts";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, createSearchParams } from "react-router-dom";
 import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 
 const SearchInput = () => {
@@ -30,19 +30,21 @@ const SearchInput = () => {
   );
 
   const searchClickHandler = (e: MouseEvent<HTMLLIElement>) => {
-    navigate("/search-results", {
-      state: {
+    navigate({
+      pathname: "search-results",
+      search: createSearchParams({
         query: e.currentTarget.innerText,
-      },
+      }).toString(),
     });
   };
 
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    navigate("search-results", {
-      state: {
+    navigate({
+      pathname: "search-results",
+      search: createSearchParams({
         query: search,
-      },
+      }).toString(),
     });
   };
 

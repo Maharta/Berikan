@@ -2,16 +2,20 @@ import ProductItem from "@/components/product/ProductItem";
 import useAllProducts from "@/hooks/useAllProducts";
 import NavLayout from "@/layout/NavLayout";
 import Product, { FirestoreProduct } from "@/models/product";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const SearchResultsPage = () => {
-  const { state } = useLocation();
-  const query = state.query;
+  let [searchParams] = useSearchParams();
+  const query = searchParams.get("query");
 
   const navigate = useNavigate();
-  if (!query) {
-    navigate("/");
-  }
+
+  useEffect(() => {
+    if (!query) {
+      navigate("/");
+    }
+  }, [navigate, query]);
 
   const { data: searchResults } = useAllProducts(
     { refetchOnMount: true },
