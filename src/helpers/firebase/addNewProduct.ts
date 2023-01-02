@@ -31,7 +31,6 @@ const addNewProduct = async ({
       `https://nominatim.openstreetmap.org/reverse?lat=${position.lat}&lon=${position.lng}&format=json`
     );
     const locationData = await locationRes.json();
-    console.log(locationData);
     const { address, display_name } = locationData;
     let location;
 
