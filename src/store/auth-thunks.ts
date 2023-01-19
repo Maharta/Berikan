@@ -35,7 +35,6 @@ export const login = createAsyncThunk<
     return user.toJSON();
   } catch (error) {
     if (error instanceof Error) {
-      console.log("here");
       throw rejectWithValue(error.message);
     } else {
       throw rejectWithValue("Something went wrong..");
