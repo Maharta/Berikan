@@ -4,7 +4,7 @@ import {
   noemptyValidationFn,
   descriptionValidationFn,
 } from "@/helpers/validation-function/productInputValidation";
-import { useInput } from "@/hooks/useInput";
+import useInput from "@/hooks/useInput";
 import NavLayout from "@/layout/NavLayout";
 import DescriptionArea from "@/components/product/DescriptionArea";
 import { useSelector } from "react-redux";
@@ -31,7 +31,7 @@ const imgErrorVariants = {
   },
 };
 
-const AddItemPage = () => {
+function AddItemPage() {
   const user = useSelector((state: RootState) => state.auth.user);
   const isModalOpen = useSelector(
     (state: RootState) => state.modal.isModalOpen
@@ -58,8 +58,8 @@ const AddItemPage = () => {
     nameState.isValid && descriptionState.isValid && imagesNotEmpty;
 
   const { isError, error, isLoading, mutate } = useMutation<
-    undefined,
-    string,
+    void,
+    Error,
     AddNewItemArgs
   >({
     mutationFn: addNewProduct,
@@ -71,7 +71,7 @@ const AddItemPage = () => {
     e.preventDefault();
     setIsButtonClicked(true);
     if (!isFormValid) return;
-    const cleanPosition = Object.assign({}, position);
+    const cleanPosition = { ...position };
     mutate(
       {
         name: nameProps.value,
@@ -91,8 +91,8 @@ const AddItemPage = () => {
     );
   };
 
-  const onImagesChangedHandler = useCallback((imageArrays: File[]) => {
-    setImageArrays(imageArrays);
+  const onImagesChangedHandler = useCallback((imgArray: File[]) => {
+    setImageArrays(imgArray);
   }, []);
 
   if (isLoading) {
@@ -104,13 +104,13 @@ const AddItemPage = () => {
         ariaLabel="tail-spin-loading"
         radius="1"
         wrapperClass="centered"
-        visible={true}
+        visible
       />
     );
   }
 
   return (
-    <Fragment>
+    <>
       <ErrorModal
         isOpen={isModalOpen && isError}
         onClose={() => {
@@ -119,7 +119,7 @@ const AddItemPage = () => {
         {error && (
           <div className="text-center text-xl">
             <strong>Oops!</strong>
-            <p>{error}</p>
+            <p>{error.message}</p>
           </div>
         )}
       </ErrorModal>
@@ -142,7 +142,7 @@ const AddItemPage = () => {
               Lokasi Barang
             </label>
             <LeafletMap
-              editable={true}
+              editable
               id="map-form"
               onGetPositionHandler={setPosition}
               position={position}
@@ -181,8 +181,8 @@ const AddItemPage = () => {
           </button>
         </form>
       </NavLayout>
-    </Fragment>
+    </>
   );
-};
+}
 
 export default AddItemPage;

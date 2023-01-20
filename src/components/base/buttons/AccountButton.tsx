@@ -36,26 +36,24 @@ interface Props
   extends VariantProps<typeof accountButtonStyles>,
     AccountButtonProps {}
 
-const AccountButton = ({
+function AccountButton({
   centered,
   marginTop,
   size,
   className,
   label,
   ...props
-}: Props) => {
-  return (
-    <button
-      {...props}
-      className={accountButtonStyles({
-        centered: centered,
-        marginTop: marginTop,
-        size: size,
-        class: className,
-      })}>
-      {label}
-    </button>
-  );
-};
+}: Props) {
+  return <button
+    {...props}
+    className={accountButtonStyles({
+      centered,
+      marginTop,
+      size,
+      class: className,
+    })}>
+    {label}
+  </button>
+}
 
 export default AccountButton;

@@ -7,13 +7,13 @@ import ReauthenticateForm from "@/components/form/ReauthenticateForm";
 import TextInput from "@/components/TextInput";
 import { auth } from "@/firebase";
 import passwordValidationFn from "@/helpers/validation-function/passwordValidationFn";
-import { useInput } from "@/hooks/useInput";
+import useInput from "@/hooks/useInput";
 import NavLayout from "@/layout/NavLayout";
 import { modalActions } from "@/store/modal-slice";
 import { RootState, useAppDispatch } from "@/store/store";
 import { confirmPassValidationFn } from "../auth/RegisterPage";
 
-const ChangePasswordPage = () => {
+function ChangePasswordPage() {
   const [passwordState, passwordProps] = useInput(passwordValidationFn);
   const [confirmPasswordState, confirmPasswordProps] = useInput(
     confirmPassValidationFn.bind(null, passwordProps.value)
@@ -30,7 +30,7 @@ const ChangePasswordPage = () => {
   const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!isPasswordValid) return;
-    const currentUser = auth.currentUser;
+    const { currentUser } = auth;
     try {
       await updatePassword(currentUser!, passwordProps.value);
     } catch (error) {
@@ -63,7 +63,7 @@ const ChangePasswordPage = () => {
           id="confirm-password"
           label="Confirm Password Baru"
         />
-        <AccountButton marginTop={4} label="Ganti Password" />
+        <AccountButton type="submit" marginTop={4} label="Ganti Password" />
         <Modal
           isOpen={isModalOpen}
           onClose={() => dispatch(modalActions.closeModal())}>
@@ -72,6 +72,6 @@ const ChangePasswordPage = () => {
       </form>
     </NavLayout>
   );
-};
+}
 
 export default ChangePasswordPage;

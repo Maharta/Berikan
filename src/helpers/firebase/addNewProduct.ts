@@ -26,12 +26,11 @@ const addNewProduct = async ({
   position,
 }: AddNewItemArgs) => {
   try {
-    const imageUrls: string[] = [];
     const locationRes = await fetch(
       `https://nominatim.openstreetmap.org/reverse?lat=${position.lat}&lon=${position.lng}&format=json`
     );
     const locationData = await locationRes.json();
-    const { address, display_name } = locationData;
+    const { address, display_name: displayName } = locationData;
     let location;
 
     if (address.city) {
@@ -48,28 +47,34 @@ const addNewProduct = async ({
       updated_at: Timestamp.fromDate(new Date()),
       position,
       location,
-      address: display_name,
+      address: displayName,
     };
 
+    const imageUrls: string[] = [];
     const docRef = await addDoc(collection(db, "item"), data);
-    for (const imageFile of images) {
-      const profilePhotoRef = ref(
-        storage,
-        `${ownerId}/products/${docRef.id}/${uuidv4()}`
-      );
-      await uploadBytes(profilePhotoRef, imageFile);
-      const url = await getDownloadURL(profilePhotoRef);
-      imageUrls.push(url);
-    }
-    await updateDoc(doc(db, "item", docRef.id), {
+
+    await Promise.all(
+      images.map(async (imageFile, index) => {
+        const productPhotoRef = ref(
+          storage,
+          `${ownerId}/products/${docRef.id}/${uuidv4()}`
+        );
+        await uploadBytes(productPhotoRef, imageFile);
+        const url = await getDownloadURL(productPhotoRef);
+        imageUrls[index] = url;
+      })
+    );
+
+    return await updateDoc(doc(db, "item", docRef.id), {
       images: imageUrls,
     });
   } catch (error) {
     if (error instanceof Error) {
-      return Promise.reject(error.message);
-    } else {
-      return Promise.reject("Something went wrong..");
+      return Promise.reject(error);
     }
+    return Promise.reject(
+      new Error("Something went wrong when trying to add your item.")
+    );
   }
 };
 

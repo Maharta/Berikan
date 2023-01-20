@@ -11,13 +11,12 @@ interface Options {
 const useAllProducts = (
   options: Options,
   select?: (data: QuerySnapshot<DocumentData>) => Product[] | undefined
-) => {
-  return useQuery(["all-products"], getAllProducts, {
+) =>
+  useQuery(["all-products"], getAllProducts, {
     enabled: options.isEnabled,
     refetchOnWindowFocus: false, // prevent unnecessary re-renders
     select,
     refetchOnMount: options.refetchOnMount,
   });
-};
 
 export default useAllProducts;

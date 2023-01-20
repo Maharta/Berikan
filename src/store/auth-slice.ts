@@ -5,13 +5,13 @@ import { login, register } from "./auth-thunks";
 interface AuthState {
   user: User | null | undefined;
   isLoading: boolean;
-  error?: string;
+  error?: Error;
 }
 
 const initialAuthState: AuthState = {
   user: undefined,
   isLoading: false,
-  error: "",
+  error: undefined,
 };
 
 export const authSlice = createSlice({
@@ -23,7 +23,7 @@ export const authSlice = createSlice({
       state.isLoading = false;
     },
     resetError: (state) => {
-      state.error = "";
+      state.error = undefined;
       state.isLoading = false;
     },
   },
@@ -31,11 +31,11 @@ export const authSlice = createSlice({
     // No need to set extraReducers to set user state, onAuthStateChanged in store.ts already handled that.
     builder.addCase(login.fulfilled, (state) => {
       state.isLoading = false;
-      state.error = "";
+      state.error = undefined;
     });
     builder.addCase(login.pending, (state) => {
       state.isLoading = true;
-      state.error = "";
+      state.error = undefined;
     });
     builder.addCase(login.rejected, (state, { payload }) => {
       state.isLoading = false;
@@ -43,11 +43,11 @@ export const authSlice = createSlice({
     });
     builder.addCase(register.fulfilled, (state) => {
       state.isLoading = false;
-      state.error = "";
+      state.error = undefined;
     });
     builder.addCase(register.pending, (state) => {
       state.isLoading = true;
-      state.error = "";
+      state.error = undefined;
     });
     builder.addCase(register.rejected, (state, { payload }) => {
       state.isLoading = false;

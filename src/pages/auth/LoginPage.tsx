@@ -1,5 +1,5 @@
 import AuthButton from "@/components/base/buttons/AuthButton";
-import { useInput } from "@/hooks/useInput";
+import useInput from "@/hooks/useInput";
 import TextInput from "@/components/TextInput";
 import emailValidationFn from "@/helpers/validation-function/emailValidationFn";
 import passwordValidationFn from "@/helpers/validation-function/passwordValidationFn";
@@ -11,7 +11,7 @@ import { MutatingDots } from "react-loader-spinner";
 import { RootState, useAppDispatch } from "@/store/store";
 import { useSelector } from "react-redux";
 
-const LoginPage = () => {
+function LoginPage() {
   const { error, isLoading, user } = useSelector(
     (state: RootState) => state.auth
   );
@@ -26,7 +26,6 @@ const LoginPage = () => {
   };
 
   useEffect(() => {
-    console.log("navigate");
     if (user) {
       navigate("/main", { replace: true });
     }
@@ -34,7 +33,7 @@ const LoginPage = () => {
 
   return (
     <div className="gradient-background">
-      {error && <h1>{error}</h1>}
+      {error && <h1>{error.message}</h1>}
       {isLoading && (
         <div className="centered">
           <MutatingDots
@@ -46,7 +45,7 @@ const LoginPage = () => {
             ariaLabel="mutating-dots-loading"
             wrapperStyle={{}}
             wrapperClass=""
-            visible={true}
+            visible
           />
         </div>
       )}
@@ -85,6 +84,6 @@ const LoginPage = () => {
       )}
     </div>
   );
-};
+}
 
 export default LoginPage;

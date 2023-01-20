@@ -1,6 +1,4 @@
-const noemptyValidationFn = (value: string) => {
-  return value.trim().length !== 0;
-};
+const noemptyValidationFn = (value: string) => value.trim().length !== 0;
 
 const descriptionValidationFn = (value: string) => {
   // need at least 2 words

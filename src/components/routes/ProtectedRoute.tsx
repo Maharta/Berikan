@@ -6,16 +6,16 @@ interface ProtectedRouteProps {
   isAllowed: boolean;
 }
 
-const ProtectedRoute = ({
+function ProtectedRoute({
   children,
   redirectPath = "/home",
   isAllowed,
-}: ProtectedRouteProps) => {
+}: ProtectedRouteProps) {
   if (!isAllowed) {
     return <Navigate to={redirectPath} replace />;
   }
 
-  return children ? children : <Outlet />;
-};
+  return children || <Outlet />;
+}
 
 export default ProtectedRoute;

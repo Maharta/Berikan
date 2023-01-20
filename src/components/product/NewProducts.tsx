@@ -20,18 +20,17 @@ const newProductsFetcher = async () => {
       };
       tempItems.push(transformedItem);
     });
-    return Promise.resolve(tempItems);
+    return await Promise.resolve(tempItems);
   } catch (error) {
     if (error instanceof Error) {
       return Promise.reject(error.message);
-    } else {
-      return Promise.reject("something went wrong");
     }
+    return Promise.reject(new Error("Something went wrong."));
   }
 };
 
-const NewProducts = () => {
-  const { data, isLoading, isError, error } = useQuery<Product[], string>({
+function NewProducts() {
+  const { data, isLoading, isError, error } = useQuery<Product[], Error>({
     queryKey: ["new-products"],
     queryFn: newProductsFetcher,
     refetchOnWindowFocus: false,
@@ -42,7 +41,7 @@ const NewProducts = () => {
   }
 
   if (isError) {
-    return <div>{error}</div>;
+    return <div>{error.message}</div>;
   }
 
   return (
@@ -52,6 +51,6 @@ const NewProducts = () => {
       ))}
     </CardCarousel>
   );
-};
+}
 
 export default NewProducts;

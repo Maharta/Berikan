@@ -22,9 +22,7 @@ interface RegisterCredentials extends LoginCredentials {
 export const login = createAsyncThunk<
   unknown,
   LoginCredentials,
-  {
-    rejectValue: string;
-  }
+  { rejectValue: Error }
 >("auth/login", async ({ email, password }, { rejectWithValue }) => {
   try {
     const { user }: UserCredential = await signInWithEmailAndPassword(
@@ -35,11 +33,11 @@ export const login = createAsyncThunk<
     return user.toJSON();
   } catch (error) {
     if (error instanceof Error) {
-      console.log("here");
-      throw rejectWithValue(error.message);
-    } else {
-      throw rejectWithValue("Something went wrong..");
+      return rejectWithValue(error);
     }
+    return rejectWithValue(
+      new Error("Something went wrong when trying to sign you in..")
+    );
   }
 });
 
@@ -47,7 +45,7 @@ export const logout = () => {
   try {
     signOut(auth);
   } catch (error) {
-    alert(error);
+    if (error instanceof Error) alert(error.message);
   }
 };
 
@@ -55,7 +53,7 @@ export const register = createAsyncThunk<
   unknown,
   RegisterCredentials,
   {
-    rejectValue: string;
+    rejectValue: Error;
   }
 >(
   "auth/register",
@@ -80,12 +78,11 @@ export const register = createAsyncThunk<
       return user.toJSON();
     } catch (error) {
       if (error instanceof Error) {
-        return rejectWithValue(error.message);
-      } else {
-        return rejectWithValue(
-          "Something went wrong when creating your account.."
-        );
+        return rejectWithValue(error);
       }
+      return rejectWithValue(
+        new Error("Something went wrong when creating your account..")
+      );
     }
   }
 );

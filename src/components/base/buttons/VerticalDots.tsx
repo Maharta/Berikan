@@ -2,10 +2,10 @@ import React, { ButtonHTMLAttributes, useEffect, useState } from "react";
 import styles from "./VerticalDots.module.css";
 
 interface VerticalDotsProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  className?: string;
+  className: string;
 }
 
-const VerticalDots = ({ className, ...props }: VerticalDotsProps) => {
+function VerticalDots({ className, ...props }: VerticalDotsProps) {
   const [coords, setCoords] = useState({ x: -1, y: -1 });
   const [isRippling, setIsRippling] = useState(false);
 
@@ -38,14 +38,15 @@ const VerticalDots = ({ className, ...props }: VerticalDotsProps) => {
   return (
     <button
       onClick={onClickHandler}
-      className={styles["dots-button"] + " " + className}>
+      className={`${styles["dots-button"]} ${className}`}>
       {isRippling && (
         <span
           style={{ left: coords.x, top: coords.y }}
-          className={styles.ripples}></span>
+          className={styles.ripples}
+        />
       )}
     </button>
   );
-};
+}
 
 export default VerticalDots;

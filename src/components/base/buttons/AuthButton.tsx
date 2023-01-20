@@ -23,14 +23,10 @@ const buttonStyles = cva(
 );
 interface Props extends ButtonProps, VariantProps<typeof buttonStyles> {}
 
-const AuthButton = ({ label, mode, ...props }: Props) => {
-  return (
-    <button
-      {...props}
-      className={buttonStyles({ mode, class: props.className })}>
-      {label}
-    </button>
-  );
-};
+function AuthButton({ label, mode, ...props }: Props) {
+  return <button {...props} className={buttonStyles({ mode, class: props.className })}>
+    {label}
+  </button>
+}
 
 export default AuthButton;

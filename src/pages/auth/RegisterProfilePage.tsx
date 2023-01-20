@@ -11,7 +11,7 @@ import { db, storage } from "@/firebase";
 import { uuidv4 } from "@firebase/util";
 import { resizeImage320 } from "@/helpers/image/image-resizer";
 
-const RegisterProfilePage = () => {
+function RegisterProfilePage() {
   const [image, setImage] = useState<File>();
   const location = useLocation();
   const user: User = location.state?.user;
@@ -21,7 +21,6 @@ const RegisterProfilePage = () => {
   useEffect(() => {
     if (!user) {
       navigate("/register", { replace: true });
-      return;
     }
   }, [user, navigate]);
 
@@ -85,6 +84,6 @@ const RegisterProfilePage = () => {
       </div>
     </main>
   );
-};
+}
 
 export default RegisterProfilePage;

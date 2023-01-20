@@ -9,15 +9,15 @@ interface NavHeaderProps {
   paddingBot?: string;
 }
 
-const NavLayout = ({
+function NavLayout({
   title,
   children,
   paddingTop = "1rem",
   paddingBot = "1rem",
-}: NavHeaderProps) => {
+}: NavHeaderProps) {
   const navigate = useNavigate();
   return (
-    <Fragment>
+    <>
       <header>
         <nav className="flex items-center gap-3 p-2">
           <Link
@@ -39,8 +39,8 @@ const NavLayout = ({
         className="mx-auto h-full max-w-sm font-roboto">
         {children}
       </main>
-    </Fragment>
+    </>
   );
-};
+}
 
 export default NavLayout;

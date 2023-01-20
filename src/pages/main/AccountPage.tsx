@@ -15,7 +15,7 @@ import { logout } from "@/store/auth-thunks";
 import { RootState } from "@/store/store";
 import AvatarImg from "@/assets/avatar.png";
 
-const AccountPage = () => {
+function AccountPage() {
   const currentUser = useSelector((state: RootState) => state.auth.user);
   const navigate = useNavigate();
 
@@ -50,7 +50,7 @@ const AccountPage = () => {
           alt="Pengguna yang sedang log in"
         />
         <figcaption className="mt-2 font-semibold">
-          {userData?.firstname + " " + userData?.lastname}
+          {`${userData?.firstname} ${userData?.lastname}`}
         </figcaption>
       </figure>
       <section className="mt-1 p-2">
@@ -81,6 +81,6 @@ const AccountPage = () => {
       </section>
     </NavLayout>
   );
-};
+}
 
 export default AccountPage;

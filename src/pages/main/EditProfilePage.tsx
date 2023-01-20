@@ -12,7 +12,7 @@ import TextInput from "@/components/TextInput";
 import accountFetcher from "@/helpers/firebase/accountFetcher";
 import { resizeImage320 } from "@/helpers/image/image-resizer";
 import { noemptyValidationFn } from "@/helpers/validation-function/productInputValidation";
-import { useInput } from "@/hooks/useInput";
+import useInput from "@/hooks/useInput";
 import NavLayout from "@/layout/NavLayout";
 import Account from "@/models/account";
 import { RootState } from "@/store/store";
@@ -22,7 +22,7 @@ import { doc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import AccountButton from "@/components/base/buttons/AccountButton";
 
-const EditProfilePage = () => {
+function EditProfilePage() {
   const [image, setImage] = useState<File>();
   const navigate = useNavigate();
 
@@ -121,10 +121,10 @@ const EditProfilePage = () => {
           label="Phone Number"
           {...phoneProps}
         />
-        <AccountButton label="SIMPAN" centered={true} />
+        <AccountButton type="submit" label="SIMPAN" centered />
       </form>
     </NavLayout>
   );
-};
+}
 
 export default EditProfilePage;

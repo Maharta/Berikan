@@ -1,5 +1,6 @@
 const timeSince = (date: Date | string, lang: string = "en") => {
   if (typeof date !== "object") {
+    // eslint-disable-next-line no-param-reassign
     date = new Date(date);
   }
 
@@ -38,7 +39,7 @@ const timeSince = (date: Date | string, lang: string = "en") => {
     intervalType += "s";
   }
 
-  return interval + " " + intervalType;
+  return `${interval} ${intervalType}`;
 };
 
 export default timeSince;
