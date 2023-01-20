@@ -9,11 +9,11 @@ interface LocationButtonProps {
   onGetPosition?: Dispatch<SetStateAction<Position>>;
 }
 
-const LocationButton = ({ onGetPosition }: LocationButtonProps) => {
+function LocationButton({ onGetPosition }: LocationButtonProps) {
   const map = useMap();
 
   useEffect(() => {
-    if (!map) return;
+    if (!map) return undefined;
     const button = L.easyButton(
       `<div class="location-icon">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
@@ -23,7 +23,7 @@ const LocationButton = ({ onGetPosition }: LocationButtonProps) => {
       </div>
      `,
       () => {
-        map.locate().on("locationfound", function (e) {
+        map.locate().on("locationfound", (e) => {
           map.flyTo(e.latlng, map.getZoom());
           if (onGetPosition) {
             onGetPosition(e.latlng);
@@ -40,6 +40,6 @@ const LocationButton = ({ onGetPosition }: LocationButtonProps) => {
   }, [map, onGetPosition]);
 
   return null;
-};
+}
 
 export default LocationButton;

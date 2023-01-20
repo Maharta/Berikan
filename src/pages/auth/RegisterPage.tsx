@@ -1,4 +1,4 @@
-import { useInput } from "@/hooks/useInput";
+import useInput from "@/hooks/useInput";
 import emailValidationFn from "@/helpers/validation-function/emailValidationFn";
 import passwordValidationFn from "@/helpers/validation-function/passwordValidationFn";
 import TextInput from "@/components/TextInput";
@@ -10,10 +10,9 @@ import { useNavigate } from "react-router-dom";
 export const confirmPassValidationFn = (
   password: string,
   confirmPassword: string
-) => {
-  return password === confirmPassword;
-};
+) => password === confirmPassword;
 
+// eslint-disable-next-line import/no-mutable-exports
 export let firstStepStorage = {
   email: "",
   password: "",
@@ -21,7 +20,7 @@ export let firstStepStorage = {
   isValid: false,
 };
 
-const RegisterPage = () => {
+function RegisterPage() {
   const [emailState, emailProps] = useInput(
     emailValidationFn,
     firstStepStorage.email
@@ -104,6 +103,6 @@ const RegisterPage = () => {
       </section>
     </div>
   );
-};
+}
 
 export default RegisterPage;

@@ -20,11 +20,10 @@ interface ModalProps {
   onClose: () => void;
 }
 
-const Modal = ({ children, isOpen, onClose }: ModalProps) => {
+function Modal({ children, isOpen, onClose }: ModalProps) {
   const onKeydownHandler = (e: KeyboardEvent) => {
     if (e.key === "Escape") {
       onClose();
-      console.log("escape button clicked");
     }
   };
   useEventListener("keydown", onKeydownHandler);
@@ -45,9 +44,16 @@ const Modal = ({ children, isOpen, onClose }: ModalProps) => {
       </Card>
       <div
         onClick={onClose}
-        className="fixed inset-0 z-[9000] bg-overlayBlack"></div>
+        role="button"
+        aria-label="close modal"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === "Escape" || e.key === "Enter") onClose();
+        }}
+        className="fixed inset-0 z-[9000] bg-overlayBlack"
+      />
     </ModalPortal>
   );
-};
+}
 
 export default Modal;

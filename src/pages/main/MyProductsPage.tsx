@@ -12,12 +12,11 @@ import { useSelector } from "react-redux";
 import MyProductItem from "@/components/product/MyProductItem";
 import { db } from "@/firebase";
 import NavLayout from "@/layout/NavLayout";
-import Product, { FirestoreProduct } from "@/models/product";
+import Product, { transformToProduct } from "@/models/product";
 import { RootState } from "@/store/store";
 import { useCallback } from "react";
 
 const myProductsFetcher = (uid: string) => {
-  console.log(uid);
   const productRef = collection(db, "item");
   const q = query(
     productRef,
@@ -27,7 +26,7 @@ const myProductsFetcher = (uid: string) => {
   return getDocs(q);
 };
 
-const MyProductsPage = () => {
+function MyProductsPage() {
   const currentUser = useSelector((state: RootState) => state.auth.user);
 
   const {
@@ -40,18 +39,12 @@ const MyProductsPage = () => {
     queryFn: () => myProductsFetcher(currentUser!.uid),
     refetchOnWindowFocus: false,
     select: useCallback((snapshot: QuerySnapshot<DocumentData>) => {
-      //used usecallback so it doesn't rerun unless data changed.
-      let myProducts: Product[] = [];
+      // used usecallback so it doesn't rerun unless data changed.
+      const products: Product[] = [];
       snapshot.forEach((productSnap) => {
-        const productData = productSnap.data() as FirestoreProduct;
-        const transformedData = {
-          ...productData,
-          id: productSnap.id,
-          updated_at: productData.updated_at.toDate(),
-        };
-        myProducts.push(transformedData);
+        products.push(transformToProduct(productSnap));
       });
-      return myProducts;
+      return products;
     }, []),
   });
 
@@ -71,6 +64,6 @@ const MyProductsPage = () => {
       )}
     </NavLayout>
   );
-};
+}
 
 export default MyProductsPage;

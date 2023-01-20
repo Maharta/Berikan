@@ -10,21 +10,19 @@ interface CustomMarkerProps {
   popupText?: string;
 }
 
-const CustomMarker = ({
+function CustomMarker({
   draggable,
   position,
   popupText,
   onGetPositionHandler,
-}: CustomMarkerProps) => {
+}: CustomMarkerProps) {
   const markerRef = useRef<MarkerInstance>(null);
 
   useEffect(() => {
     if (markerRef.current) {
       markerRef.current.openPopup();
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [markerRef.current]);
-  // this is fine since leaflet doesn't rely on re-render to open popup
+  }, []);
 
   const eventHandlers = useMemo(
     () => ({
@@ -55,6 +53,6 @@ const CustomMarker = ({
       </Popup>
     </Marker>
   );
-};
+}
 
 export default CustomMarker;

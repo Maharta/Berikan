@@ -1,12 +1,13 @@
 import ProductItem from "@/components/product/ProductItem";
 import useAllProducts from "@/hooks/useAllProducts";
 import NavLayout from "@/layout/NavLayout";
-import Product, { FirestoreProduct } from "@/models/product";
-import { useEffect } from "react";
+import Product, { transformToProduct } from "@/models/product";
+import { DocumentData, QuerySnapshot } from "firebase/firestore";
+import { useCallback, useEffect } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 
-const SearchResultsPage = () => {
-  let [searchParams] = useSearchParams();
+function SearchResultsPage() {
+  const [searchParams] = useSearchParams();
   const query = searchParams.get("query");
 
   const navigate = useNavigate();
@@ -19,27 +20,25 @@ const SearchResultsPage = () => {
 
   const { data: searchResults } = useAllProducts(
     { refetchOnMount: true },
-    (querySnapshot) => {
-      const products: Product[] = [];
-      querySnapshot.forEach((snapshot) => {
-        const data = snapshot.data() as FirestoreProduct;
-        const transformed = {
-          id: snapshot.id,
-          ...data,
-          updated_at: data.updated_at.toDate(),
-        };
-        products.push(transformed);
-      });
-      return products.filter((product) => {
-        if (query) {
-          return product.name
-            .toLowerCase()
-            .trim()
-            .includes(query.trim().toLowerCase());
-        }
-        return true;
-      });
-    }
+    useCallback(
+      (querySnapshot: QuerySnapshot<DocumentData>) => {
+        const products: Product[] = [];
+        querySnapshot.forEach((snapshot) => {
+          const transformed = transformToProduct(snapshot);
+          products.push(transformed);
+        });
+        return products.filter((product) => {
+          if (query) {
+            return product.name
+              .toLowerCase()
+              .trim()
+              .includes(query.trim().toLowerCase());
+          }
+          return true;
+        });
+      },
+      [query]
+    )
   );
 
   return (
@@ -58,6 +57,6 @@ const SearchResultsPage = () => {
       )}
     </NavLayout>
   );
-};
+}
 
 export default SearchResultsPage;

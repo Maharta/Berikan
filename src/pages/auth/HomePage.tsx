@@ -1,7 +1,7 @@
 import AuthButton from "@/components/base/buttons/AuthButton";
 import { useNavigate } from "react-router-dom";
 
-const HomePage = () => {
+function HomePage() {
   const navigate = useNavigate();
   return (
     <div className="gradient-background p-5">
@@ -25,6 +25,6 @@ const HomePage = () => {
       </section>
     </div>
   );
-};
+}
 
 export default HomePage;

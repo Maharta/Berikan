@@ -17,11 +17,11 @@ interface FloatingButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   horizontal: HorizontalPosition;
 }
 
-const FloatingButton = ({
+function FloatingButton({
   horizontal,
   vertical,
   ...props
-}: FloatingButtonProps) => {
+}: FloatingButtonProps) {
   const verticalClasses = {
     [VerticalPosition.Top]: "top-0",
     [VerticalPosition.Center]: "top-[50%] translate-y-[-50%]",
@@ -34,19 +34,14 @@ const FloatingButton = ({
     [HorizontalPosition.Right]: "right-0",
   };
 
-  const floatingButtonClasses =
-    verticalClasses[vertical] +
-    " " +
-    horizontalClasses[horizontal] +
-    " " +
-    props.className;
+  const floatingButtonClasses = `${verticalClasses[vertical]} ${horizontalClasses[horizontal]} ${props.className}`;
 
   return (
     <button
-      className={`bg-primary text-white px-4 py-2 rounded-full fixed ${floatingButtonClasses}`}>
+      className={`fixed rounded-full bg-primary px-4 py-2 text-white ${floatingButtonClasses}`}>
       {props.children}
     </button>
   );
-};
+}
 
 export default FloatingButton;

@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { useDispatch } from "react-redux";
+import { onAuthStateChanged } from "firebase/auth";
 import authReducer, { authActions } from "./auth-slice";
 import modalReducer from "./modal-slice";
-import { useDispatch } from "react-redux";
 import { auth } from "../firebase";
-import { onAuthStateChanged } from "firebase/auth";
 
 const store = configureStore({
   reducer: {
@@ -14,7 +14,6 @@ const store = configureStore({
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    console.log("auth state change -> there is a user");
     store.dispatch(authActions.setLoggedInUser(user.toJSON()));
   } else {
     store.dispatch(authActions.setLoggedInUser(null));

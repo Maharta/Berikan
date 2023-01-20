@@ -9,11 +9,10 @@ interface ErrorModalProps {
   onClose: () => void;
 }
 
-const ErrorModal = ({ children, isOpen, onClose }: ErrorModalProps) => {
+function ErrorModal({ children, isOpen, onClose }: ErrorModalProps) {
   const onKeydownHandler = (e: KeyboardEvent) => {
     if (e.key === "Escape") {
       onClose();
-      console.log("escape button clicked");
     }
   };
   useEventListener("keydown", onKeydownHandler);
@@ -37,11 +36,19 @@ const ErrorModal = ({ children, isOpen, onClose }: ErrorModalProps) => {
         </div>
         <div className="grid place-content-center">{children}</div>
       </Card>
+
       <div
+        role="button"
+        tabIndex={0}
+        aria-label="close modal"
         onClick={onClose}
-        className="fixed inset-0 z-[9000] bg-overlayBlack"></div>
+        className="fixed inset-0 z-[9000] bg-overlayBlack"
+        onKeyDown={(e) => {
+          if (e.key === "Enter") onClose();
+        }}
+      />
     </ModalPortal>
   );
-};
+}
 
 export default ErrorModal;

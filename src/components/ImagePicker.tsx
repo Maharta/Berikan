@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import { CameraIcon } from "@heroicons/react/20/solid";
 import { cva, VariantProps } from "cva";
 import { useRef, useState, memo } from "react";
@@ -41,7 +43,7 @@ interface StyleProps
 
 interface Props extends ImagePickerProps, StyleProps {}
 
-const ImagePicker = ({ onAddFile, index, type, initialImage }: Props) => {
+function ImagePicker({ onAddFile, index, type, initialImage }: Props) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const [preview, setPreview] = useState<string>("");
 
@@ -76,8 +78,7 @@ const ImagePicker = ({ onAddFile, index, type, initialImage }: Props) => {
         }}
       />
       {type === "avatar" && (
-        <div
-          className={`absolute bottom-2 right-1 w-max rounded-[50%] bg-gray-600 p-2`}>
+        <div className="absolute bottom-2 right-1 w-max rounded-[50%] bg-gray-600 p-2">
           <CameraIcon
             onClick={() => {
               fileInputRef.current?.click();
@@ -96,6 +97,6 @@ const ImagePicker = ({ onAddFile, index, type, initialImage }: Props) => {
       />
     </div>
   );
-};
+}
 
 export default memo(ImagePicker);

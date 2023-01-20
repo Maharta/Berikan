@@ -1,11 +1,11 @@
 import { Outlet } from "react-router-dom";
 
-const AuthRouteWrapper = () => {
+function AuthRouteWrapper() {
   return (
     <main>
       <Outlet />
     </main>
   );
-};
+}
 
 export default AuthRouteWrapper;

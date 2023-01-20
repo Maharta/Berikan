@@ -7,9 +7,9 @@ interface MainHeaderProps {
   children: ReactNode;
 }
 
-const MainLayout = ({ children }: MainHeaderProps) => {
+function MainLayout({ children }: MainHeaderProps) {
   return (
-    <Fragment>
+    <>
       <header className="flex justify-start p-2">
         <SearchInput />
         <nav>
@@ -23,8 +23,8 @@ const MainLayout = ({ children }: MainHeaderProps) => {
         </nav>
       </header>
       <main className="px-4">{children}</main>
-    </Fragment>
+    </>
   );
-};
+}
 
 export default MainLayout;

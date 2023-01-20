@@ -25,7 +25,7 @@ const arrowStyles = cva(
   }
 );
 
-const ImageCarousel = ({ images, className }: ImageCarouselProps) => {
+function ImageCarousel({ images, className }: ImageCarouselProps) {
   const [index, setIndex] = useState(0);
 
   const touchStartRef = useRef(0);
@@ -36,15 +36,14 @@ const ImageCarousel = ({ images, className }: ImageCarouselProps) => {
       setIndex(0);
       return;
     }
-    setIndex((index) => index + 1);
+    setIndex((currIndex) => currIndex + 1);
   };
 
   const goToPrev = () => {
     if (index === 0) {
       setIndex(images.length - 1);
-      return;
     } else {
-      setIndex((index) => index - 1);
+      setIndex((currIndex) => currIndex - 1);
     }
   };
 
@@ -56,7 +55,7 @@ const ImageCarousel = ({ images, className }: ImageCarouselProps) => {
     touchEndRef.current = e.targetTouches[0].clientX;
   };
 
-  const touchEndHandler = (e: React.TouchEvent<HTMLDivElement>) => {
+  const touchEndHandler = () => {
     const touchStart = touchStartRef.current;
     const touchEnd = touchEndRef.current;
     if (touchStart - touchEnd > 100) {
@@ -82,7 +81,8 @@ const ImageCarousel = ({ images, className }: ImageCarouselProps) => {
           height: "100%",
           backgroundSize: "cover",
           backgroundPosition: "center",
-        }}></div>
+        }}
+      />
       <button onClick={goToPrev} className={arrowStyles({ mode: "left" })}>
         &lsaquo;
       </button>
@@ -92,15 +92,17 @@ const ImageCarousel = ({ images, className }: ImageCarouselProps) => {
       <div className="absolute bottom-2 left-[50%] flex h-6 w-[40%] translate-x-[-50%] cursor-pointer items-center justify-center gap-2 rounded-full bg-white/25">
         {images.map((_, idx) => (
           <div
+            // eslint-disable-next-line react/no-array-index-key
             key={idx}
             style={{
               backgroundColor: idx === index ? "black" : "gray",
             }}
-            className="h-4 w-4 rounded-[50%]"></div>
+            className="h-4 w-4 rounded-[50%]"
+          />
         ))}
       </div>
     </div>
   );
-};
+}
 
 export default ImageCarousel;

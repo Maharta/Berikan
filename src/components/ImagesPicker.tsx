@@ -6,17 +6,15 @@ interface ImagesPickerProps extends HTMLAttributes<HTMLDivElement> {
   onImagesChanged: (imageArrays: File[]) => void;
 }
 
-const ImagesPicker = ({
+function ImagesPicker({
   numberOfImages,
   onImagesChanged,
   ...props
-}: ImagesPickerProps) => {
+}: ImagesPickerProps) {
   const [imageArrays, setImageArrays] = useState<File[]>([]);
 
   const onAddImageHandler = useCallback(
     (img: File, index?: number) => {
-      console.log(imageArrays[index!]);
-      console.log(index);
       const newArray = [...imageArrays];
       newArray[index!] = img;
       setImageArrays(newArray);
@@ -40,6 +38,6 @@ const ImagesPicker = ({
       ))}
     </div>
   );
-};
+}
 
 export default ImagesPicker;

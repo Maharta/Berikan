@@ -1,7 +1,6 @@
 import { FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { firstStepStorage } from "./RegisterPage";
-import { useInput } from "@/hooks/useInput";
+import useInput from "@/hooks/useInput";
 import TextInput from "@/components/TextInput";
 import AuthButton from "@/components/base/buttons/AuthButton";
 import ActionLink from "@/components/base/buttons/ActionLink";
@@ -10,12 +9,11 @@ import { register } from "@/store/auth-thunks";
 import { useSelector } from "react-redux";
 import { MutatingDots } from "react-loader-spinner";
 import { noemptyValidationFn } from "@/helpers/validation-function/productInputValidation";
+import { firstStepStorage } from "./RegisterPage";
 
-const noEmptyValidationFn = (value: string) => {
-  return value.trim().length !== 0;
-};
+const noEmptyValidationFn = (value: string) => value.trim().length !== 0;
 
-const RegisterContinuePage = () => {
+function RegisterContinuePage() {
   const navigate = useNavigate();
   const { isLoading, error, user } = useSelector(
     (state: RootState) => state.auth
@@ -54,7 +52,7 @@ const RegisterContinuePage = () => {
     if (user) {
       navigate("/register-profile", {
         state: {
-          user: user,
+          user,
         },
         replace: true,
       });
@@ -74,7 +72,7 @@ const RegisterContinuePage = () => {
             ariaLabel="mutating-dots-loading"
             wrapperStyle={{}}
             wrapperClass=""
-            visible={true}
+            visible
           />
         </div>
       </div>
@@ -83,7 +81,7 @@ const RegisterContinuePage = () => {
 
   return (
     <div className="gradient-background">
-      {error && <h1>{error}</h1>}
+      {error && <h1>{error.message}</h1>}
       <section className="flex flex-col items-center">
         <h1 className="mt-20 mb-9 text-4xl font-medium">Sedikit Lagi</h1>
         <form onSubmit={submitFormHandler} className="w-full">
@@ -94,7 +92,9 @@ const RegisterContinuePage = () => {
             placeholder="John"
             className="mb-3"
             isInvalid={firstNameState.isInputInvalid}
-            {...firstNameProps}
+            value={firstNameProps.value}
+            onChange={firstNameProps.onChange}
+            onBlur={firstNameProps.onBlur}
           />
           <TextInput
             id="lastName"
@@ -103,7 +103,9 @@ const RegisterContinuePage = () => {
             placeholder="Doe"
             className="mb-3"
             isInvalid={lastNameState.isInputInvalid}
-            {...lastNameProps}
+            value={lastNameProps.value}
+            onChange={lastNameProps.onChange}
+            onBlur={lastNameProps.onBlur}
           />
           <TextInput
             id="phone"
@@ -113,7 +115,9 @@ const RegisterContinuePage = () => {
             pattern="^(\+)[0-9]{8,15}"
             className="mb-3"
             isInvalid={phoneState.isInputInvalid}
-            {...phoneProps}
+            value={phoneProps.value}
+            onChange={phoneProps.onChange}
+            onBlur={phoneProps.onBlur}
           />
           <AuthButton
             label="SELESAI"
@@ -126,6 +130,6 @@ const RegisterContinuePage = () => {
       </section>
     </div>
   );
-};
+}
 
 export default RegisterContinuePage;

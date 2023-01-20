@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { MutatingDots } from "react-loader-spinner";
+import { lazy, Suspense } from "react";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { RootState } from "./store/store";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
-import { lazy, Suspense } from "react";
 import AuthRouteWrapper from "./layout/AuthRouteWrapper";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import MyProductsPage from "./pages/main/MyProductsPage";
 
 const HomePage = lazy(() => import("./pages/auth/HomePage"));
@@ -43,12 +43,11 @@ function App() {
           ariaLabel="mutating-dots-loading"
           wrapperStyle={{}}
           wrapperClass="centered"
-          visible={true}
+          visible
         />
       </div>
     );
   }
-
   return (
     <Suspense
       fallback={
@@ -70,7 +69,7 @@ function App() {
           </Route>
           <Route path="/register-continue" element={<RegisterContinuePage />} />
         </Route>
-        {/*ContinueRegister Already has navigation guards built in, preventing redirect to main after user register*/}
+        {/* ContinueRegister Already has navigation guards built in, preventing redirect to main after user register */}
         <Route element={<ProtectedRoute isAllowed={!!user} />}>
           <Route path="/register-profile" element={<RegisterProfilePage />} />
           <Route path="/" element={<MainPage />} />

@@ -8,7 +8,7 @@ interface ProductItemProps extends HTMLAttributes<HTMLDivElement> {
   product: Product;
 }
 
-const ProductItem = ({ product, ...props }: ProductItemProps) => {
+function ProductItem({ product, ...props }: ProductItemProps) {
   const navigate = useNavigate();
 
   const onClickHandler = () => {
@@ -38,6 +38,6 @@ const ProductItem = ({ product, ...props }: ProductItemProps) => {
       </div>
     </Card>
   );
-};
+}
 
 export default ProductItem;

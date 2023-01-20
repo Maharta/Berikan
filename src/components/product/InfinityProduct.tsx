@@ -6,25 +6,23 @@ import {
   query,
   startAfter,
 } from "firebase/firestore";
-import React, { Fragment, useCallback, useRef } from "react";
+import React, { useCallback, useRef } from "react";
 import Product, { FirestoreProduct } from "@/models/product";
 import CardCarousel from "../CardCarousel";
 import ProductItem from "./ProductItem";
 
-const infinityProductFetcher = async (query: Query<DocumentData>) => {
-  return getDocs(query);
-};
+const infinityProductFetcher = async (q: Query<DocumentData>) => getDocs(q);
 
 interface InfinityProductProps {
   q: Query<DocumentData>;
 }
 
-const InfinityProduct = ({ q }: InfinityProductProps) => {
+function InfinityProduct({ q }: InfinityProductProps) {
   const { data, isLoading, isError, error, fetchNextPage } = useInfiniteQuery({
     queryKey: ["products"],
     queryFn: ({ pageParam = q }) => infinityProductFetcher(pageParam),
     getNextPageParam: (lastPageSnapshot) => {
-      if (!lastPageSnapshot.docs.length) return;
+      if (!lastPageSnapshot.docs.length) return undefined;
       const lastDocument =
         lastPageSnapshot.docs[lastPageSnapshot.docs.length - 1];
       return query(q, startAfter(lastDocument));
@@ -42,8 +40,6 @@ const InfinityProduct = ({ q }: InfinityProductProps) => {
           isFetchingRef.current = true;
           await fetchNextPage();
           isFetchingRef.current = false;
-        } else {
-          return;
         }
       }
     },
@@ -79,14 +75,12 @@ const InfinityProduct = ({ q }: InfinityProductProps) => {
   }
 
   return (
-    <Fragment>
-      <CardCarousel onScroll={onScrollHandler}>
-        {products?.map((product) => (
-          <ProductItem key={product.id} product={product} />
-        ))}
-      </CardCarousel>
-    </Fragment>
+    <CardCarousel onScroll={onScrollHandler}>
+      {products?.map((product) => (
+        <ProductItem key={product.id} product={product} />
+      ))}
+    </CardCarousel>
   );
-};
+}
 
 export default InfinityProduct;

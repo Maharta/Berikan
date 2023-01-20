@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export const useInput = (
+const useInput = (
   validateFn: (value: string) => boolean,
   initialValue = ""
 ): [
@@ -43,3 +43,5 @@ export const useInput = (
     { value, onChange, onBlur },
   ];
 };
+
+export default useInput;

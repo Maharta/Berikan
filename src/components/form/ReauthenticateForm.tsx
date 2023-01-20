@@ -2,13 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import { EmailAuthProvider, reauthenticateWithCredential } from "firebase/auth";
 import { auth } from "@/firebase";
 import passwordValidationFn from "@/helpers/validation-function/passwordValidationFn";
-import { useInput } from "@/hooks/useInput";
+import useInput from "@/hooks/useInput";
 import { modalActions } from "@/store/modal-slice";
 import { useAppDispatch } from "@/store/store";
 import AuthButton from "../base/buttons/AuthButton";
 import TextInput from "../TextInput";
 
-const ReauthenticateForm = () => {
+function ReauthenticateForm() {
   const user = auth.currentUser!;
   const dispatch = useAppDispatch();
 
@@ -18,9 +18,8 @@ const ReauthenticateForm = () => {
     passwordProps.value
   );
 
-  const reauthenticateHandler = () => {
-    return reauthenticateWithCredential(user, credential);
-  };
+  const reauthenticateHandler = () =>
+    reauthenticateWithCredential(user, credential);
 
   const { isFetching, error, refetch } = useQuery({
     queryKey: ["reauthenticate"],
@@ -36,11 +35,9 @@ const ReauthenticateForm = () => {
 
   return (
     <div>
-      <label
-        htmlFor="reauthenticate-form"
-        className="mb-4 inline-block w-full text-center text-xl font-bold">
+      <strong className="mb-4 inline-block w-full text-center text-xl">
         Buktikan bahwa ini anda
-      </label>
+      </strong>
       <form onSubmit={() => refetch()} id="reauthenticate-form">
         <TextInput
           type="password"
@@ -62,6 +59,6 @@ const ReauthenticateForm = () => {
       </form>
     </div>
   );
-};
+}
 
 export default ReauthenticateForm;

@@ -18,7 +18,7 @@ function getProductDetail(id: string) {
   return getDoc(docRef);
 }
 
-const ProductDetailPage = () => {
+function ProductDetailPage() {
   const { id } = useParams();
 
   const {
@@ -111,6 +111,6 @@ const ProductDetailPage = () => {
       </div>
     </NavLayout>
   );
-};
+}
 
 export default ProductDetailPage;

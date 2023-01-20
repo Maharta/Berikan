@@ -13,7 +13,7 @@ const inputStyles = cva(
   "border-2 mx-auto block w-full max-w-xs p-2 rounded-sm"
 );
 
-const TextInput = ({
+function TextInput({
   id,
   label,
   type,
@@ -21,7 +21,7 @@ const TextInput = ({
   className,
   inputClass,
   ...inputProps
-}: TextInputProps) => {
+}: TextInputProps) {
   return (
     <div className={className}>
       <label className="my-0 mx-auto block w-full max-w-xs" htmlFor={id}>
@@ -38,6 +38,6 @@ const TextInput = ({
       />
     </div>
   );
-};
+}
 
 export default TextInput;

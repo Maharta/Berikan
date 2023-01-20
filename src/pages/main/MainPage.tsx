@@ -16,27 +16,25 @@ const infinityProductQuery = query(
   limit(5)
 );
 
-const MainPage = () => {
-  return (
-    <>
-      <MainLayout>
-        <section aria-label="baru ditambahkan">
-          <h1 className="ml-1 text-xl font-bold">Baru Ditambahkan</h1>
-          <NewProducts />
-        </section>
-        <section aria-label="semua barang">
-          <h1 className="ml-1 text-xl font-bold">Semua Barang</h1>
-          <InfinityProduct q={infinityProductQuery} />
-        </section>
-      </MainLayout>
-      <FloatingButton
-        horizontal={HorizontalPosition.Right}
-        vertical={VerticalPosition.Bottom}
-        className="mr-3 mb-3">
-        <Link to="/add-item">+ TAMBAH</Link>
-      </FloatingButton>
-    </>
-  );
-};
+function MainPage() {
+  return <>
+    <MainLayout>
+      <section aria-label="baru ditambahkan">
+        <h1 className="ml-1 text-xl font-bold">Baru Ditambahkan</h1>
+        <NewProducts />
+      </section>
+      <section aria-label="semua barang">
+        <h1 className="ml-1 text-xl font-bold">Semua Barang</h1>
+        <InfinityProduct q={infinityProductQuery} />
+      </section>
+    </MainLayout>
+    <FloatingButton
+      horizontal={HorizontalPosition.Right}
+      vertical={VerticalPosition.Bottom}
+      className="mr-3 mb-3">
+      <Link to="/add-item">+ TAMBAH</Link>
+    </FloatingButton>
+  </>
+}
 
 export default MainPage;
