@@ -9,6 +9,7 @@ import { register } from "@/store/auth-thunks";
 import { useSelector } from "react-redux";
 import { MutatingDots } from "react-loader-spinner";
 import { noemptyValidationFn } from "@/helpers/validation-function/productInputValidation";
+import { authActions } from "@/store/auth-slice";
 import { firstStepStorage } from "./RegisterPage";
 
 const noEmptyValidationFn = (value: string) => value.trim().length !== 0;
@@ -124,7 +125,10 @@ function RegisterContinuePage() {
             className="mx-auto mt-5 block text-center"
           />
         </form>
-        <ActionLink to="/register" className="mt-7 text-lg">
+        <ActionLink
+          onClick={() => dispatch(authActions.resetError())}
+          to="/register"
+          className="mt-7 text-lg">
           KEMBALI
         </ActionLink>
       </section>
