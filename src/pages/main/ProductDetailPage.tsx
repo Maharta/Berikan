@@ -1,19 +1,38 @@
+/* eslint-disable no-useless-escape */
 import { useQuery } from "@tanstack/react-query";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import ImageCarousel from "@/components/ImageCarousel";
 import LeafletMap from "@/components/map/LeafletMap";
 import OwnerAvatar from "@/components/product/OwnerAvatar";
 import NavLayout from "@/layout/NavLayout";
-import Product from "@/models/product";
+import { transformToProduct } from "@/models/product";
 import accountFetcher from "@/helpers/firebase/accountFetcher";
 import AvatarImg from "@/assets/avatar.png";
 import { ReactComponent as WhatsappLogo } from "@/assets/whatsapp.svg";
 import Account from "@/models/account";
-const ProductDetailPage = () => {
-  const location = useLocation();
-  const product = location.state as Product;
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "@/firebase";
 
-  const images = product.images.map((image) => ({
+function getProductDetail(id: string) {
+  const docRef = doc(db, "item", id);
+  return getDoc(docRef);
+}
+
+const ProductDetailPage = () => {
+  const { id } = useParams();
+
+  const {
+    isLoading: isProductLoading,
+    data: product,
+    isError: isProductError,
+    error: productError,
+  } = useQuery({
+    queryKey: ["product", id],
+    queryFn: () => getProductDetail(id!),
+    select: (snapshot) => transformToProduct(snapshot),
+  });
+
+  const images = product?.images.map((image: string) => ({
     name: product.name,
     url: image,
   }));
@@ -24,9 +43,10 @@ const ProductDetailPage = () => {
     error,
     isError,
   } = useQuery({
-    queryKey: ["product-owner", product.ownerId],
-    queryFn: () => accountFetcher(product.ownerId),
+    queryKey: ["product-owner", product?.ownerId],
+    queryFn: () => accountFetcher(product?.ownerId!),
     select: (snapshot) => snapshot.data() as Account,
+    enabled: !!product,
   });
 
   if (isLoading) {
@@ -40,21 +60,23 @@ const ProductDetailPage = () => {
     return <div>Something went wrong..</div>;
   }
 
+  if (!product) {
+    return <p>Barang dengan URL yang anda ketik tidak ditemukan..</p>;
+  }
+
   return (
     <NavLayout paddingBot="0" paddingTop="0.5rem" title="Detail Barang">
-      <ImageCarousel className="h-72 w-full" images={images} />
+      <ImageCarousel className="h-72 w-full" images={images!} />
       <div className="mt-2 px-2">
-        <h1 className="text-lg font-bold">{product.name}</h1>
-        <p>{product.description}</p>
+        <h1 className="text-lg font-bold">{product?.name}</h1>
+        <p>{product?.description}</p>
         <div className="mb-3">
-          <label className="mb-1 block text-lg font-bold" htmlFor="map">
-            Peta Barang
-          </label>
+          <h2 className="mb-1 block text-lg font-bold">Peta Barang</h2>
           <LeafletMap
             editable={false}
             id="map"
-            position={product.position}
-            popupText={product.address}
+            position={product?.position}
+            popupText={product?.address}
           />
         </div>
         {ownerData && (
@@ -69,14 +91,15 @@ const ProductDetailPage = () => {
               />
             </div>
             <div className="col-span-2 self-end">
-              Diiklankan {product.updated_at?.toISOString().split("T")[0]}
+              Diiklankan {product?.updated_at?.toISOString().split("T")[0]}
             </div>
             <div className="col-span-2 self-start">
-              {ownerData.firstname + " " + ownerData.lastname}
+              {`${ownerData.firstname} ${ownerData.lastname}`}
             </div>
             <div className="col-span-3 self-center text-center">
               <a
-                href={`https://wa.me/${ownerData.phone_number}`}
+                href={`https://wa.me/${ownerData.phone_number}?text=Halo! saya tertarik dengan barang ini:
+                https://berikan.web.app/product/${id}, apakah masih ada\?`}
                 className="flex w-full cursor-pointer items-center justify-center bg-whatsappGreen py-2 font-bold 
                 tracking-normal text-white hover:bg-whatsappGreen_light focus:bg-whatsappGreen_light active:bg-whatsappGreen_light">
                 <WhatsappLogo className="mr-1 h-8 w-8" />
