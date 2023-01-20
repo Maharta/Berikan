@@ -21,7 +21,6 @@ function RegisterProfilePage() {
   useEffect(() => {
     if (!user) {
       navigate("/register", { replace: true });
-      
     }
   }, [user, navigate]);
 

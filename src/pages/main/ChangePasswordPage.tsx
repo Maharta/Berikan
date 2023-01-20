@@ -7,7 +7,7 @@ import ReauthenticateForm from "@/components/form/ReauthenticateForm";
 import TextInput from "@/components/TextInput";
 import { auth } from "@/firebase";
 import passwordValidationFn from "@/helpers/validation-function/passwordValidationFn";
-import { useInput } from "@/hooks/useInput";
+import useInput from "@/hooks/useInput";
 import NavLayout from "@/layout/NavLayout";
 import { modalActions } from "@/store/modal-slice";
 import { RootState, useAppDispatch } from "@/store/store";
