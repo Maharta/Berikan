@@ -21,6 +21,7 @@
     "jsx": "react-jsx",
     "types": ["vite-plugin-svgr/client"]
   },
-  "include": ["src", "src/firebase.ts"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "src/**/*.tsx"],
+  "exclude": ["node_modules"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
