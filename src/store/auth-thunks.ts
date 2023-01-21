@@ -19,10 +19,15 @@ interface RegisterCredentials extends LoginCredentials {
   phone_number: string;
 }
 
+export interface CustomError {
+  name: string;
+  message: string;
+}
+
 export const login = createAsyncThunk<
   unknown,
   LoginCredentials,
-  { rejectValue: Error }
+  { rejectValue: CustomError }
 >("auth/login", async ({ email, password }, { rejectWithValue }) => {
   try {
     const { user }: UserCredential = await signInWithEmailAndPassword(
@@ -33,11 +38,15 @@ export const login = createAsyncThunk<
     return user.toJSON();
   } catch (error) {
     if (error instanceof Error) {
-      return rejectWithValue(error);
+      return rejectWithValue({
+        name: error.name,
+        message: error.message,
+      });
     }
-    return rejectWithValue(
-      new Error("Something went wrong when trying to sign you in..")
-    );
+    return rejectWithValue({
+      name: "SIGN_IN_ERROR",
+      message: "Something went wrong when trying to sign you in..",
+    });
   }
 });
 
@@ -52,9 +61,7 @@ export const logout = () => {
 export const register = createAsyncThunk<
   unknown,
   RegisterCredentials,
-  {
-    rejectValue: Error;
-  }
+  { rejectValue: CustomError }
 >(
   "auth/register",
   async (registerArgs: RegisterCredentials, { rejectWithValue }) => {
@@ -74,15 +81,18 @@ export const register = createAsyncThunk<
         created_at: Timestamp.fromDate(new Date()),
       });
 
-      console.log(`document created`);
       return user.toJSON();
     } catch (error) {
       if (error instanceof Error) {
-        return rejectWithValue(error);
+        return rejectWithValue({
+          name: error.name,
+          message: error.message,
+        });
       }
-      return rejectWithValue(
-        new Error("Something went wrong when creating your account..")
-      );
+      return rejectWithValue({
+        name: "REGISTER_ERROR",
+        message: "Something went wrong when creating your account..",
+      });
     }
   }
 );

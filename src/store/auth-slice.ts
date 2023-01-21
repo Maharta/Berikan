@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { User } from "firebase/auth";
-import { login, register } from "./auth-thunks";
+import { CustomError, login, register } from "./auth-thunks";
 
 interface AuthState {
   user: User | null | undefined;
   isLoading: boolean;
-  error?: Error;
+  error?: CustomError;
 }
 
 const initialAuthState: AuthState = {
