@@ -21,7 +21,7 @@ function ReauthenticateForm() {
   const reauthenticateHandler = () =>
     reauthenticateWithCredential(user, credential);
 
-  const { isFetching, error, refetch } = useQuery({
+  const { isFetching, error, isError, refetch } = useQuery({
     queryKey: ["reauthenticate"],
     queryFn: reauthenticateHandler,
     onSuccess: () => dispatch(modalActions.closeModal()),
@@ -48,7 +48,7 @@ function ReauthenticateForm() {
           className="mb-4 w-full"
           inputClass="w-full"
         />
-        {error && error instanceof Error ? (
+        {isError && error instanceof Error ? (
           <label
             className="mb-4 inline-block w-full text-center font-bold"
             htmlFor="reauthenticate-form">

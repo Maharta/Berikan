@@ -6,6 +6,7 @@ import {
   UserCredential,
 } from "firebase/auth";
 import { doc, setDoc, Timestamp } from "firebase/firestore";
+import { toast } from "react-toastify";
 import { auth, db } from "../firebase";
 
 interface LoginCredentials {
@@ -54,7 +55,9 @@ export const logout = () => {
   try {
     signOut(auth);
   } catch (error) {
-    if (error instanceof Error) alert(error.message);
+    toast.error("Gagal melakukan log out...");
+    // eslint-disable-next-line no-console
+    console.log(error);
   }
 };
 

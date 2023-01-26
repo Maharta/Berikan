@@ -15,6 +15,7 @@ import NavLayout from "@/layout/NavLayout";
 import Product, { transformToProduct } from "@/models/product";
 import { RootState } from "@/store/store";
 import { useCallback } from "react";
+import { MutatingDots } from "react-loader-spinner";
 
 const myProductsFetcher = (uid: string) => {
   const productRef = collection(db, "item");
@@ -49,7 +50,16 @@ function MyProductsPage() {
   });
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <MutatingDots wrapperClass="centered" />;
+  }
+
+  if (isError) {
+    return (
+      <div className="centered">
+        <strong>Gagal memuat barang anda.</strong>
+        {error instanceof Error ? <strong>{error.message}</strong> : null}
+      </div>
+    );
   }
 
   return (
