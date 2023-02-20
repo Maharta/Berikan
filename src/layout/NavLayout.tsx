@@ -7,6 +7,7 @@ interface NavHeaderProps {
   children: ReactNode;
   paddingTop?: string;
   paddingBot?: string;
+  backTo?: string;
 }
 
 function NavLayout({
@@ -14,6 +15,7 @@ function NavLayout({
   children,
   paddingTop = "1rem",
   paddingBot = "1rem",
+  backTo = "..",
 }: NavHeaderProps) {
   const navigate = useNavigate();
   return (
@@ -21,7 +23,7 @@ function NavLayout({
       <header>
         <nav className="flex items-center gap-3 p-2">
           <Link
-            to=".."
+            to={backTo}
             onClick={(e) => {
               e.preventDefault();
               navigate(-1);
