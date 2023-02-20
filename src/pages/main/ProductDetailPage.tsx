@@ -106,8 +106,7 @@ function ProductDetailPage() {
             </div>
             <div className="col-span-3 self-center text-center">
               <a
-                href={`https://wa.me/${ownerData.phone_number}?text=Halo! saya tertarik dengan barang ini:
-                https://berikan.web.app/product/${id}, apakah masih ada\?`}
+                href={`https://wa.me/${ownerData.phone_number}?text=Halo! saya tertarik dengan barang ini: https://berikan.web.app/product/${id}, apakah masih ada\?`}
                 className="flex w-full cursor-pointer items-center justify-center bg-whatsappGreen py-2 font-bold 
                 tracking-normal text-white hover:bg-whatsappGreen_light focus:bg-whatsappGreen_light active:bg-whatsappGreen_light">
                 <WhatsappLogo className="mr-1 h-8 w-8" />

@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { User } from "firebase/auth";
+import { toast } from "react-toastify";
 import { CustomError, login, register } from "./auth-thunks";
 
 interface AuthState {
@@ -40,6 +41,16 @@ export const authSlice = createSlice({
     builder.addCase(login.rejected, (state, { payload }) => {
       state.isLoading = false;
       state.error = payload;
+      if (state.error?.message === "Firebase: Error (auth/wrong-password).") {
+        toast.error("Password yang anda ketikkan belum benar.", {
+          toastId: "Login-Error",
+        });
+      } else {
+        toast.error(state.error?.message, {
+          toastId: "Login-Error",
+        });
+      }
+      state.error = undefined;
     });
     builder.addCase(register.fulfilled, (state) => {
       state.isLoading = false;
@@ -52,6 +63,10 @@ export const authSlice = createSlice({
     builder.addCase(register.rejected, (state, { payload }) => {
       state.isLoading = false;
       state.error = payload;
+      toast.error(state.error?.message, {
+        toastId: "Login-Error",
+      });
+      state.error = undefined;
     });
   },
 });

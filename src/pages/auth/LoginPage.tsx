@@ -12,9 +12,7 @@ import { RootState, useAppDispatch } from "@/store/store";
 import { useSelector } from "react-redux";
 
 function LoginPage() {
-  const { error, isLoading, user } = useSelector(
-    (state: RootState) => state.auth
-  );
+  const { isLoading, user } = useSelector((state: RootState) => state.auth);
   const [emailState, emailProps] = useInput(emailValidationFn);
   const [passwordState, passwordProps] = useInput(passwordValidationFn);
   const navigate = useNavigate();
@@ -33,7 +31,6 @@ function LoginPage() {
 
   return (
     <div className="gradient-background">
-      {error && <h1>{error.message}</h1>}
       {isLoading && (
         <div className="centered">
           <MutatingDots

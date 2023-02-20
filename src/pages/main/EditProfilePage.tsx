@@ -89,6 +89,8 @@ function EditProfilePage() {
         type: "success",
         render: "Berhasil mengganti profil anda..",
         autoClose: 2000,
+        closeButton: true,
+        closeOnClick: true,
       });
     },
     onMutate: () => {
@@ -102,6 +104,8 @@ function EditProfilePage() {
         type: "error",
         render: "Gagal mengganti profil anda..",
         autoClose: 2000,
+        closeButton: true,
+        closeOnClick: true,
       });
     },
   });
@@ -137,6 +141,8 @@ function EditProfilePage() {
         <TextInput
           type="tel"
           id="phone"
+          placeholder="+6281237624774"
+          pattern="^(\+)[0-9]{8,15}"
           isInvalid={phoneState.isInputInvalid}
           label="Phone Number"
           {...phoneProps}
