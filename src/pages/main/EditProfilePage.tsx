@@ -66,8 +66,10 @@ function EditProfilePage() {
       await uploadBytes(profilePhotoRef, compressedImg);
       newImageUrl = await getDownloadURL(profilePhotoRef);
 
-      const oldProfileRef = ref(storage, userData!.avatar_url);
-      deleteObject(oldProfileRef);
+      if (userData?.avatar_url) {
+        const oldProfileRef = ref(storage, userData.avatar_url);
+        deleteObject(oldProfileRef);
+      }
     }
 
     return updateDoc(doc(db, "account", currentUser!.uid), {

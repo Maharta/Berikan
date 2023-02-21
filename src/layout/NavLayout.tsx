@@ -1,6 +1,6 @@
 import { ArrowLeftIcon } from "@heroicons/react/24/solid";
-import { Fragment, ReactNode } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { ReactNode } from "react";
+import { Link } from "react-router-dom";
 
 interface NavHeaderProps {
   title: string;
@@ -17,17 +17,11 @@ function NavLayout({
   paddingBot = "1rem",
   backTo = "..",
 }: NavHeaderProps) {
-  const navigate = useNavigate();
   return (
     <>
       <header>
         <nav className="flex items-center gap-3 p-2">
-          <Link
-            to={backTo}
-            onClick={(e) => {
-              e.preventDefault();
-              navigate(-1);
-            }}>
+          <Link to={backTo}>
             <ArrowLeftIcon className="h-5 w-5 font-bold" />
           </Link>
           <h1 className="font-bold">{title}</h1>
