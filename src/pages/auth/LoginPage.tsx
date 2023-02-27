@@ -60,6 +60,7 @@ function LoginPage() {
               isInvalid={emailState.isInputInvalid}
               {...emailProps}
               className="mb-4"
+              required
             />
             <TextInput
               type="password"
@@ -68,12 +69,10 @@ function LoginPage() {
               isInvalid={passwordState.isInputInvalid}
               {...passwordProps}
               className="mb-7"
+              required
             />
             <AuthButton label="MASUK" className="mx-auto mb-4 block" />
           </form>
-          <ActionLink className="mb-4 text-center" to="/">
-            LUPA PASSWORD?
-          </ActionLink>
           <ActionLink className="text-center" to="/">
             KEMBALI
           </ActionLink>

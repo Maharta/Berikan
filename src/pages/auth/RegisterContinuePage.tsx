@@ -105,6 +105,7 @@ function RegisterContinuePage() {
             id="phone"
             label="Nomor Whatsapp (Tanpa Spasi)"
             type="tel"
+            title="Dimulai dengan +62"
             placeholder="+6281237624774"
             pattern="^(\+)[0-9]{8,15}"
             className="mb-3"
