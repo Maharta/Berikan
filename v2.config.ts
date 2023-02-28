@@ -12,8 +12,8 @@ export default defineConfig({
     VitePWA({
       registerType: "autoUpdate",
       manifest: {
-        short_name: "Berikan",
-        name: "Berikan",
+        short_name: "Berikan-old",
+        name: "Berikan-old",
         lang: "en",
         description:
           "Berikan is an app to share your unused things to people around you",
