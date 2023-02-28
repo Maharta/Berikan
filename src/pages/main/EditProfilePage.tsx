@@ -129,7 +129,7 @@ function EditProfilePage() {
           type="text"
           id="firstname"
           isInvalid={firstNameState.isInputInvalid}
-          label="First Name"
+          label="Nama Depan"
           className="w-full"
           {...firstNameProps}
         />
@@ -137,7 +137,7 @@ function EditProfilePage() {
           type="text"
           id="lastname"
           isInvalid={lastNameState.isInputInvalid}
-          label="Last Name"
+          label="Nama Belakang"
           {...lastNameProps}
         />
         <TextInput
@@ -146,7 +146,8 @@ function EditProfilePage() {
           placeholder="+6281237624774"
           pattern="^(\+)[0-9]{8,15}"
           isInvalid={phoneState.isInputInvalid}
-          label="Phone Number"
+          label="Nomor Telepon"
+          title="Dimulai dengan +62"
           {...phoneProps}
         />
         <AccountButton type="submit" label="SIMPAN" centered />
