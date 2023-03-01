@@ -85,7 +85,7 @@ function App() {
         </Route>
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>
-      <ToastContainer position="bottom-right" pauseOnHover={false} />
+      <ToastContainer position="top-right" pauseOnHover={false} />
       <ReactQueryDevtools initialIsOpen={false} />
     </Suspense>
   );

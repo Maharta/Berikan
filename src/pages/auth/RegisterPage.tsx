@@ -59,7 +59,6 @@ function RegisterPage() {
       navigate("/register-continue");
     } else {
       toast.error("Masih ada input yang belum valid!", {
-        position: "top-left",
         toastId: "warn-register",
       });
     }

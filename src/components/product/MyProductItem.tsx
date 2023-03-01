@@ -29,7 +29,7 @@ function MyProductItem({ product, ...props }: MyProductItemProps) {
     onSuccess: () => {
       queryClient.invalidateQueries(["my-products"]);
       toast.update(toastId.current!, {
-        render: "Item deleted successfully",
+        render: "Barang berhasil dihapus!",
         type: "success",
         isLoading: false,
         autoClose: 2000,
@@ -37,14 +37,14 @@ function MyProductItem({ product, ...props }: MyProductItemProps) {
     },
     onError: () => {
       toast.update(toastId.current!, {
-        render: "Item deletion failed",
+        render: "Terjadi kesalahan. Barang gagal dihapus..",
         type: "error",
         isLoading: false,
         autoClose: 2000,
       });
     },
     onMutate: () => {
-      toastId.current = toast.loading("Deleting your item..");
+      toastId.current = toast.loading("Menghapus barang anda...");
     },
   });
 
