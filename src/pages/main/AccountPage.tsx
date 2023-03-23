@@ -42,7 +42,7 @@ function AccountPage() {
   };
 
   return (
-    <NavLayout title="Account">
+    <NavLayout title="Account" backTo="/">
       <figure className="text-center">
         <img
           className="mx-auto h-32 w-32 rounded-[50%] object-cover"

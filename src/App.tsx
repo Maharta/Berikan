@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { MutatingDots } from "react-loader-spinner";
 import { lazy, Suspense } from "react";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
+import { ToastContainer } from "react-toastify";
 import { RootState } from "./store/store";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
 import AuthRouteWrapper from "./layout/AuthRouteWrapper";
@@ -41,7 +42,6 @@ function App() {
           secondaryColor="#4fa94d"
           radius="12.5"
           ariaLabel="mutating-dots-loading"
-          wrapperStyle={{}}
           wrapperClass="centered"
           visible
         />
@@ -85,6 +85,7 @@ function App() {
         </Route>
         <Route path="*" element={<h1>Page Not Found</h1>} />
       </Routes>
+      <ToastContainer position="top-right" pauseOnHover={false} />
       <ReactQueryDevtools initialIsOpen={false} />
     </Suspense>
   );

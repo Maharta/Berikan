@@ -5,6 +5,7 @@ import { Provider } from "react-redux";
 import React from "react";
 import App from "./App";
 import store from "./store/store";
+import "react-toastify/dist/ReactToastify.min.css";
 import "./index.css";
 
 const queryClient = new QueryClient();

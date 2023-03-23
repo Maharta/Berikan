@@ -16,9 +16,7 @@ const noEmptyValidationFn = (value: string) => value.trim().length !== 0;
 
 function RegisterContinuePage() {
   const navigate = useNavigate();
-  const { isLoading, error, user } = useSelector(
-    (state: RootState) => state.auth
-  );
+  const { isLoading, user } = useSelector((state: RootState) => state.auth);
 
   const [firstNameState, firstNameProps] = useInput(noEmptyValidationFn);
   const [lastNameState, lastNameProps] = useInput(noEmptyValidationFn);
@@ -82,7 +80,6 @@ function RegisterContinuePage() {
 
   return (
     <div className="gradient-background">
-      {error && <h1>{error.message}</h1>}
       <section className="flex flex-col items-center">
         <h1 className="mt-20 mb-9 text-4xl font-medium">Sedikit Lagi</h1>
         <form onSubmit={submitFormHandler} className="w-full">
@@ -93,9 +90,7 @@ function RegisterContinuePage() {
             placeholder="John"
             className="mb-3"
             isInvalid={firstNameState.isInputInvalid}
-            value={firstNameProps.value}
-            onChange={firstNameProps.onChange}
-            onBlur={firstNameProps.onBlur}
+            {...firstNameProps}
           />
           <TextInput
             id="lastName"
@@ -104,21 +99,18 @@ function RegisterContinuePage() {
             placeholder="Doe"
             className="mb-3"
             isInvalid={lastNameState.isInputInvalid}
-            value={lastNameProps.value}
-            onChange={lastNameProps.onChange}
-            onBlur={lastNameProps.onBlur}
+            {...lastNameProps}
           />
           <TextInput
             id="phone"
             label="Nomor Whatsapp (Tanpa Spasi)"
             type="tel"
+            title="Dimulai dengan +62"
             placeholder="+6281237624774"
             pattern="^(\+)[0-9]{8,15}"
             className="mb-3"
             isInvalid={phoneState.isInputInvalid}
-            value={phoneProps.value}
-            onChange={phoneProps.onChange}
-            onBlur={phoneProps.onBlur}
+            {...phoneProps}
           />
           <AuthButton
             label="SELESAI"

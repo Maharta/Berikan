@@ -1,4 +1,5 @@
 vite.config.ts
 src/helpers/image/react-image-resizer.js
+prettier.config.cjs
 tailwind.config.cjs
 v2.config.ts

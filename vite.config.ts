@@ -18,10 +18,10 @@ export default defineConfig({
         description:
           "Berikan is an app to share your unused things to people around you",
         start_url: "/",
-        background_color: "#ffffff",
-        theme_color: "#ffffff",
+        background_color: "#000000",
+        theme_color: "#000000",
         dir: "ltr",
-        display: "fullscreen",
+        display: "standalone",
         orientation: "portrait",
         icons: [
           {

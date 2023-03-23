@@ -6,6 +6,7 @@ import AuthButton from "@/components/base/buttons/AuthButton";
 import ActionLink from "@/components/base/buttons/ActionLink";
 import { FormEvent, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 export const confirmPassValidationFn = (
   password: string,
@@ -57,7 +58,9 @@ function RegisterPage() {
     if (isFormValid) {
       navigate("/register-continue");
     } else {
-      alert("Masih ada form yang belum valid!");
+      toast.error("Masih ada input yang belum valid!", {
+        toastId: "warn-register",
+      });
     }
   };
 

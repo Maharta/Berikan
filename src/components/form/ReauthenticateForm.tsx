@@ -5,6 +5,7 @@ import passwordValidationFn from "@/helpers/validation-function/passwordValidati
 import useInput from "@/hooks/useInput";
 import { modalActions } from "@/store/modal-slice";
 import { useAppDispatch } from "@/store/store";
+import { toast } from "react-toastify";
 import AuthButton from "../base/buttons/AuthButton";
 import TextInput from "../TextInput";
 
@@ -21,10 +22,13 @@ function ReauthenticateForm() {
   const reauthenticateHandler = () =>
     reauthenticateWithCredential(user, credential);
 
-  const { isFetching, error, refetch } = useQuery({
+  const { isFetching, error, isError, refetch } = useQuery({
     queryKey: ["reauthenticate"],
     queryFn: reauthenticateHandler,
-    onSuccess: () => dispatch(modalActions.closeModal()),
+    onSuccess: () => {
+      toast.success("Silahkan klik kembali tombol ubah password.");
+      dispatch(modalActions.closeModal());
+    },
     enabled: false,
     retry: false,
   });
@@ -36,7 +40,7 @@ function ReauthenticateForm() {
   return (
     <div>
       <strong className="mb-4 inline-block w-full text-center text-xl">
-        Buktikan bahwa ini anda
+        Ketikkan Password Lama Anda.
       </strong>
       <form onSubmit={() => refetch()} id="reauthenticate-form">
         <TextInput
@@ -48,7 +52,7 @@ function ReauthenticateForm() {
           className="mb-4 w-full"
           inputClass="w-full"
         />
-        {error && error instanceof Error ? (
+        {isError && error instanceof Error ? (
           <label
             className="mb-4 inline-block w-full text-center font-bold"
             htmlFor="reauthenticate-form">

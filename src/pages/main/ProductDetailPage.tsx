@@ -12,6 +12,7 @@ import { ReactComponent as WhatsappLogo } from "@/assets/whatsapp.svg";
 import Account from "@/models/account";
 import { doc, getDoc } from "firebase/firestore";
 import { db } from "@/firebase";
+import { MutatingDots } from "react-loader-spinner";
 
 function getProductDetail(id: string) {
   const docRef = doc(db, "item", id);
@@ -49,15 +50,22 @@ function ProductDetailPage() {
     enabled: !!product,
   });
 
-  if (isLoading) {
-    return <div>Loading..</div>;
+  if (isLoading || isProductLoading) {
+    return <MutatingDots wrapperClass="centered" />;
   }
 
-  if (isError) {
-    if (error instanceof Error) {
-      return <div>{error.message}</div>;
-    }
-    return <div>Something went wrong..</div>;
+  if (isError || isProductError) {
+    return (
+      <div className="centered">
+        <strong>Something went wrong..</strong>
+        {isError && error instanceof Error ? (
+          <strong>{error.message}</strong>
+        ) : null}
+        {isProductError && productError instanceof Error ? (
+          <strong>{productError.message}</strong>
+        ) : null}
+      </div>
+    );
   }
 
   if (!product) {
@@ -98,8 +106,7 @@ function ProductDetailPage() {
             </div>
             <div className="col-span-3 self-center text-center">
               <a
-                href={`https://wa.me/${ownerData.phone_number}?text=Halo! saya tertarik dengan barang ini:
-                https://berikan.web.app/product/${id}, apakah masih ada\?`}
+                href={`https://wa.me/${ownerData.phone_number}?text=Halo! saya tertarik dengan barang ini: https://berikan.web.app/product/${id}, apakah masih ada\?`}
                 className="flex w-full cursor-pointer items-center justify-center bg-whatsappGreen py-2 font-bold 
                 tracking-normal text-white hover:bg-whatsappGreen_light focus:bg-whatsappGreen_light active:bg-whatsappGreen_light">
                 <WhatsappLogo className="mr-1 h-8 w-8" />

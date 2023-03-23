@@ -10,6 +10,7 @@ import ImagePicker from "@/components/ImagePicker";
 import { db, storage } from "@/firebase";
 import { uuidv4 } from "@firebase/util";
 import { resizeImage320 } from "@/helpers/image/image-resizer";
+import { toast } from "react-toastify";
 
 function RegisterProfilePage() {
   const [image, setImage] = useState<File>();
@@ -44,8 +45,9 @@ function RegisterProfilePage() {
       });
       navigate("/", { replace: true });
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.log(error);
-      alert(error);
+      toast.error("Gagal menyimpan profil anda...");
     } finally {
       setIsLoading(false);
     }

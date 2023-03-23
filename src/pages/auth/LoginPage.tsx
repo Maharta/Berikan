@@ -12,9 +12,7 @@ import { RootState, useAppDispatch } from "@/store/store";
 import { useSelector } from "react-redux";
 
 function LoginPage() {
-  const { error, isLoading, user } = useSelector(
-    (state: RootState) => state.auth
-  );
+  const { isLoading, user } = useSelector((state: RootState) => state.auth);
   const [emailState, emailProps] = useInput(emailValidationFn);
   const [passwordState, passwordProps] = useInput(passwordValidationFn);
   const navigate = useNavigate();
@@ -33,7 +31,6 @@ function LoginPage() {
 
   return (
     <div className="gradient-background">
-      {error && <h1>{error.message}</h1>}
       {isLoading && (
         <div className="centered">
           <MutatingDots
@@ -63,6 +60,7 @@ function LoginPage() {
               isInvalid={emailState.isInputInvalid}
               {...emailProps}
               className="mb-4"
+              required
             />
             <TextInput
               type="password"
@@ -71,12 +69,10 @@ function LoginPage() {
               isInvalid={passwordState.isInputInvalid}
               {...passwordProps}
               className="mb-7"
+              required
             />
             <AuthButton label="MASUK" className="mx-auto mb-4 block" />
           </form>
-          <ActionLink className="mb-4 text-center" to="/">
-            LUPA PASSWORD?
-          </ActionLink>
           <ActionLink className="text-center" to="/">
             KEMBALI
           </ActionLink>

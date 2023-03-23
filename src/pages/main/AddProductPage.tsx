@@ -123,7 +123,7 @@ function AddItemPage() {
           </div>
         )}
       </ErrorModal>
-      <NavLayout title="Tambah Barang">
+      <NavLayout title="Tambah Barang" backTo="/">
         <form onSubmit={addItemHandler}>
           <ProductInput
             isInvalid={nameState.isInputInvalid}

@@ -5,7 +5,7 @@ import {
   ref,
   uploadBytes,
 } from "firebase/storage";
-import { FormEvent, useCallback, useState } from "react";
+import { FormEvent, useCallback, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 import ImagePicker from "@/components/ImagePicker";
 import TextInput from "@/components/TextInput";
@@ -21,6 +21,7 @@ import { db, storage } from "@/firebase";
 import { doc, updateDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
 import AccountButton from "@/components/base/buttons/AccountButton";
+import { Id, toast } from "react-toastify";
 
 function EditProfilePage() {
   const [image, setImage] = useState<File>();
@@ -65,8 +66,10 @@ function EditProfilePage() {
       await uploadBytes(profilePhotoRef, compressedImg);
       newImageUrl = await getDownloadURL(profilePhotoRef);
 
-      const oldProfileRef = ref(storage, userData!.avatar_url);
-      deleteObject(oldProfileRef);
+      if (userData?.avatar_url) {
+        const oldProfileRef = ref(storage, userData.avatar_url);
+        deleteObject(oldProfileRef);
+      }
     }
 
     return updateDoc(doc(db, "account", currentUser!.uid), {
@@ -77,19 +80,42 @@ function EditProfilePage() {
     });
   };
 
-  const { mutate, isLoading, error, isError } = useMutation({
+  const toastId = useRef<Id>();
+
+  const { mutate } = useMutation({
     mutationFn: updateUserData,
-    onSuccess: () => navigate(".."),
+    onSuccess: () => {
+      navigate("..");
+      toast.update(toastId.current!, {
+        isLoading: false,
+        type: "success",
+        render: "Berhasil mengganti profil anda..",
+        autoClose: 2000,
+        closeButton: true,
+        closeOnClick: true,
+      });
+    },
+    onMutate: () => {
+      toastId.current = toast.loading("Menyimpan perubahan anda..", {
+        position: "top-right",
+      });
+    },
+    onError: () => {
+      toast.update(toastId.current!, {
+        isLoading: false,
+        type: "error",
+        render: "Gagal mengganti profil anda..",
+        autoClose: 2000,
+        closeButton: true,
+        closeOnClick: true,
+      });
+    },
   });
 
   const onSubmitHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     mutate();
   };
-
-  if (isLoading) {
-    return <div>Loading..</div>;
-  }
 
   return (
     <NavLayout title="Edit Profil">
@@ -103,7 +129,7 @@ function EditProfilePage() {
           type="text"
           id="firstname"
           isInvalid={firstNameState.isInputInvalid}
-          label="First Name"
+          label="Nama Depan"
           className="w-full"
           {...firstNameProps}
         />
@@ -111,14 +137,17 @@ function EditProfilePage() {
           type="text"
           id="lastname"
           isInvalid={lastNameState.isInputInvalid}
-          label="Last Name"
+          label="Nama Belakang"
           {...lastNameProps}
         />
         <TextInput
           type="tel"
           id="phone"
+          placeholder="+6281237624774"
+          pattern="^(\+)[0-9]{8,15}"
           isInvalid={phoneState.isInputInvalid}
-          label="Phone Number"
+          label="Nomor Telepon"
+          title="Dimulai dengan +62"
           {...phoneProps}
         />
         <AccountButton type="submit" label="SIMPAN" centered />
